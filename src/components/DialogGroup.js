@@ -17,11 +17,11 @@ const TypingAnimation = (props) => (
 );
 
 export const UserImage = (props) => (
-	<img className="img-user" alt="User" />
+	<img src="person.png" alt="User" />
 );
 
 export const BotImage = (props) => (
-	<img className="img-bot" alt="Bot" />
+	<img src="bot.png" alt="Bot" />
 );
 
 class DialogGroup extends Component {
