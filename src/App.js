@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactBotUI from './ReactBotUI';
 
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return (

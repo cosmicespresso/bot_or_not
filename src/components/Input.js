@@ -7,17 +7,18 @@ class Input extends Component {
 		super(props);
 		this.state = {value: ''};
 
-		//this.handleAudio = this.handleAudio.bind(this);
+		this.handleAudio = this.handleAudio.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		//this.handleListen = this.handleListen.bind(this);
+		this.handleListen = this.handleListen.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	
-	/*handleAudio(e) {
+	handleAudio(e) {
+		console.log('done listening to audio')
 		const last = e.results.length - 1;
 		const value = this.state.value + e.results[last][0].transcript;
 		this.setState({value});
-	}*/
+	}
 
 	handleChange(e) {
 		const value = e.target.value;
@@ -28,6 +29,7 @@ class Input extends Component {
 	}
 
 	handleListen() {
+		console.log('listening to audio')
 		this.audio.listen();
 	}
 
@@ -39,17 +41,16 @@ class Input extends Component {
 
 	componentDidMount() {
 		this._text.focus();
-		//this.audio = new Audio(this.handleAudioStart, this.handleAudio, this.handleAudioError);
+		this.audio = new Audio(this.handleAudioStart, this.handleAudio, this.handleAudioError);
 	}
 
 	render(){
 		return(
-			<form className="text-form"
-						onSubmit={this.handleSubmit}>
+			<form className="text-form" onSubmit={this.handleSubmit}>
 				<input className="text-input"
 							 type="text"
 							 name="inputText"
-							 placeholder="Enter your message"
+							 placeholder="Your message"
 							 value={this.state.value}
 							 ref={input => this._text = input}
 							 onChange={this.handleChange}

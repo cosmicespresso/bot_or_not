@@ -3,11 +3,11 @@ import ApiAiClient from './lib/dialogflow';
 import Header from './components/Header';
 import Dialog from './components/Dialog';
 import Input from './components/Input';
-import './App.css';
+import './styles/App.css';
 
 const BOT_DELAY = 4000;
-const BOT_SPEED = 0.03;
-const BOT_MAX_CHARS = 150;
+const BOT_SPEED = 0.01;
+const BOT_MAX_CHARS = 250;
 
 function getBotDelay(msg, isQuick = false) {
   let delay = isQuick ? BOT_DELAY / 2 : BOT_DELAY;

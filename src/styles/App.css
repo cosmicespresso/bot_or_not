@@ -121,7 +121,7 @@ body {
   width: 100%;
 }
 input::-webkit-input-placeholder {
-  color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
 }
 .text-input {
   border-style: none;
