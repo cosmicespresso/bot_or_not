@@ -3,6 +3,7 @@ const uuid = require('uuid');
 const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
+let truths = require('./lib/truths.json');
 
 const app = express();
 // parse application/x-www-form-urlencoded
@@ -19,7 +20,7 @@ app.get('/api/greeting', (req, res) => {
 
 app.post('/api/botRequest', async (req, res) => {
   console.log("bot text is", req.body);
-  const response = await runSample(req.body.botText);
+  const response = await handleInput(req.body.botText);
   console.log(response);
   res.send(
     response,
@@ -78,7 +79,7 @@ async function chooseTruth() {
     //create a new context
   const createdContext = await contextsClient.createContext(createContextRequest);
 
-  console.log(truth.truth)
+  return truth.truth
 }
 
 /**
@@ -109,13 +110,18 @@ async function runSample(userString) {
   if(contextResponse !== undefined && contextResponse.length !== 0){
     var name = contextResponse[0].name.split("/").slice(-1)[0];
   }
-  
-  console.log(`bot says: ${intentResult.fulfillmentText} (with intent ${intentResult.intent.displayName} ${name ? 'and context '+name : ''})`);
 
   return intentResult.fulfillmentText;
 
 }
 
-// function handleInput(request){
-// 	console.log("handling", request)
-// }
+async function handleInput(request){
+	if(request === 'truth') {
+		const response = await chooseTruth();
+		return response;
+	}
+	else {
+		const response = await runSample(request);
+		return response;
+	}
+}
