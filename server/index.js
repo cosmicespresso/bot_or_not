@@ -17,10 +17,12 @@ app.get('/api/greeting', (req, res) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-app.post('/api/botRequest', (req, res) => {
+app.post('/api/botRequest', async (req, res) => {
   console.log("bot text is", req.body);
+  const response = await runSample(req.body.botText);
+  console.log(response);
   res.send(
-    `I received your POST request. This is what you sent me: ${req.body.botText}`,
+    response,
   );
 });
 
@@ -36,11 +38,11 @@ const projectId = 'g191120-truth-bot-hluhsq'
 
 // Create a new session
 const sessionClient = new dialogflow.SessionsClient({
-    keyFilename: './keys/truthbot.json'
+    keyFilename: 'src/keys/truthbot.json'
 });
 
 const contextsClient = new dialogflow.ContextsClient({
-    keyFilename: './keys/truthbot.json'
+    keyFilename: 'src/keys/truthbot.json'
 });
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
@@ -107,7 +109,10 @@ async function runSample(userString) {
   if(contextResponse !== undefined && contextResponse.length !== 0){
     var name = contextResponse[0].name.split("/").slice(-1)[0];
   }
+  
   console.log(`bot says: ${intentResult.fulfillmentText} (with intent ${intentResult.intent.displayName} ${name ? 'and context '+name : ''})`);
+
+  return intentResult.fulfillmentText;
 
 }
 
