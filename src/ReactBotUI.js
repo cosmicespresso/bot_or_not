@@ -73,20 +73,20 @@ class ReactBotUI extends Component {
       .then(data => data.result.fulfillment.speech);
   }
 
-  handleSubmitText(text) {
+  async handleSubmitText(text) {
     // append user text
     this.appendMessage(text, true);
 
-    // fetch bot text, process as queue
-    if (this.dialogflow) {
-      this.getResponse(text)
-        .then(this.processResponse);
-    } else if (this.props.getResponse) {
-      this.props.getResponse(text)
-        .then(this.processResponse);
-    } else {
-      this.processResponse('Sorry, I\'m not configured to respond. :\'(')
-    }
+    const response = await fetch('/api/botRequest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ botText: text }),
+    });
+    const botResponse = await response.text();
+
+    this.processResponse(botResponse)
   }
 
   handleResize(e) {

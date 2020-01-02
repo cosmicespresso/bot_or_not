@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
+    "dialogflow": "^1.0.0",
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
     "node-env-run": "^3.0.2",
