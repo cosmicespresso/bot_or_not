@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ApiAiClient from './lib/dialogflow';
 import Header from './components/Header';
 import Dialog from './components/Dialog';
 import Input from './components/Input';
@@ -19,9 +18,6 @@ function getBotDelay(msg, isQuick = false) {
 class ReactBotUI extends Component {
   constructor(props) {
     super(props);
-    if (props.dialogflow) {
-      this.dialogflow = new ApiAiClient(props.dialogflow);
-    }
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.state = {
