@@ -21,7 +21,6 @@ app.get('/api/greeting', (req, res) => {
 app.post('/api/botRequest', async (req, res) => {
   console.log("bot text is", req.body);
   const response = await handleInput(req.body.botText);
-  console.log(response);
   res.send(
     response,
   );
