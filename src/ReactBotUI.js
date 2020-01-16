@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import ApiAiClient from './lib/dialogflow';
 import Header from './components/Header';
 import Dialog from './components/Dialog';
 import Input from './components/Input';
+import keys from './keys/truthbot.json';
 import './styles/App.css';
 
 const BOT_DELAY = 4000;
@@ -18,9 +18,6 @@ function getBotDelay(msg, isQuick = false) {
 class ReactBotUI extends Component {
   constructor(props) {
     super(props);
-    if (props.dialogflow) {
-      this.dialogflow = new ApiAiClient(props.dialogflow);
-    }
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.state = {
@@ -72,21 +69,20 @@ class ReactBotUI extends Component {
       .then(data => data.result.fulfillment.speech);
   }
 
-  handleSubmitText(text) {
-
+  async handleSubmitText(text) {
     // append user text
     this.appendMessage(text, true);
 
-    // fetch bot text, process as queue
-    if (this.dialogflow) {
-      this.getResponse(text)
-        .then(this.processResponse);
-    } else if (this.props.getResponse) {
-      this.props.getResponse(text)
-        .then(this.processResponse);
-    } else {
-      this.processResponse('Sorry, I\'m not configured to respond. :\'(')
-    }
+    const response = await fetch('/api/botRequest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ botText: text }),
+    });
+    const botResponse = await response.text();
+
+    this.processResponse(botResponse)
   }
 
   handleResize(e) {
@@ -104,7 +100,7 @@ class ReactBotUI extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize');
+    window.removeEventListener('resize', this.handleResize);
   }
 
   render() {
