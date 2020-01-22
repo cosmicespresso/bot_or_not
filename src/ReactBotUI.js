@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Header from './components/Header';
 import Dialog from './components/Dialog';
 import Input from './components/Input';
-import keys from './keys/truthbot.json';
 import './styles/App.css';
 
 const BOT_DELAY = 4000;
