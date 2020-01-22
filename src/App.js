@@ -8,9 +8,8 @@ function App() {
     <div className="App">
       <ReactBotUI
           dialogHeightMax={350}
-          isUserHidden={false}
-          isVisible={true} 
-          title={'Testing out Dialogflow'} />
+          isUserHidden={true}
+          title={'Truth or Dare Turing Test'} />
     </div>
   );
 }

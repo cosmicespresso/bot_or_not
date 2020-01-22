@@ -48,13 +48,13 @@ class Input extends Component {
 		return(
 			<form className="text-form" onSubmit={this.handleSubmit}>
 				<input className="text-input"
-							 type="text"
+							 type="search"
 							 name="inputText"
 							 placeholder="Your message"
 							 value={this.state.value}
 							 ref={input => this._text = input}
 							 onChange={this.handleChange}
-							 autoComplete={'false'}
+							 autoComplete={'off'}
 							 required />
 				<button className="btn-voice"
 								type="button"

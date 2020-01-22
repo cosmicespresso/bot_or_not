@@ -1,10 +1,10 @@
-/*
- * Chat UI reference
- * https://codepen.io/reimersjan/pen/zpuws?editors=1100
- */
-
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,900);
 
+/*
+ * 
+ * VARIABLES
+ *
+ */
 :root {
   --primary-color: #00f;
   --secondary-color: #657785;
@@ -16,7 +16,7 @@
   --font-size: 1em;
   --font-weight: 400;
 
-  --container-bg: white;
+  --container-bg: linear-gradient(-180deg, #4DECC0 8%, #51EABF 47%, #FC00FF 94%);
   --container-right: 0;
   --container-width: 100%;
 
@@ -27,11 +27,15 @@
 }
 
 body {
-  background: var(--secondary-color);
+  background: #000;
   height: 100%;
   margin: 0 auto;
 }
-
+/*
+ * 
+ * CONTAINER
+ *
+ */
 .container * {
   box-sizing: border-box;
   margin: 0;
@@ -43,7 +47,7 @@ body {
   width: var(--container-width);
 }
 .container header {
-  background: var(--primary-color);
+  background: transparent;
   height: 45px;
   padding: 5px 10px;
 }
@@ -57,6 +61,12 @@ body {
 .container div {
    transition: all 0.75s ease-in-out; 
 }
+
+/*
+ * 
+ * MESSAGES
+ *
+ */
 .messages-wrapper {
   background: var(--container-bg);
   position: relative;
@@ -114,6 +124,11 @@ body {
   font-size: var(--font-size);
   font-weight: var(--font-weight);
 }
+/*
+ * 
+ * INPUT
+ *
+ */
 .text-form {
   border-top: 1px solid var(--primary-color);
   display: flex;

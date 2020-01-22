@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Dialog from './components/Dialog';
 import Input from './components/Input';
 import keys from './keys/truthbot.json';
+
 import './styles/App.css';
 
 const BOT_DELAY = 4000;
@@ -21,11 +22,9 @@ class ReactBotUI extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.state = {
-      title: props.title || 'React Bot UI',
+      title: props.title || 'Truth or Dare Turing Test',
       messages: [],
-      isBotTyping: false,
-      isOpen: props.isOpen !== undefined ? props.isOpen : true,
-      isVisible: props.isVisible !== undefined ? props.isVisible : true
+      isBotTyping: false
     };
 
     this.appendMessage = this.appendMessage.bind(this);
