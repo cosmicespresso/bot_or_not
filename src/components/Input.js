@@ -65,7 +65,7 @@ class Input extends Component {
 				<button className="btn-send"
 								type="submit"
 								value="Send">
-					<EntypoPaperPlane/> &nbsp;Send
+					<EntypoPaperPlane/>
 				</button>
 			</form>
 		);

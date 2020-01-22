@@ -8,7 +8,6 @@ function App() {
     <div className="App">
       <ReactBotUI
           dialogHeightMax={350}
-          isUserHidden={true}
           title={'Truth or Dare Turing Test'} />
     </div>
   );

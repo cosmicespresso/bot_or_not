@@ -89,7 +89,8 @@ class ReactBotUI extends Component {
     const y = window.innerHeight;
     const header = document.querySelector('.container header');
     const input = document.querySelector('.container .text-form');
-    let dialogHeight = y - header.offsetHeight - input.offsetHeight;
+    console.log(header.height)
+    let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
     this.setState({dialogHeight});
   }
 
@@ -106,13 +107,11 @@ class ReactBotUI extends Component {
     return (
       <div className="container">
         <Header title={this.state.title} />
-        <div>
-          <Dialog messages={this.state.messages}
-                  isBotTyping={this.state.isBotTyping}
-                  isUserHidden={this.props.isUserHidden}
-                  dialogHeight={this.state.dialogHeight} />
-          <Input onSubmit={this.handleSubmitText} />
-        </div>
+        <Dialog
+            messages={this.state.messages}
+            isBotTyping={this.state.isBotTyping}
+            dialogHeight={this.state.dialogHeight} />
+        <Input onSubmit={this.handleSubmitText} />
       </div>
     );
   }

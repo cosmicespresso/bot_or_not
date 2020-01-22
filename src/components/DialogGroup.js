@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 
 const Message = (props) => (
 	<div
-		className="message"
-		style={props.isImageHidden ? {margin: 0} : {}}>
+		className="message">
 		{props.text === null ? <TypingAnimation/> : <p>{props.text}</p>}
 	</div>
 );
@@ -16,27 +15,16 @@ const TypingAnimation = (props) => (
 	</div>
 );
 
-export const UserImage = (props) => (
-	<img src="person.png" alt="User" />
-);
-
-export const BotImage = (props) => (
-	<img src="bot.png" alt="Bot" />
-);
 
 class DialogGroup extends Component {
 	render() {
-		const image = this.props.group.isUser ? this.props.isUserHidden ? <div/> : <UserImage/> : <BotImage/>;
 		const messages = this.props.group.messages.map((text, i) => (
 			<Message
 				key={i}
-				text={text}
-				isImageHidden={this.props.group.isUser && this.props.isUserHidden} />
+				text={text}/>
 		));
-
 		return (
 			<div className={`group group-${this.props.group.isUser ? 'user' : 'bot'}`}>
-				{image}
 				{messages}
 			</div>
 		);
