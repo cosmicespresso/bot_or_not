@@ -27,4 +27,4 @@ yarn-error.log*
 #keys
 keys*
 
-package-lock*
+package-lock.json
