@@ -73,7 +73,7 @@ class ReactBotUI extends Component {
     // append user text
     this.appendMessage(text, true);
 
-    const response = await fetch('/api/botRequest', {
+    const response = await fetch(".netlify/functions/botRequest", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
