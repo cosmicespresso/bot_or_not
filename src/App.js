@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from './components/top/Header';
 import ChatLog from './components/main/ChatLog';
+import Test_info from './components/main/Test_info';
 import Input from './components/input/Input';
 import keys from './keys/truthbot.json';
 
@@ -25,7 +26,8 @@ class App extends Component {
     this.state = {
       messages: [],
       isBotTyping: false,
-      title: 'Truth or Dare Turing Test'
+      title: 'Truth or Dare Turing Test',
+      main: 'Info'
     };
 
     this.appendMessage = this.appendMessage.bind(this);
@@ -109,10 +111,15 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <Header title={this.state.title} /> 
-          <ChatLog 
+          {this.state.main === 'ChatLog' && 
+            <ChatLog 
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
+          }
+          {this.state.main === 'Info'  && 
+            <Test_info dialogHeight={this.state.dialogHeight} />
+          }
           <Input onSubmit={this.handleSubmitText}/>
         </div>
       </div>
