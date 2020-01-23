@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import dialogflow from 'dialogflow';
 const uuid = require('uuid');
-let truthbotPrivateKey = (process.env.truthbot_private_key);
+let truthbotPrivateKey = JSON.parse(process.env.truthbot_private_key).private_key;
 let truthbotClientEmail = process.env.truthbot_client_email;
 let truthbotProjectId = process.env.truthbot_project_id;
 
