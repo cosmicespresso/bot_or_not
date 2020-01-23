@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {EntypoPaperPlane, EntypoMic} from 'react-entypo';
-import Audio from './Audio';
+import Audio from '../main/Audio';
 
 class Input extends Component {
 	constructor(props) {
@@ -44,30 +44,32 @@ class Input extends Component {
 		this.audio = new Audio(this.handleAudioStart, this.handleAudio, this.handleAudioError);
 	}
 
-	render(){
-		return(
-			<form className="text-form" onSubmit={this.handleSubmit}>
-				<input className="text-input"
-							 type="search"
-							 name="inputText"
-							 placeholder="Your message"
-							 value={this.state.value}
-							 ref={input => this._text = input}
-							 onChange={this.handleChange}
-							 autoComplete={'off'}
-							 required />
-				<button className="btn-voice"
-								type="button"
-								value="Voice"
-								onClick={this.handleListen}>
-					<EntypoMic/>
-				</button>
-				<button className="btn-send"
-								type="submit"
-								value="Send">
-					<EntypoPaperPlane/>
-				</button>
-			</form>
+	render() {
+		return (
+			<div>
+				<form className="text-form" onSubmit={this.handleSubmit}>
+					<input className="text-input"
+								 type="search"
+								 name="inputText"
+								 placeholder="Your message"
+								 value={this.state.value}
+								 ref={input => this._text = input}
+								 onChange={this.handleChange}
+								 autoComplete={'off'}
+								 required />
+					<button className="btn-voice"
+									type="button"
+									value="Voice"
+									onClick={this.handleListen}>
+						<EntypoMic/>
+					</button>
+					<button className="btn-send"
+									type="submit"
+									value="Send">
+						<EntypoPaperPlane/>
+					</button>
+				</form>
+	      	</div>
 		);
 	}
 }

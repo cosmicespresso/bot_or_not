@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 
 const Message = (props) => (
-	<div
-		className="message">
+	<div className="message">
 		{props.text === null ? <TypingAnimation/> : <p>{props.text}</p>}
 	</div>
 );
@@ -16,7 +15,7 @@ const TypingAnimation = (props) => (
 );
 
 
-class DialogGroup extends Component {
+class Exchange extends Component {
 	render() {
 		const messages = this.props.group.messages.map((text, i) => (
 			<Message
@@ -30,4 +29,4 @@ class DialogGroup extends Component {
 		);
 	}
 }
-export default DialogGroup;
+export default Exchange;
