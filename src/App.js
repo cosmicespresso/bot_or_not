@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
 import Header from './components/top/Header';
+
 import ChatLog from './components/main/ChatLog';
-import Test_info from './components/main/Test_info';
-import Input from './components/input/Input';
+import Narrator from './components/main/Narrator';
+
+import MessageBar from './components/input/MessageBar';
+import SingleButton from './components/input/SingleButton';
+import DoubleButton from './components/input/DoubleButton';
+
+import {stateMap} from './stateMap';
+
 import keys from './keys/truthbot.json';
 
 import './styles/App.css';
+import './styles/Top.css';
+import './styles/Main.css';
+import './styles/Input.css';
 
 const BOT_DELAY = 4000;
 const BOT_SPEED = 0.01;
@@ -20,16 +30,19 @@ function getBotDelay(msg, isQuick = false) {
 class App extends Component {
   constructor(props) {
     super(props);
+    
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.isChatVisible = true;
+
     this.state = {
       messages: [],
       isBotTyping: false,
-      title: 'Truth or Dare Turing Test',
-      main: 'ChatLog'
+      step: stateMap[2].step,
+      headerText: stateMap[2].headerText,
+      main: stateMap[2].main,
+      input: stateMap[2].input
     };
-    this.handleSubmitText = this.handleSubmitText.bind(this);
   }
 
   appendMessage = (text, isUser = false, next = () => {}) => {
@@ -81,12 +94,15 @@ class App extends Component {
     this.processResponse(botResponse)
   }
 
+  handleButtonClick = (e) => {
+    console.log(e.target);
+  } 
+
   handleResize = (e) => {
     const window = e.target || e;
     const y = window.innerHeight;
     const header = document.querySelector('.container header');
-    const input = document.querySelector('.container .text-form');
-
+    const input = document.querySelector('.container .text-form') || document.querySelector('.container .single-button') || document.querySelector('.container .double-button')  ;
     let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
     this.setState({dialogHeight});
   }
@@ -104,17 +120,32 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
-          <Header title={this.state.title} /> 
+
+          {/*------TOP------*/}     
+          <Header title={this.state.headerText} /> 
+
+          {/*------MAIN------*/}     
           {this.state.main === 'ChatLog' && 
             <ChatLog 
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
           }
-          {this.state.main === 'Info'  && 
-            <Test_info dialogHeight={this.state.dialogHeight} />
+          {this.state.main === 'Narrator'  && 
+            <Narrator dialogHeight={this.state.dialogHeight} headline={'Here is the headline!'} text={'Here is some text!'}/>
+          }    
+
+
+          {/*------INPUT------*/}     
+          {this.state.input === 'MessageBar' &&
+            <MessageBar onSubmit={this.handleSubmitText}/>
+          }          
+          {this.state.input === 'SingleButton' &&
+            <SingleButton onClick={this.handleButtonClick}/>
+          }          
+          {this.state.input === 'DoubleButton' &&
+            <DoubleButton onClick={this.handleButtonClick}/>
           }
-          <Input onSubmit={this.handleSubmitText}/>
         </div>
       </div>
     );

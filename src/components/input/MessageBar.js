@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {EntypoPaperPlane, EntypoMic} from 'react-entypo';
 import Audio from '../main/Audio';
 
-class Input extends Component {
+class MessageBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {value: ''};
@@ -68,4 +68,4 @@ class Input extends Component {
 		);
 	}
 }
-export default Input;
+export default MessageBar;

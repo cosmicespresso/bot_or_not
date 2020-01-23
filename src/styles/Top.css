@@ -1,0 +1,37 @@
+:root {
+  --font-family: 'Inter', sans-serif; 
+  --font-size: 1em;
+  --font-weight: 600;
+
+  --container-right: 0;
+  --container-width: calc(100%-4px);
+  --component-color: #fff;
+  --component-margin: 10px;
+  
+  --border-radius: 3px;
+  --border-style: 2px solid #00f;
+  --header-color: #00f;
+}
+/*
+ * 
+ * HEADER
+ *
+ */
+.container header {
+  background: var(--component-color);
+  border: var(--border-style);
+  border-radius: var(--border-radius);
+  margin: var(--component-margin);
+  height: 40px;
+}
+.container header h1 {
+  color: var(--header-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  vertical-align: middle;
+  text-align: center;
+  text-transform: uppercase;
+}
+.container div {
+   transition: all 0.75s ease-in-out; 
+}

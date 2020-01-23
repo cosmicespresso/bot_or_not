@@ -1,0 +1,95 @@
+:root {
+  --primary-color: #00f;
+  --font-family: 'Inter', sans-serif; 
+  --font-size: 1em;
+  --font-weight: 600;
+
+  --container-right: 0;
+  --container-width: calc(100%-4px);
+  --component-color: #fff;
+  --component-margin: 10px;
+  
+  --border-radius: 3px;
+  --border-style: 2px solid #00f;
+
+  --user-color: #FF2D55;
+  --bot-color: #00f ;
+
+}
+/*
+ * 
+ * CHAT
+ *
+ */
+.messages-wrapper {
+  background: var(--component-color);
+  border: var(--border-style);
+  border-radius: var(--border-radius);
+  margin: var(--component-margin);
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.messages {
+  width: 100%;
+  padding: 0px 10px;
+  overflow-y: auto;
+}
+.group {
+  clear: both;
+  padding: 2px 0px;
+}
+.group .message {
+  padding: var(--message-padding);
+}
+.group-user {
+  float: right;
+}
+.group-user img {
+  float: right;
+}
+.group-user .message {
+  color: var(--user-color);
+}
+.group-bot {
+  float: left;
+}
+.group-bot .message {
+  color: var(--bot-color);
+}
+.message p {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+}
+
+/*
+ * 
+ * Narrator
+ *
+ */
+.narrator {
+  background: var(--component-color);
+  border: var(--border-style);
+  border-radius: var(--border-radius);
+  margin: var(--component-margin);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.narrator .field-top {
+  font-family: var(--font-family);
+  color: var(--primary-color);
+  font-size: 5rem;
+  font-weight: 800;
+  font-style: italic;
+  padding: 10px;
+}
+.narrator .field-bottom {
+  font-family: var(--font-family);
+  color: var(--primary-color);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  padding: 10px;
+}
