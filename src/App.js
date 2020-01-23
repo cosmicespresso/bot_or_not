@@ -34,14 +34,14 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.isChatVisible = true;
+    this.step = 0;
 
     this.state = {
       messages: [],
       isBotTyping: false,
-      step: stateMap[2].step,
-      headerText: stateMap[2].headerText,
-      main: stateMap[2].main,
-      input: stateMap[2].input
+      headerText: stateMap[0].headerText,
+      main: stateMap[0].main,
+      input: stateMap[0].input
     };
   }
 
@@ -98,6 +98,21 @@ class App extends Component {
     console.log(e.target);
   } 
 
+  handleProgression = (e) => {
+    if (this.step < stateMap.length-1) {
+      ++this.step;
+    } else {
+      this.step = 0;
+    }
+    this.setState((prevState, props) => {
+      return {
+        headerText: stateMap[this.step].headerText,
+        main: stateMap[this.step].main,
+        input: stateMap[this.step].input
+      };
+    })
+  }
+
   handleResize = (e) => {
     const window = e.target || e;
     const y = window.innerHeight;
@@ -117,10 +132,11 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.step, this.state.headerText);
     return (
       <div className="App">
+        <button style={{'float':'left'}} onClick={this.handleProgression}> NEXT </button>
         <div className="container">
-
           {/*------TOP------*/}     
           <Header title={this.state.headerText} /> 
 
@@ -134,7 +150,6 @@ class App extends Component {
           {this.state.main === 'Narrator'  && 
             <Narrator dialogHeight={this.state.dialogHeight} headline={'Here is the headline!'} text={'Here is some text!'}/>
           }    
-
 
           {/*------INPUT------*/}     
           {this.state.input === 'MessageBar' &&

@@ -120,7 +120,7 @@ input::-webkit-input-placeholder {
   text-transform: uppercase;
   margin: 0 auto;
   padding: 0;
-  vertical-align: middle;
+  line-height: 35px;
   font-style: italic;
 }
 .double-button {

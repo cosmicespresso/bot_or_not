@@ -1,21 +1,26 @@
 
 export const stateMap = [
   {
-    step: 1,
-    headerText: 'Truth or Dare Turing Test',
+    headerText: 'Screen 1',
     main: 'Narrator',
     input: 'SingleButton'
   },{
-    step: 2,
-    headerText: 'Here is another header',
+    headerText: 'Screen 2',
     main: 'ChatLog',
     input: 'MessageBar'
   },{
-    step: 3,
-    headerText: 'Truth or Dare Turing Test',
+    headerText: 'Screen 3',
     main: 'Narrator',
     input: 'DoubleButton'
-  },
+  },{
+    headerText: 'Screen 4',
+    main: 'ChatLog',
+    input: 'MessageBar'
+  },{
+    headerText: 'Screen 5',
+    main: 'Narrator',
+    input: 'SingleButton'
+  }
 ];
 
 
