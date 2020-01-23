@@ -27,24 +27,18 @@ class App extends Component {
       messages: [],
       isBotTyping: false,
       title: 'Truth or Dare Turing Test',
-      main: 'Info'
+      main: 'ChatLog'
     };
-
-    this.appendMessage = this.appendMessage.bind(this);
-    this.processBotQueue = this.processBotQueue.bind(this);
-    this.processResponse = this.processResponse.bind(this);
-    this.getResponse = this.getResponse.bind(this);
-    this.handleResize = this.handleResize.bind(this);
     this.handleSubmitText = this.handleSubmitText.bind(this);
   }
 
-  appendMessage(text, isUser = false, next = () => {}) {
+  appendMessage = (text, isUser = false, next = () => {}) => {
     let messages = this.state.messages.slice();
     messages.push({isUser, text});
     this.setState({messages, isBotTyping: this.botQueue.length > 0}, next);
   }
 
-  processBotQueue(isQuick = false) {
+  processBotQueue = (isQuick = false) => {
     if (!this.isProcessingQueue && this.botQueue.length) {
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
@@ -55,7 +49,7 @@ class App extends Component {
     }
   }
 
-  processResponse(text) {
+  processResponse = (text) => {
     const messages = text
       .match(/[^.!?]+[.!?]*/g)
       .map(str => str.trim());
@@ -66,12 +60,12 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-  getResponse(text) {
+  getResponse = (text) => {
     return this.dialogflow.textRequest(text)
       .then(data => data.result.fulfillment.speech);
   }
 
-  async handleSubmitText(text) {
+ handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
 
@@ -87,7 +81,7 @@ class App extends Component {
     this.processResponse(botResponse)
   }
 
-  handleResize(e) {
+  handleResize = (e) => {
     const window = e.target || e;
     const y = window.innerHeight;
     const header = document.querySelector('.container header');

@@ -6,21 +6,16 @@ class Input extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {value: ''};
-
-		this.handleAudio = this.handleAudio.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleListen = this.handleListen.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	
-	handleAudio(e) {
+	handleAudio = (e) => {
 		console.log('done listening to audio')
 		const last = e.results.length - 1;
 		const value = this.state.value + e.results[last][0].transcript;
 		this.setState({value});
 	}
 
-	handleChange(e) {
+	handleChange = (e) => {
 		const value = e.target.value;
 		if (value.length >= 256) {
 			alert('You have reached 256 character limit!');
@@ -28,12 +23,12 @@ class Input extends Component {
 		this.setState({value});
 	}
 
-	handleListen() {
+	handleListen = () =>{
 		console.log('listening to audio')
 		this.audio.listen();
 	}
 
-	handleSubmit(e) {
+	handleSubmit = (e) =>{
 		e.preventDefault();
 		this.props.onSubmit(this.state.value);
 		this.setState({value: ''});

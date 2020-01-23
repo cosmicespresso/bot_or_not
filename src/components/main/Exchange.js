@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 
-const Message = (props) => (
-	<div className="message">
+function Message(props) {
+	return (
+		<div className="message">
 		{props.text === null ? <TypingAnimation/> : <p>{props.text}</p>}
 	</div>
-);
+	)
+};
 
-const TypingAnimation = (props) => (
-	<div id="wave">
-		<span className="dot"></span>
-		<span className="dot"></span>
-		<span className="dot"></span>
-	</div>
-);
-
+function TypingAnimation(props) {
+	return (
+		<div id="wave">
+			<span className="dot"></span>
+			<span className="dot"></span>
+			<span className="dot"></span>
+		</div>
+	)
+};
 
 class Exchange extends Component {
 	render() {

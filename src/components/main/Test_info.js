@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
-class Test_info extends Component {
-	render() {
-		return (
-			<div className="messages-wrapper" style={{height: `${this.props.dialogHeight}px`}}>
-				Info!!
-			</div>
-		);
-	}
+function Test_info(props)  {
+	return (
+		<div className="messages-wrapper" style={{height: `${props.dialogHeight}px`}}>
+			Info!!
+		</div>
+	);
 }
+
 export default Test_info;
