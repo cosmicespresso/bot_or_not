@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {EntypoPaperPlane, EntypoMic} from 'react-entypo';
-import Audio from '../main/Audio';
+import Audio from './Audio';
 
 class MessageBar extends Component {
 	constructor(props) {

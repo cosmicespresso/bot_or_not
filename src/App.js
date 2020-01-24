@@ -3,6 +3,7 @@ import Header from './components/top/Header';
 
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
+import AudioVis from './components/main/AudioVis';
 
 import MessageBar from './components/input/MessageBar';
 import SingleButton from './components/input/SingleButton';
@@ -19,7 +20,7 @@ import './styles/Input.css';
 
 const BOT_DELAY = 4000;
 const BOT_SPEED = 0.01;
-const BOT_MAX_CHARS = 250;
+const BOT_MAX_CHARS = 350;
 
 function getBotDelay(msg, isQuick = false) {
   let delay = isQuick ? BOT_DELAY / 2 : BOT_DELAY;
@@ -33,7 +34,6 @@ class App extends Component {
     
     this.botQueue = [];
     this.isProcessingQueue = false;
-    this.isChatVisible = true;
     this.step = 0;
 
     this.state = {
@@ -151,6 +151,9 @@ class App extends Component {
           }
           {this.state.main === 'Narrator'  && 
             <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
+          }            
+          {this.state.main === 'AudioVis'  && 
+            <AudioVis dialogHeight={this.state.dialogHeight}/>
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     

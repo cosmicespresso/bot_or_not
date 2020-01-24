@@ -2,7 +2,7 @@
 export const stateMap = [
   {
     headerText: 'Screen 1',
-    main: 'Narrator',
+    main: 'AudioVis',
     fieldTop: 'Ready to play some truth or dare?',
     fieldBottom: 'First, enter a cool name for yourself below:',
     input: 'MessageBar',
