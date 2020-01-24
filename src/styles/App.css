@@ -6,7 +6,7 @@
  *
  */
 :root {
-  --container-width: calc(100%-4px);
+  --container-width: 100%;
   --border-radius: 3px;
   --border-style: 2px solid #00f;
 }
@@ -18,12 +18,14 @@
   top: 0;
   bottom: 0;
   display: block;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   width: var(--container-width);
   border: var(--border-style);
   border-radius: var(--border-radius);
+  max-width: 450px;
+  background: #fff;
 }
 
 button.hack {
@@ -39,4 +41,11 @@ button.hack {
   top: 0;
   background: var(--button-color);
   border: none;
+}
+
+
+@media screen and (min-width: 700px) {
+  .container {
+    /*background: #ff0;*/
+  }
 }
