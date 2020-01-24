@@ -26,3 +26,17 @@
   border-radius: var(--border-radius);
 }
 
+button.hack {
+  color: #fff;
+  font-size: var(--button-size);
+  font-weight: var(--button-weight);
+  text-transform: uppercase;
+  padding: 3px;
+  line-height: 35px;
+  font-style: italic;
+  display: block;
+  position: absolute;
+  top: 0;
+  background: var(--button-color);
+  border: none;
+}

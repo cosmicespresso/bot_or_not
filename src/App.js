@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Header from './components/top/Header';
 
-import ChatLog from './components/main/ChatLog';
+import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
 
 import MessageBar from './components/input/MessageBar';
@@ -41,7 +41,10 @@ class App extends Component {
       isBotTyping: false,
       headerText: stateMap[0].headerText,
       main: stateMap[0].main,
-      input: stateMap[0].input
+      fieldTop: stateMap[0].fieldTop,
+      fieldBottom: stateMap[0].fieldBottom,
+      input: stateMap[0].input,
+      inputText: stateMap[0].inputText
     };
   }
 
@@ -81,7 +84,6 @@ class App extends Component {
  handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
-
     const response = await fetch('/api/botRequest', {
       method: 'POST',
       headers: {
@@ -90,7 +92,6 @@ class App extends Component {
       body: JSON.stringify({ botText: text }),
     });
     const botResponse = await response.text();
-
     this.processResponse(botResponse)
   }
 
@@ -108,7 +109,10 @@ class App extends Component {
       return {
         headerText: stateMap[this.step].headerText,
         main: stateMap[this.step].main,
-        input: stateMap[this.step].input
+        fieldTop: stateMap[this.step].fieldTop,
+        fieldBottom: stateMap[this.step].fieldBottom,
+        input: stateMap[this.step].input,
+        inputText: stateMap[this.step].inputText
       };
     })
   }
@@ -132,36 +136,35 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.step, this.state.headerText);
     return (
       <div className="App">
-        <button style={{'float':'left'}} onClick={this.handleProgression}> NEXT </button>
         <div className="container">
-          {/*------TOP------*/}     
+          {/*-----------------------------TOP-----------------------------*/}     
           <Header title={this.state.headerText} /> 
 
-          {/*------MAIN------*/}     
-          {this.state.main === 'ChatLog' && 
-            <ChatLog 
+          {/*-----------------------------MAIN-----------------------------*/}     
+          {this.state.main === 'Chat' && 
+            <Chat 
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
           }
           {this.state.main === 'Narrator'  && 
-            <Narrator dialogHeight={this.state.dialogHeight} headline={'Here is the headline!'} text={'Here is some text!'}/>
+            <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
           }    
 
-          {/*------INPUT------*/}     
+          {/*-----------------------------INPUT-----------------------------*/}     
           {this.state.input === 'MessageBar' &&
             <MessageBar onSubmit={this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton onClick={this.handleButtonClick}/>
+            <SingleButton buttonText={this.state.inputText} />
           }          
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton onClick={this.handleButtonClick}/>
+            <DoubleButton button1={this.state.inputText} button2={this.state.inputText} />
           }
         </div>
+        <button className='hack' onClick={this.handleProgression}>next</button>
       </div>
     );
   }

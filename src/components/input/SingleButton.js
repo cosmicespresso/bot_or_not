@@ -3,7 +3,7 @@ import React from 'react';
 function SingleButton(props) {
 	return(
 		<div className='single-button'>
-			<p>Play</p>
+			<p>{props.buttonText}</p>
 		</div>
 	);
 }

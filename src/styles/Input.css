@@ -2,7 +2,7 @@
   --primary-color: #00f;
   
   --font-family: 'Inter', sans-serif; 
-  --font-size: 1em;
+  --input-font-size: 1.2rem;
   --font-weight: 600;
 
   --container-right: 0;
@@ -42,7 +42,7 @@ input::-webkit-input-placeholder {
   border-style: none;
   color: var(--primary-color);
   font-family: var(--font-family);
-  font-size: var(--font-size);
+  font-size: var(--input-font-size);
   font-weight: var(--font-weight);
   padding: 0 10px;
   width: 100%;
@@ -53,7 +53,7 @@ input::-webkit-input-placeholder {
   background: none;
   display: flex;
   font-family: var(--font-family);
-  font-size: var(--font-size);
+  font-size: var(--input-font-size);
   border: var(--icon-style);
   border-radius: var(--border-radius);
   margin: var(--icon-margin);
@@ -65,7 +65,7 @@ input::-webkit-input-placeholder {
   margin: var(--icon-margin);
   background: none;
   display: flex;
-  font-size: var(--font-size);
+  font-size: var(--input-font-size);
   text-align: center;
 }
 /*animation*/

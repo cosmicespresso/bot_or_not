@@ -4,10 +4,10 @@ function DoubleButton(props) {
 	return(
 		<div className='double-button'>
 			<div className='single-button'>
-				<p>Button 1</p>
+				<p>{props.button1}</p>
 			</div>
 			<div className='single-button'>
-				<p>Button 2</p>
+				<p>{props.button2}</p>
 			</div>
 		</div>
 	);

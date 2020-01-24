@@ -11,8 +11,11 @@ class MessageBar extends Component {
 	handleAudio = (e) => {
 		console.log('done listening to audio')
 		const last = e.results.length - 1;
-		const value = this.state.value + e.results[last][0].transcript;
-		this.setState({value});
+		this.setState((prevState, props) => {
+			return {
+				value: prevState.value + e.results[last][0].transcript
+			};
+		});
 	}
 
 	handleChange = (e) => {
@@ -52,15 +55,10 @@ class MessageBar extends Component {
 								 onChange={this.handleChange}
 								 autoComplete={'off'}
 								 required />
-					<button className="btn-voice"
-									type="button"
-									value="Voice"
-									onClick={this.handleListen}>
+					<button className="btn-voice" type="button" value="Voice" onClick={this.handleListen}>
 						<EntypoMic/>
 					</button>
-					<button className="btn-send"
-									type="submit"
-									value="Send">
+					<button className="btn-send" type="button" value="Send">
 						<EntypoPaperPlane/>
 					</button>
 				</form>

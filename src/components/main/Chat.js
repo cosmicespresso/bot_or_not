@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Exchange from './Exchange';
 
-class ChatLog extends Component {
+class Chat extends Component {
 	scrollToBottom() {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
 		end.scrollIntoView({behavior: 'smooth'});
@@ -53,4 +53,4 @@ class ChatLog extends Component {
 		);
 	}
 }
-export default ChatLog;
+export default Chat;
