@@ -27,18 +27,17 @@ class AudioVis extends Component {
 		console.log('recordedBlob is: ', recordedBlob);
 	}
 
-	render() {
+	render(props) {
 		return (
-			<div className="narrator" style={{height: '200px'}}>
+			<div className="narrator" style={{height: `${this.props.dialogHeight}px`}}>
 				<ReactMic
-		          record={this.state.record}
+		          record={true}
+		          visualSetting="frequencyBars"
 		          className="sound-wave"
 		          onStop={this.onStop}
 		          onData={this.onData}
-		          strokeColor="#000000"
-		          backgroundColor="#FF4081" />
-		        <button onClick={this.startRecording} type="button">Start</button>
-		        <button onClick={this.stopRecording} type="button">Stop</button>
+		          strokeColor="#FF2D55"
+		          backgroundColor="#fff" />
 			</div>
 		);
 	}
