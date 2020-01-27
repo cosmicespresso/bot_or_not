@@ -42,8 +42,7 @@ class Chat extends Component {
 					{groups.map((group, i) =>
 						<Exchange
 							key={i}
-							group={group}
-							isUserHidden={this.props.isUserHidden} />
+							group={group}/>
 					)}
 					<div
 						style={{ float: "left", clear: "both" }}

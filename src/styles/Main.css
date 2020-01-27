@@ -7,11 +7,11 @@
 
   --font-family: 'Inter', sans-serif; 
   --main-font-weight: 800;
-  --fieldTop-font-size: 5rem;
-  --fieldBottom-font-size: 1.8rem;
-  --line-height: 1;
+  --fieldTop-font-size: 4.5rem;
+  --fieldBottom-font-size: 1.5rem;
 
-  --chat-font-size: 1.2rem;
+  --chat-font-size: 1.1rem;
+  --line-height: 1;
   --chat-font-weight: 600;
   --user-color: #FF2D55;
   --bot-color: #00f ;
@@ -38,8 +38,7 @@
 }
 .group {
   clear: both;
-  padding: 2px 0px;
-  max-width: 60%;
+  max-width: 50%;
 }
 .group .message {
   padding: var(--message-padding);
@@ -49,11 +48,9 @@
 }
 .group-user .message {
   color: var(--user-color);
-  text-align: right;
 }
 .group-bot {
   float: left;
-  text-align: left;
 }
 .group-bot .message {
   color: var(--bot-color);
@@ -88,7 +85,7 @@
   font-weight: var(--main-font-weight);
   font-style: italic;
   padding: 10px;
-  max-height: 40vh;
+  max-height: 50vh;
 }
 .narrator .field-bottom {
   font-family: var(--font-family);
@@ -97,4 +94,5 @@
   font-weight: var(--chat-font-weight);
   padding: 10px;
   min-height: 20vh;
+  flex-grow: 0.3;
 }

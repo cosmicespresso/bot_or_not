@@ -1,33 +1,60 @@
 
 export const stateMap = [
   {
+    messages: [],
+    isBotTyping: false,
     headerText: 'Screen 1',
     main: 'Narrator',
     fieldTop: 'Ready to play some truth or dare?',
     fieldBottom: 'First, enter a cool name for yourself below:',
     input: 'MessageBar',
-    inputText: ''
+    singleButtonText: '',
+    button1Text: '',
+    button2Text: '',
   },{
+    messages: [],
+    isBotTyping: false,
     headerText: 'Screen 2',
     main: 'Narrator',
     fieldTop: '',
     fieldBottom: 'Thanks! You are about to play 3 rounds of Truth or Dare with either a bot or a human. The goal of the game is to correctly tell the difference between the two. Before you start playing, you have 30 seconds to just chat with each other.',
     input: 'SingleButton',
-    inputText: 'Chat'
+    singleButtonText: 'Chat',
+    button1Text: '',
+    button2Text: '',
   },{
+    messages: [],
+    isBotTyping: false,
     headerText: 'Screen 3',
     main: 'Chat',
     fieldTop: '',
     fieldBottom: '',
     input: 'MessageBar',
-    inputText: ''
+    singleButtonText: '',
+    button1Text: '',
+    button2Text: '',
   },{
+    messages: [],
+    isBotTyping: false,
     headerText: 'Screen 4',
     main: 'Narrator',
     fieldTop: '',
     fieldBottom: 'OK enough chatting! Now its time to start playing. You have 3 rounds of truth or dare - choose them (and your words) wisely! ',
+    input: 'DoubleButton',
+    singleButtonText: 'Start round 1',
+    button1Text: 'Truth',
+    button2Text: 'Dare',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 5',
+    main: 'AudioVis',
+    fieldTop: '',
+    fieldBottom: '',
     input: 'SingleButton',
-    inputText: 'Start round 1'
+    singleButtonText: 'Stop recording',
+    button1Text: '',
+    button2Text: '',
   }
 ];
 

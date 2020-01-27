@@ -3,12 +3,14 @@ import Header from './components/top/Header';
 
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
+import AudioVis from './components/main/AudioVis';
 
 import MessageBar from './components/input/MessageBar';
 import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
+import {getBotDelay} from './Utils';
 
 import keys from './keys/truthbot.json';
 
@@ -17,35 +19,15 @@ import './styles/Top.css';
 import './styles/Main.css';
 import './styles/Input.css';
 
-const BOT_DELAY = 4000;
-const BOT_SPEED = 0.01;
-const BOT_MAX_CHARS = 250;
-
-function getBotDelay(msg, isQuick = false) {
-  let delay = isQuick ? BOT_DELAY / 2 : BOT_DELAY;
-  let speed = isQuick ? BOT_SPEED * 2 : BOT_SPEED;
-  return msg.length > BOT_MAX_CHARS ? delay : Math.floor(msg.length / speed);
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
     
     this.botQueue = [];
     this.isProcessingQueue = false;
-    this.isChatVisible = true;
     this.step = 0;
 
-    this.state = {
-      messages: [],
-      isBotTyping: false,
-      headerText: stateMap[0].headerText,
-      main: stateMap[0].main,
-      fieldTop: stateMap[0].fieldTop,
-      fieldBottom: stateMap[0].fieldBottom,
-      input: stateMap[0].input,
-      inputText: stateMap[0].inputText
-    };
+    this.state = {...stateMap[0]};
   }
 
   appendMessage = (text, isUser = false, next = () => {}) => {
@@ -81,7 +63,7 @@ class App extends Component {
       .then(data => data.result.fulfillment.speech);
   }
 
- handleSubmitText = async (text) => {
+  handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
     const response = await fetch('/api/botRequest', {
@@ -92,12 +74,8 @@ class App extends Component {
       body: JSON.stringify({ botText: text }),
     });
     const botResponse = await response.text();
-    this.processResponse(botResponse)
+    this.processResponse(botResponse);
   }
-
-  handleButtonClick = (e) => {
-    console.log(e.target);
-  } 
 
   handleProgression = (e) => {
     if (this.step < stateMap.length-1) {
@@ -105,16 +83,7 @@ class App extends Component {
     } else {
       this.step = 0;
     }
-    this.setState((prevState, props) => {
-      return {
-        headerText: stateMap[this.step].headerText,
-        main: stateMap[this.step].main,
-        fieldTop: stateMap[this.step].fieldTop,
-        fieldBottom: stateMap[this.step].fieldBottom,
-        input: stateMap[this.step].input,
-        inputText: stateMap[this.step].inputText
-      };
-    })
+    this.setState({...stateMap[this.step]})
   }
 
   handleResize = (e) => {
@@ -139,6 +108,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
+
           {/*-----------------------------TOP-----------------------------*/}     
           <Header title={this.state.headerText} /> 
 
@@ -151,6 +121,9 @@ class App extends Component {
           }
           {this.state.main === 'Narrator'  && 
             <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
+          }            
+          {this.state.main === 'AudioVis'  && 
+            <AudioVis dialogHeight={this.state.dialogHeight}/>
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     
@@ -158,10 +131,10 @@ class App extends Component {
             <MessageBar onSubmit={this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton buttonText={this.state.inputText} />
+            <SingleButton buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton button1={this.state.inputText} button2={this.state.inputText} />
+            <DoubleButton button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
         <button className='hack' onClick={this.handleProgression}>next</button>
