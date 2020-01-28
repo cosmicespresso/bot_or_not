@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from './components/Header';
 import Dialog from './components/Dialog';
 import Input from './components/Input';
+import uuid from 'uuid';
 import './styles/App.css';
 
 const BOT_DELAY = 4000;
@@ -18,13 +19,22 @@ class ReactBotUI extends Component {
   constructor(props) {
     super(props);
     this.botQueue = [];
+    this.bots = [{
+      "name": "truth_bot_answering",
+      "session_id": uuid.v4()
+    },
+    {
+      "name": "truth_bot_setting",
+      "session_id": uuid.v4()
+    }];
     this.isProcessingQueue = false;
     this.state = {
       title: props.title || 'React Bot UI',
       messages: [],
       isBotTyping: false,
       isOpen: props.isOpen !== undefined ? props.isOpen : true,
-      isVisible: props.isVisible !== undefined ? props.isVisible : true
+      isVisible: props.isVisible !== undefined ? props.isVisible : true,
+      currentBot: {}
     };
 
     this.appendMessage = this.appendMessage.bind(this);
@@ -72,16 +82,17 @@ class ReactBotUI extends Component {
     // append user text
     this.appendMessage(text, true);
 
-    const response = await fetch(".netlify/functions/botRequest", {
+    await fetch(".netlify/functions/botRequest", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ botText: text }),
-    });
-    const botResponse = await response.text();
-
-    this.processResponse(botResponse)
+      body: JSON.stringify({ 
+        botText: text,
+        bot: this.bots[0] }),
+      })
+      .then( response => response.text())
+      .then( botResponse => { this.processResponse(botResponse); })
   }
 
   handleResize(e) {
