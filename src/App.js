@@ -95,6 +95,10 @@ class App extends Component {
     this.setState({dialogHeight});
   }
 
+  handleButton = (e) => {
+    console.log('click')
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
@@ -110,7 +114,7 @@ class App extends Component {
         <div className="container">
 
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={this.state.headerText} /> 
+          <Header click={this.handleButton} title={this.state.headerText} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}     
           {this.state.main === 'Chat' && 
