@@ -40,37 +40,119 @@ export const stateMap = [
     main: 'Narrator',
     fieldTop: '',
     fieldBottom: 'OK enough chatting! Now its time to start playing. You have 3 rounds of truth or dare - choose them (and your words) wisely! ',
-    input: 'DoubleButton',
+    input: 'SingleButton',
     singleButtonText: 'Start round 1',
+    button1Text: '',
+    button2Text: '',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 5',
+    main: 'Narrator',
+    fieldTop: 'Round 1',
+    fieldBottom: '',
+    input: 'DoubleButton',
+    singleButtonText: '',
     button1Text: 'Truth',
     button2Text: 'Dare',
   },{
     messages: [],
     isBotTyping: false,
-    headerText: 'Screen 5',
+    headerText: 'Screen 6',
+    main: 'Chat',
+    fieldTop: '',
+    fieldBottom: '',
+    input: 'MessageBar',
+    singleButtonText: '',
+    button1Text: '',
+    button2Text: '',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 7',
+    main: 'Narrator',
+    fieldTop: 'Round 2',
+    fieldBottom: '',
+    input: 'DoubleButton',
+    singleButtonText: '',
+    button1Text: 'Truth',
+    button2Text: 'Dare',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 8',
+    main: 'Chat',
+    fieldTop: '',
+    fieldBottom: '',
+    input: 'MessageBar',
+    singleButtonText: '',
+    button1Text: '',
+    button2Text: '',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 9',
+    main: 'Narrator',
+    fieldTop: 'Round 3',
+    fieldBottom: '',
+    input: 'DoubleButton',
+    singleButtonText: '',
+    button1Text: 'Truth',
+    button2Text: 'Dare',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 10',
+    main: 'Chat',
+    fieldTop: '',
+    fieldBottom: '',
+    input: 'MessageBar',
+    singleButtonText: '',
+    button1Text: '',
+    button2Text: '',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 11',
     main: 'AudioVis',
     fieldTop: '',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Stop recording',
+    singleButtonText: 'Stop Recording',
     button1Text: '',
     button2Text: '',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 12',
+    main: 'Chat',
+    fieldTop: '',
+    fieldBottom: '',
+    input: 'MessageBar',
+    singleButtonText: '',
+    button1Text: '',
+    button2Text: '',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 13',
+    main: 'Narrator',
+    fieldTop: 'Game over!',
+    fieldBottom: 'So, do you think you were talking to a bot or to a human?',
+    input: 'DoubleButton',
+    singleButtonText: '',
+    button1Text: 'It was a bot!',
+    button2Text: 'It was a human!',
+  },{
+    messages: [],
+    isBotTyping: false,
+    headerText: 'Screen 14',
+    main: 'Narrator',
+    fieldTop: 'Correct!',
+    fieldBottom: 'Yep you were indeed talking to a bot! How did you know it was a bot? ',
+    input: 'DoubleButton',
+    singleButtonText: '',
+    button1Text: 'Learn more',
+    button2Text: 'Chat more',
   }
 ];
-
-
-// export const findMainAtStep = (stateMap) => {
-//   for (let i = cMap.length - 1; i >= 0; i--) {
-//     return cMap[i].main;
-//   }
-//   return cMap[0].main;
-// };
-
-// export const findTimepointForMode = (stateMap, percent) => {
-//   for (let i = cMap.length - 1; i >= 0; i--) {
-//     if (percent >= cMap[i].fromPosition) {
-//       return cMap[i].timepoint;
-//     }
-//   }
-//   return cMap[0].timepoint;
-// };
