@@ -21,11 +21,11 @@ class ReactBotUI extends Component {
     this.botQueue = [];
     this.bots = [{
       "name": "truth_bot_answering",
-      "session_id": uuid.v4()
+      "sessionId": uuid.v4()
     },
     {
       "name": "truth_bot_setting",
-      "session_id": uuid.v4()
+      "sessionId": uuid.v4()
     }];
     this.isProcessingQueue = false;
     this.state = {
@@ -88,7 +88,7 @@ class ReactBotUI extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        botText: text,
+        userString: text,
         bot: this.bots[0] }),
       })
       .then( response => response.text())
