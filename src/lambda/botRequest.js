@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import dialogflow from 'dialogflow';
 const uuid = require('uuid');
-let botJSON = JSON.parse(process.env.bots_json).bots[0];
+let botJSON = JSON.parse(process.env.truth_bot_setting);
 
 exports.handler = async (event) => {
     // "event" has information about the path, body, headers, etc. of the request
