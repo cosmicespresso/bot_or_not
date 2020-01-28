@@ -89,7 +89,7 @@ class ReactBotUI extends Component {
       },
       body: JSON.stringify({ 
         userString: text,
-        bot: this.bots[0] }),
+        bot: this.state.currentBot }),
       })
       .then( response => response.text())
       .then( botResponse => { this.processResponse(botResponse); })
@@ -107,6 +107,10 @@ class ReactBotUI extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
+  }
+
+  componentWillMount() {
+    this.setState({currentBot: this.bots[0]})
   }
 
   componentWillUnmount() {
