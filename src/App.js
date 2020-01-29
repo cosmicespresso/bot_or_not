@@ -22,18 +22,20 @@ import './styles/Input.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.bots = [{
-      "name": "truth_bot_answering",
-      "sessionId": uuid.v4(),
-      "projectId": "c200103-challenge-truth-bot-wc",
-      "step": 0
-    },
+    this.bots = [
     {
       "name": "truth_bot_setting",
       "sessionId": uuid.v4(),
       "projectId": "g191120-truth-bot-hluhsq",
-      "step": 1
-    }];
+      "steps": [0, 1]
+    },
+    {
+      "name": "truth_bot_answering",
+      "sessionId": uuid.v4(),
+      "projectId": "c200103-challenge-truth-bot-wc",
+      "steps": [2, 3]
+    }
+    ];
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.step = 0;
@@ -96,14 +98,6 @@ class App extends Component {
       .then( botResponse => { this.processResponse(botResponse); })
   }
 
-
-  changeBot = (botName) => {
-    const bot = this.state.bots.filter(function (key, val){ 
-      return this.state.bots.name === botName})[0]
-    this.setState({currentBot: bot})
-  }
-
-
   handleProgression = (e) => {
     if (this.step < stateMap.length-1) {
       ++this.step;
@@ -112,10 +106,12 @@ class App extends Component {
     }
 
     const bot = this.bots.filter(function (key, val){
-      return key.step === this.step}.bind(this))
-    //if there's a bot for this step
-    bot.length > 0 && this.setState({currentBot: bot[0]})
-    bot.length > 0 && console.log('new bot is', bot[0])
+      return key.steps.includes(this.step)}.bind(this))
+
+    //if the bot changes on this step
+    if(bot.length > 0 && this.state.currentBot !== bot[0]){
+      this.setState({currentBot: bot[0]})
+    }
     this.setState({...stateMap[this.step]})
   }
 
