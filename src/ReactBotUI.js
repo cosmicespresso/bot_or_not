@@ -21,11 +21,13 @@ class ReactBotUI extends Component {
     this.botQueue = [];
     this.bots = [{
       "name": "truth_bot_answering",
-      "sessionId": uuid.v4()
+      "sessionId": uuid.v4(),
+      "projectId": "c200103-challenge-truth-bot-wc"
     },
     {
       "name": "truth_bot_setting",
-      "sessionId": uuid.v4()
+      "sessionId": uuid.v4(),
+      "projectId": "g191120-truth-bot-hluhsq"
     }];
     this.isProcessingQueue = false;
     this.state = {
