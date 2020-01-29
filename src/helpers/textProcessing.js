@@ -20,7 +20,8 @@ async function replacementGrammar(options, sentences){
     sentence = sentence.replace(/\$/, options[optIndex]);
     options.splice(optIndex, 1);
   }
-  console.log(sentence);
+  console.log(sentence)
+  return sentence;
 }
 
 
@@ -32,8 +33,7 @@ export const preProcessor = async (sent) => {
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
   if(matched.length !== 0){
-    
-    console.log('would be creating blacklist context rn')
+    return "hey, cut that out!"
     //await createContext('blacklist');
   }
 
@@ -59,8 +59,8 @@ export const preProcessor = async (sent) => {
 
     if(options.length > 1){
       sendToDF = false;
-      replacementGrammar(options, wyrResponse);
-      return;
+      const output = replacementGrammar(options, wyrResponse);
+      return output;
     }
   }
 }
