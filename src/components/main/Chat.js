@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import DialogGroup from './DialogGroup';
+import Exchange from './Exchange';
 
-class Dialog extends Component {
+class Chat extends Component {
 	scrollToBottom() {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
 		end.scrollIntoView({behavior: 'smooth'});
@@ -37,22 +37,19 @@ class Dialog extends Component {
 		}
 
 		return (
-			<section
-				className="messages-wrapper"
-				style={{height: `${this.props.dialogHeight}px`}}>
+			<div className="messages-wrapper" style={{height: `${this.props.dialogHeight}px`}}>
 				<div className="messages">
 					{groups.map((group, i) =>
-						<DialogGroup
+						<Exchange
 							key={i}
-							group={group}
-							isUserHidden={this.props.isUserHidden} />
+							group={group}/>
 					)}
 					<div
 						style={{ float: "left", clear: "both" }}
 						ref={el => this.scrollTarget = el} />
 				</div>
-			</section>
+			</div>
 		);
 	}
 }
-export default Dialog;
+export default Chat;
