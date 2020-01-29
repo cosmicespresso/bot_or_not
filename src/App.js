@@ -25,12 +25,14 @@ class App extends Component {
     this.bots = [{
       "name": "truth_bot_answering",
       "sessionId": uuid.v4(),
-      "projectId": "c200103-challenge-truth-bot-wc"
+      "projectId": "c200103-challenge-truth-bot-wc",
+      "step": 0
     },
     {
       "name": "truth_bot_setting",
       "sessionId": uuid.v4(),
-      "projectId": "g191120-truth-bot-hluhsq"
+      "projectId": "g191120-truth-bot-hluhsq",
+      "step": 1
     }];
     this.botQueue = [];
     this.isProcessingQueue = false;
@@ -38,7 +40,8 @@ class App extends Component {
 
     this.state = {  
 	    currentBot: {},
-	    ...stateMap[0]};
+	    ...stateMap[0]
+      };
   	};
 
   appendMessage = (text, isUser = false, next = () => {}) => {
@@ -59,6 +62,8 @@ class App extends Component {
   }
 
   processResponse = (text) => {
+
+    //breaks sentences into different messages
     const messages = text
       .match(/[^.!?]+[.!?]*/g)
       .map(str => str.trim());
@@ -91,12 +96,26 @@ class App extends Component {
       .then( botResponse => { this.processResponse(botResponse); })
   }
 
+
+  changeBot = (botName) => {
+    const bot = this.state.bots.filter(function (key, val){ 
+      return this.state.bots.name === botName})[0]
+    this.setState({currentBot: bot})
+  }
+
+
   handleProgression = (e) => {
     if (this.step < stateMap.length-1) {
       ++this.step;
     } else {
       this.step = 0;
     }
+
+    const bot = this.bots.filter(function (key, val){
+      return key.step === this.step}.bind(this))
+    //if there's a bot for this step
+    bot.length > 0 && this.setState({currentBot: bot[0]})
+    bot.length > 0 && console.log('new bot is', bot[0])
     this.setState({...stateMap[this.step]})
   }
 
@@ -114,6 +133,7 @@ class App extends Component {
     this.handleResize(window);
   }
 
+  //sets the initial state of the bot
   componentWillMount() {
     this.setState({currentBot: this.bots[0]})
   }
