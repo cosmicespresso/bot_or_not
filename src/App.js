@@ -76,11 +76,6 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-  getResponse = (text) => {
-    return this.dialogflow.textRequest(text)
-      .then(data => data.result.fulfillment.speech);
-  }
-
   handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
