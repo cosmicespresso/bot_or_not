@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Header from './components/top/Header';
+import { preProcessor } from './helpers/textProcessing'
 
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
@@ -79,6 +80,8 @@ class App extends Component {
   handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
+
+    const preProcess = await preProcessor(text);
 
     await fetch(".netlify/functions/botRequest", {
       method: 'POST',

@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "http-proxy-middleware": "^0.20.0",
+    "natural": "^0.6.3",
     "netlify-lambda": "^1.6.3",
     "node-fetch": "^2.6.0",
     "react": "^16.12.0",

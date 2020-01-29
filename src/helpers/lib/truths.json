@@ -1,0 +1,46 @@
+[
+	{
+		"truth": "what is your worst habit?",
+		"context": "habit"
+	},
+
+	{
+		"truth": "what's your weirdest celebrity crush?",
+		"context": "celebrity"
+	},
+
+	{
+		"truth": "what was the last thing you googled??",
+		"context": "google"
+	},
+
+	{
+		"truth": "if you could have wish, what would you wish for?",
+		"context": "wish"
+	},
+	
+	{
+		"truth": "is there a god?",
+		"context": "god"
+	},				
+
+	{
+		"truth": "are you a trump supporter?",
+		"context": "trump"
+	},
+
+	{
+		"truth": "what's the weirdest place you've ever been naked",
+		"context": "naked"
+	},
+
+	{
+		"truth": "what's your mother's maiden name?",
+		"context": "fraud"
+	},
+
+	{
+		"truth": "what does your tinder profile say?",
+		"context": "tinder"
+	}		
+]
