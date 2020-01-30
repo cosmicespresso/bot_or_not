@@ -12,6 +12,20 @@ function toFirstPerson(sent) {
   return sent;
 }
 
+export const runSample = async (sample, bot) => {
+  const response = await fetch(".netlify/functions/runSample", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      userString: sample,
+      bot: bot }),
+    })
+
+  return response.text();
+}
+
 async function createContext(context) {
   await fetch(".netlify/functions/createContext", {
     method: 'POST',

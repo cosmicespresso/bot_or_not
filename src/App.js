@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from './components/top/Header';
-import { preProcessor } from './helpers/textProcessing'
+import { preProcessor, runSample } from './helpers/textProcessing'
 
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
@@ -84,17 +84,7 @@ class App extends Component {
     const preProcess = await preProcessor(text);
 
     if(!preProcess){
-      console.log('no preProcess')
-      await fetch(".netlify/functions/runSample", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          userString: text,
-          bot: this.state.currentBot }),
-        })
-        .then( response => response.text())
+        runSample(text, this.state.currentBot)
         .then( botResponse => { this.processResponse(botResponse); })
     }
     else this.processResponse(preProcess);
