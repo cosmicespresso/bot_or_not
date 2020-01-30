@@ -12,6 +12,16 @@ function toFirstPerson(sent) {
   return sent;
 }
 
+async function createContext(context) {
+  await fetch(".netlify/functions/createContext", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ context: context })
+  })
+}
+
 async function replacementGrammar(options, sentences){
   let sentence = sentences[Math.floor(Math.random()*sentences.length)];
   let matches = (sentence.match(/\$/g) || []).length;
@@ -20,7 +30,6 @@ async function replacementGrammar(options, sentences){
     sentence = sentence.replace(/\$/, options[optIndex]);
     options.splice(optIndex, 1);
   }
-  console.log(sentence)
   return sentence;
 }
 
@@ -33,8 +42,7 @@ export const preProcessor = async (sent) => {
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
   if(matched.length !== 0){
-    return "hey, cut that out!"
-    //await createContext('blacklist');
+    await createContext('blacklist');
   }
 
   //parse out obvious would you rathers

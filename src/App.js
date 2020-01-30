@@ -85,7 +85,7 @@ class App extends Component {
 
     if(!preProcess){
       console.log('no preProcess')
-      await fetch(".netlify/functions/botRequest", {
+      await fetch(".netlify/functions/runSample", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

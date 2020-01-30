@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import dialogflow from 'dialogflow';
-const uuid = require('uuid');
 const botAuth = JSON.parse(process.env.master_bot);
 
 exports.handler = async (event) => {
