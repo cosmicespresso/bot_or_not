@@ -15,7 +15,8 @@ exports.handler = async (event) => {
 }
 
 //sets up session client to auth to all the projects
-let sessionClient = new dialogflow.SessionsClient({
+//this can be accesses from other lambdas
+export let sessionClient = new dialogflow.SessionsClient({
     projectId: '',
     credentials: {
       private_key: botAuth.private_key,

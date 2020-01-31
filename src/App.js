@@ -81,7 +81,7 @@ class App extends Component {
     // append user text
     this.appendMessage(text, true);
 
-    const preProcess = await preProcessor(text);
+    const preProcess = await preProcessor(text, this.state.currentBot);
 
     if(!preProcess){
         runSample(text, this.state.currentBot)

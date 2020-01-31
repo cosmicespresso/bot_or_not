@@ -26,14 +26,19 @@ export const runSample = async (sample, bot) => {
   return response.text();
 }
 
-async function createContext(context) {
-  await fetch(".netlify/functions/createContext", {
+async function createContext(context, lifespan, bot) {
+  const response = await fetch(".netlify/functions/createContext", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ context: context })
+    body: JSON.stringify({ 
+      contextId: context, 
+      lifespan: lifespan,
+      bot: bot })
   })
+
+  console.log(response.text());
 }
 
 async function chooseTruth() {
@@ -53,7 +58,7 @@ async function replacementGrammar(options, sentences){
 }
 
 
-export const preProcessor = async (sent) => {
+export const preProcessor = async (sent, bot) => {
   console.log("preprocessor called", sent);
   let sendToDF = true;
   let sentArr = sent.split(" ");
@@ -61,7 +66,7 @@ export const preProcessor = async (sent) => {
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
   if(matched.length !== 0){
-    await createContext('blacklist');
+    await createContext('blacklist', 5, bot);
   }
 
   //is this a truth challenge? NB should replace with button press
