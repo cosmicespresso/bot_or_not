@@ -52,8 +52,11 @@ async function createContext(context, lifespan, bot) {
 
 async function chooseTruth(bot) {
   deleteAllContexts(bot)
-  console.log('choosing truth')
-  return "blaaaaah"
+  let truth = truths[Math.floor(Math.random()*truths.length)];
+  const contextId = truth.context;
+  await createContext(contextId, 5, bot);
+
+  return truth.truth;
 }
 
 async function replacementGrammar(options, sentences){
