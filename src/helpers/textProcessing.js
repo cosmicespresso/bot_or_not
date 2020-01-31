@@ -36,6 +36,11 @@ async function createContext(context) {
   })
 }
 
+async function chooseTruth() {
+  console.log('choosing truth')
+  return "blaaaaah"
+}
+
 async function replacementGrammar(options, sentences){
   let sentence = sentences[Math.floor(Math.random()*sentences.length)];
   let matches = (sentence.match(/\$/g) || []).length;
@@ -59,9 +64,15 @@ export const preProcessor = async (sent) => {
     await createContext('blacklist');
   }
 
+  //is this a truth challenge? NB should replace with button press
+  if(natural.LevenshteinDistance("truth", sent, {search: true}).distance < 3){
+    const output = await chooseTruth();
+    return output;
+  }
+
   //parse out obvious would you rathers
   var subSent;
-  
+
   if(natural.LevenshteinDistance("Would you rather", sent, {search: true}).distance < 3){
     //remove substring
     var subSent = sent.replace(natural.LevenshteinDistance("Would you rather", sent, {search: true}).substring, '').trim();
