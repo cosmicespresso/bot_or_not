@@ -13,7 +13,7 @@ exports.handler = async (event) => {
   }
 }
 
-let contextsClient = new dialogflow.ContextsClient({
+export let contextsClient = new dialogflow.ContextsClient({
     projectId: '',
     credentials: {
       private_key: botAuth.private_key,

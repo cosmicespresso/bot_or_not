@@ -26,6 +26,17 @@ export const runSample = async (sample, bot) => {
   return response.text();
 }
 
+async function deleteAllContexts(bot) {
+  const response = await fetch(".netlify/functions/deleteAllContexts", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      bot: bot })
+  })
+}
+
 async function createContext(context, lifespan, bot) {
   const response = await fetch(".netlify/functions/createContext", {
     method: 'POST',
@@ -37,11 +48,10 @@ async function createContext(context, lifespan, bot) {
       lifespan: lifespan,
       bot: bot })
   })
-
-  console.log(response.text());
 }
 
-async function chooseTruth() {
+async function chooseTruth(bot) {
+  deleteAllContexts(bot)
   console.log('choosing truth')
   return "blaaaaah"
 }
@@ -71,7 +81,7 @@ export const preProcessor = async (sent, bot) => {
 
   //is this a truth challenge? NB should replace with button press
   if(natural.LevenshteinDistance("truth", sent, {search: true}).distance < 3){
-    const output = await chooseTruth();
+    const output = await chooseTruth(bot);
     return output;
   }
 
