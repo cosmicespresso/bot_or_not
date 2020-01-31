@@ -28,13 +28,13 @@ class App extends Component {
       "name": "truth_bot_setting",
       "sessionId": uuid.v4(),
       "projectId": "g191120-truth-bot-hluhsq",
-      "steps": [0, 1]
+      "steps": [0, 1, 2, 3, 4, 5]
     },
     {
       "name": "truth_bot_answering",
       "sessionId": uuid.v4(),
       "projectId": "c200103-challenge-truth-bot-wc",
-      "steps": [2, 3]
+      "steps": [6]
     }
     ];
     this.botQueue = [];

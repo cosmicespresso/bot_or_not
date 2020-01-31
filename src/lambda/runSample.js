@@ -41,5 +41,6 @@ async function botRequest(request) {
 
   const intentResponse = await sessionClient.detectIntent(intentRequest);
   const intentResult = intentResponse[0].queryResult;
+  console.log(intentResult.intent.displayName);
   return intentResult.fulfillmentText;
 }

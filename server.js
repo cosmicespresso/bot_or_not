@@ -20,6 +20,7 @@ app.use(
 )
 
 app.post('/', express.json(), (req, res) => {
+	console.log('heyyyy')
   const agent = new WebhookClient({ request: req, response: res })
 
 function getWishFood() {
