@@ -1,11 +1,9 @@
-@import url('https://rsms.me/inter/inter.css');
-
 /*
  * 
- * VARIABLES
+ * MESSAGEBAR
  *
  */
-:root {
+ :root {
   --primary-color: #00f;
   
   --font-family: 'Inter', sans-serif; 
@@ -30,11 +28,7 @@
   --button-color: #00f ;
   --button-weight: 800 ;
 }
-/*
- * 
- * MESSAGEBAR
- *
- */
+
 .text-form {
   border: var(--border-style);
   border-radius: var(--border-radius);
