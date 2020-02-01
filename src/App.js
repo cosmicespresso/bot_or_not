@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Header from './components/top/Header';
+import { preProcessor, runSample } from './helpers/textProcessing'
 
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
@@ -12,7 +13,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay} from './Utils';
 
-import keys from './keys/truthbot.json';
+import uuid from 'uuid';
 
 import './styles/App.css';
 import './styles/Top.css';
@@ -22,13 +23,29 @@ import './styles/Input.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    
+    this.bots = [
+    {
+      "name": "truth_bot_setting",
+      "sessionId": uuid.v4(),
+      "projectId": "g191120-truth-bot-hluhsq",
+      "steps": [0, 1, 2, 3, 4, 5]
+    },
+    {
+      "name": "truth_bot_answering",
+      "sessionId": uuid.v4(),
+      "projectId": "c200103-challenge-truth-bot-wc",
+      "steps": [6]
+    }
+    ];
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.step = 0;
 
-    this.state = {...stateMap[0]};
-  }
+    this.state = {  
+	    currentBot: {},
+	    ...stateMap[0]
+      };
+  	};
 
   appendMessage = (text, isUser = false, next = () => {}) => {
     let messages = this.state.messages.slice();
@@ -48,6 +65,8 @@ class App extends Component {
   }
 
   processResponse = (text) => {
+
+    //breaks sentences into different messages
     const messages = text
       .match(/[^.!?]+[.!?]*/g)
       .map(str => str.trim());
@@ -58,23 +77,17 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-  getResponse = (text) => {
-    return this.dialogflow.textRequest(text)
-      .then(data => data.result.fulfillment.speech);
-  }
-
   handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
-    const response = await fetch('/api/botRequest', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ botText: text }),
-    });
-    const botResponse = await response.text();
-    this.processResponse(botResponse);
+
+    const preProcess = await preProcessor(text, this.state.currentBot);
+
+    if(!preProcess){
+        runSample(text, this.state.currentBot)
+        .then( botResponse => { this.processResponse(botResponse); })
+    }
+    else this.processResponse(preProcess);
   }
 
   handleProgression = (e) => {
@@ -82,6 +95,14 @@ class App extends Component {
       ++this.step;
     } else {
       this.step = 0;
+    }
+
+    const bot = this.bots.filter(function (key, val){
+      return key.steps.includes(this.step)}.bind(this))
+
+    //if the bot changes on this step
+    if(bot.length > 0 && this.state.currentBot !== bot[0]){
+      this.setState({currentBot: bot[0]})
     }
     this.setState({...stateMap[this.step]})
   }
@@ -99,7 +120,12 @@ class App extends Component {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
   }
-  
+
+  //sets the initial state of the bot
+  componentWillMount() {
+    this.setState({currentBot: this.bots[0]})
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
