@@ -1,9 +1,5 @@
-/*
- * 
- * MESSAGEBAR
- *
- */
- :root {
+
+:root {
   --primary-color: #00f;
   
   --font-family: 'Inter', sans-serif; 
@@ -36,9 +32,11 @@
   display: flex;
   height: 40px;
 }
+
 input::-webkit-input-placeholder {
   color: var(--input-color) !important;
 }
+
 .text-input {
   border-style: none;
   color: var(--primary-color);
@@ -48,6 +46,7 @@ input::-webkit-input-placeholder {
   padding: 0 10px;
   width: 100%;
 }
+
 /*icons*/
 .btn-send {
   color: var(--icon-color);
@@ -59,6 +58,7 @@ input::-webkit-input-placeholder {
   border-radius: var(--border-radius);
   margin: var(--icon-margin);
 }
+
 .btn-voice {
   color: var(--icon-color);
   border: var(--icon-style);
@@ -69,6 +69,7 @@ input::-webkit-input-placeholder {
   font-size: var(--input-font-size);
   text-align: center;
 }
+
 /*animation*/
 #wave {
   position: relative;
@@ -76,6 +77,7 @@ input::-webkit-input-placeholder {
   margin-left: auto;
   margin-right: auto;
 }
+
 #wave .dot {
   display: inline-block;
   width: 6px;
