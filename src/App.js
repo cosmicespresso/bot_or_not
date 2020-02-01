@@ -95,10 +95,6 @@ class App extends Component {
     this.setState({dialogHeight});
   }
 
-  handleButton = (e) => {
-    console.log('click')
-  }
-
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
@@ -114,7 +110,7 @@ class App extends Component {
         <div className="container">
 
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header click={this.handleButton} title={this.state.headerText} /> 
+          <Header title={this.state.headerText} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}     
           {this.state.main === 'Chat' && 
@@ -135,10 +131,10 @@ class App extends Component {
             <MessageBar onSubmit={this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton buttonText={this.state.singleButtonText} />
+            <SingleButton click={this.handleProgression} buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton button1={this.state.button1Text} button2={this.state.button2Text} />
+            <DoubleButton click={this.handleProgression} button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
         <button className='hack' onClick={this.handleProgression}>next</button>

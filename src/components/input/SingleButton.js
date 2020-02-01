@@ -2,7 +2,7 @@ import React from 'react';
 
 function SingleButton(props) {
 	return(
-		<div className='single-button'>
+		<div onClick={props.click} className='single-button'>
 			<p>{props.buttonText}</p>
 		</div>
 	);

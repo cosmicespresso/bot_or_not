@@ -5,11 +5,11 @@
  * VARIABLES
  *
  */
-:root {
+/*:root {
   --container-width: 100%;
   --border-radius: 3px;
   --border-style: 2px solid #00f;
-}
+}*/
 
 .container * {
   box-sizing: border-box;
