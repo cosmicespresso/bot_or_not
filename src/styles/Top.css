@@ -1,33 +1,19 @@
-/*:root {
-  --font-family: 'Inter', sans-serif; 
-  --font-size: 1.2rem;
-  --font-weight: 600;
-
-  --container-right: 0;
-  --container-width: calc(100%-4px);
-  --component-color: #fff;
-  --component-margin: 10px;
-  
-  --border-radius: 3px;
-  --border-style: 2px solid #00f;
-  --header-color: #00f;
-}*/
 /*
  * 
  * HEADER
  *
  */
 .container header {
-  background: var(--component-color);
-  border: var(--border-style);
-  border-radius: var(--border-radius);
-  margin: var(--component-margin);
+  background: #fff;
+  border:  2px solid #00f;
+  border-radius:3px;
+  margin: 10px;
   height: 40px;
 }
 .container header h1 {
-  color: var(--header-color);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
+  color:#00f;
+  font-family: 'Inter', sans-serif; 
+  font-size: 1.2rem;
   vertical-align: middle;
   text-align: center;
   text-transform: uppercase;
