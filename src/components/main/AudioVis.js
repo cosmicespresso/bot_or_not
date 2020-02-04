@@ -18,17 +18,13 @@ class AudioVis extends Component {
 		this.setState({ record: false });
 	}
 
-	onStop(recordedBlob) {
-		console.log('recordedBlob is: ', recordedBlob);
-	}
-
 	componentDidMount() {
-		console.log('should start');
+		console.log('AudioVis mounted');
 		this.startRecording();
 	}
 
 	componentWillUnmount() {
-		console.log('should stop');
+		console.log('AudioVis unmounted');
 	}
 
 	render(props) {
@@ -42,7 +38,7 @@ class AudioVis extends Component {
 		          strokeColor="#FF2D55"
 		          backgroundColor="#fff"
 		          />
-		          <button onClick={this.stopRecording} type="button">Stop</button>
+		          <button onClick={this.stopRecording}>Stop</button>
 			</div>
 		);
 	}
