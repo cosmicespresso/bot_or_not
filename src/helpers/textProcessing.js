@@ -1,8 +1,8 @@
+import natural from 'natural';
 const truths = require('./lib/truths.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 const blacklist = require('./lib/blacklist.json');
-// const natural = require('natural');
-const natural = 'peanut';
+// const natural = 'peanut';
 
 function toFirstPerson(sent) {
   sent = sent.replace("your", "my");
