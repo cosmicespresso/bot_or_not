@@ -10,7 +10,6 @@
     "actions-on-google": "^2.12.0",
     "dialogflow-fulfillment": "^0.6.1",
     "http-proxy-middleware": "^0.20.0",
-    "natural": "^0.6.3",
     "netlify-lambda": "^1.6.3",
     "ngrok": "^3.2.7",
     "node-fetch": "^2.6.0",

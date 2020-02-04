@@ -1,8 +1,8 @@
+// import { LevenshteinDistance } from 'natural';
 const truths = require('./lib/truths.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 const blacklist = require('./lib/blacklist.json');
-const natural = require('natural');
-
+// const natural = 'peanut';
 
 function toFirstPerson(sent) {
   sent = sent.replace("your", "my");
@@ -96,27 +96,35 @@ export const preProcessor = async (sent, bot) => {
     await createContext('blacklist', 5, bot);
   }
 
-  //is this a truth challenge? NB should replace with button press
-  if(natural.LevenshteinDistance("truth", sent, {search: true}).distance < 1){
+  if(sent === 'truth') {
     const output = await chooseTruth(bot);
     return output;
   }
+  //is this a truth challenge? NB should replace with button press
+  // if(LevenshteinDistance("truth", sent, {search: true}).distance < 1){
+  //   const output = await chooseTruth(bot);
+  //   return output;
+  // }
 
   //parse out obvious would you rathers
-  var subSent;
+  let subSent;
 
-  if(natural.LevenshteinDistance("Would you rather", sent, {search: true}).distance < 3){
-    //remove substring
-    var subSent = sent.replace(natural.LevenshteinDistance("Would you rather", sent, {search: true}).substring, '').trim();
+  if (sent.includes('would you rather')){
+    subSent = sent.replace('would you rather', '').trim();
   }
 
-  else if(natural.LevenshteinDistance("would u rather", sent, {search: true}).distance < 3){
-    var subSent = sent.replace(natural.LevenshteinDistance("would u rather", sent, {search: true}).substring, '').trim();
-  }
+  // if(LevenshteinDistance("Would you rather", sent, {search: true}).distance < 3){
+  //   //remove substring
+  //   var subSent = sent.replace(LevenshteinDistance("Would you rather", sent, {search: true}).substring, '').trim();
+  // }
 
-  else if(natural.LevenshteinDistance("wd u rather", sent, {search: true}).distance < 3){
-    var subSent = sent.replace(natural.LevenshteinDistance("wd u rather", sent, {search: true}).substring, '').trim();
-  }
+  // else if(LevenshteinDistance("would u rather", sent, {search: true}).distance < 3){
+  //   var subSent = sent.replace(LevenshteinDistance("would u rather", sent, {search: true}).substring, '').trim();
+  // }
+
+  // else if(LevenshteinDistance("wd u rather", sent, {search: true}).distance < 3){
+  //   var subSent = sent.replace(LevenshteinDistance("wd u rather", sent, {search: true}).substring, '').trim();
+  // }
 
   if(subSent) {
     var options = subSent.split(' or ');
