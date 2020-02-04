@@ -1,4 +1,4 @@
-import natural from 'natural';
+import { LevenshteinDistance } from 'natural';
 const truths = require('./lib/truths.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 const blacklist = require('./lib/blacklist.json');
@@ -97,7 +97,7 @@ export const preProcessor = async (sent, bot) => {
   }
 
   //is this a truth challenge? NB should replace with button press
-  if(natural.LevenshteinDistance("truth", sent, {search: true}).distance < 1){
+  if(LevenshteinDistance("truth", sent, {search: true}).distance < 1){
     const output = await chooseTruth(bot);
     return output;
   }
@@ -105,17 +105,17 @@ export const preProcessor = async (sent, bot) => {
   //parse out obvious would you rathers
   var subSent;
 
-  if(natural.LevenshteinDistance("Would you rather", sent, {search: true}).distance < 3){
+  if(LevenshteinDistance("Would you rather", sent, {search: true}).distance < 3){
     //remove substring
-    var subSent = sent.replace(natural.LevenshteinDistance("Would you rather", sent, {search: true}).substring, '').trim();
+    var subSent = sent.replace(LevenshteinDistance("Would you rather", sent, {search: true}).substring, '').trim();
   }
 
-  else if(natural.LevenshteinDistance("would u rather", sent, {search: true}).distance < 3){
-    var subSent = sent.replace(natural.LevenshteinDistance("would u rather", sent, {search: true}).substring, '').trim();
+  else if(LevenshteinDistance("would u rather", sent, {search: true}).distance < 3){
+    var subSent = sent.replace(LevenshteinDistance("would u rather", sent, {search: true}).substring, '').trim();
   }
 
-  else if(natural.LevenshteinDistance("wd u rather", sent, {search: true}).distance < 3){
-    var subSent = sent.replace(natural.LevenshteinDistance("wd u rather", sent, {search: true}).substring, '').trim();
+  else if(LevenshteinDistance("wd u rather", sent, {search: true}).distance < 3){
+    var subSent = sent.replace(LevenshteinDistance("wd u rather", sent, {search: true}).substring, '').trim();
   }
 
   if(subSent) {
