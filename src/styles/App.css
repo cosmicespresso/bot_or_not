@@ -1,16 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
 
-/*
- * 
- * VARIABLES
- *
- */
-:root {
-  --container-width: 100%;
-  --border-radius: 3px;
-  --border-style: 2px solid #00f;
-}
-
 .container * {
   box-sizing: border-box;
 }
@@ -22,28 +11,12 @@
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
-  width: var(--container-width);
-  border: var(--border-style);
-  border-radius: var(--border-radius);
+  width: 100%;
+  border: 2px solid #00f;
+  border-radius: 3px;
   max-width: 450px;
   background: #fff;
 }
-
-button.hack {
-  color: #fff;
-  font-size: var(--button-size);
-  font-weight: var(--button-weight);
-  text-transform: uppercase;
-  padding: 3px;
-  line-height: 35px;
-  font-style: italic;
-  display: block;
-  position: absolute;
-  top: 0;
-  background: var(--button-color);
-  border: none;
-}
-
 
 @media screen and (min-width: 700px) {
   .container {

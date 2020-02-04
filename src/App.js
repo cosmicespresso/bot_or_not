@@ -23,28 +23,25 @@ import './styles/Input.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.bots = [
-    {
+    this.bots = [{
       "name": "truth_bot_setting",
       "sessionId": uuid.v4(),
       "projectId": "g191120-truth-bot-hluhsq",
       "steps": [0, 1, 2, 3, 4, 5]
-    },
-    {
+    },{
       "name": "truth_bot_answering",
       "sessionId": uuid.v4(),
       "projectId": "c200103-challenge-truth-bot-wc",
       "steps": [6]
-    }
-    ];
+    }];
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.step = 0;
 
-    this.state = {  
-	    currentBot: {},
-	    ...stateMap[0]
-      };
+    this.state = {currentBot: this.bots[0], ...stateMap[0]};
+
+    //create ref for AudioVis component
+    this.audioVis = React.createRef();
   	};
 
   appendMessage = (text, isUser = false, next = () => {}) => {
@@ -104,6 +101,13 @@ class App extends Component {
     if(bot.length > 0 && this.state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
+
+    //stop recording in AudioVis component
+    if (this.state.main === 'AudioVis') { 
+      this.audioVis.current.stopRecording();
+    };
+
+    // update state 
     this.setState({...stateMap[this.step]})
   }
 
@@ -119,11 +123,6 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
-  }
-
-  //sets the initial state of the bot
-  componentWillMount() {
-    this.setState({currentBot: this.bots[0]})
   }
 
   componentWillUnmount() {
@@ -149,7 +148,7 @@ class App extends Component {
             <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'AudioVis'  && 
-            <AudioVis dialogHeight={this.state.dialogHeight}/>
+            <AudioVis ref={this.audioVis} dialogHeight={this.state.dialogHeight}/>
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     
@@ -163,7 +162,6 @@ class App extends Component {
             <DoubleButton click={this.handleProgression} button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
-        <button className='hack' onClick={this.handleProgression}>next</button>
       </div>
     );
   }
