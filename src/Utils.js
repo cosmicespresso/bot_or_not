@@ -7,3 +7,17 @@ export const getBotDelay = (msg, isQuick = false) => {
   let speed = isQuick ? BOT_SPEED * 2 : BOT_SPEED;
   return msg.length > BOT_MAX_CHARS ? delay : Math.floor(msg.length / speed);
 }
+
+
+export const convertTime = (startTime, endTime) => {
+	// time difference in ms
+	var timeDiff = endTime - startTime;
+
+	// strip the ms
+	timeDiff /= 1000;
+
+	// get seconds 
+	var secondsElapsed = Math.round(timeDiff % 60); 
+	var secondsRemaining = 30 - secondsElapsed;
+	return secondsRemaining;
+}

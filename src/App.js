@@ -11,7 +11,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay} from './Utils';
+import {getBotDelay, convertTime} from './Utils';
 
 import uuid from 'uuid';
 
@@ -27,8 +27,7 @@ class App extends Component {
       "name": "truth_bot_setting",
       "sessionId": uuid.v4(),
       "projectId": "g191120-truth-bot-hluhsq",
-      "steps": [0, 1, 2, 3, 4, 5]
-    },{
+      "steps": [0, 1, 2, 3, 4, 5] },{
       "name": "truth_bot_answering",
       "sessionId": uuid.v4(),
       "projectId": "c200103-challenge-truth-bot-wc",
@@ -38,7 +37,7 @@ class App extends Component {
     this.isProcessingQueue = false;
     this.step = 0;
 
-    this.state = {currentBot: this.bots[0], ...stateMap[0]};
+    this.state = { time: new Date(), currentBot: this.bots[0], ...stateMap[0]};
 
     //create ref for AudioVis component
     this.audioVis = React.createRef();
@@ -87,27 +86,34 @@ class App extends Component {
     else this.processResponse(preProcess);
   }
 
-  handleProgression = (e) => {
+  updateStateMap = () => {
     if (this.step < stateMap.length-1) {
       ++this.step;
     } else {
       this.step = 0;
     }
+  }
 
+  handleProgression = () => {
+
+    // which bot are we on
     const bot = this.bots.filter(function (key, val){
       return key.steps.includes(this.step)}.bind(this))
 
-    //if the bot changes on this step
+    // update bot, if it changes on this step
     if(bot.length > 0 && this.state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
 
-    //stop recording in AudioVis component
+    // if AudioVis: stop recording in AudioVis component
     if (this.state.main === 'AudioVis') { 
       this.audioVis.current.stopRecording();
     };
 
-    // update state 
+    // get new state map
+    this.updateStateMap();
+
+    // update state
     this.setState({...stateMap[this.step]})
   }
 
@@ -120,22 +126,29 @@ class App extends Component {
     this.setState({dialogHeight});
   }
 
+  tick() {
+    this.setState( prevState => ({
+      time: convertTime(prevState.time, new Date())
+    }));
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
+    this.chatTimeOut = setInterval(() => this.tick(),1000);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
+    clearTimeout(this.chatTimeOut);
   }
 
   render() {
     return (
       <div className="App">
         <div className="container">
-
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={this.state.headerText} /> 
+          <Header title={ this.state.main === 'Chat' ? `00:${this.state.time.toString()}` : this.state.headerText} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}     
           {this.state.main === 'Chat' && 

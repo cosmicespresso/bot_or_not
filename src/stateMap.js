@@ -25,12 +25,12 @@ export const stateMap = [
   },{
     messages: [],
     isBotTyping: false,
-    headerText: 'Screen',
+    headerText: 'womp womp',
     main: 'Narrator',
     fieldTop: 'Time is up!',
-    fieldBottom: 'Fear not and please play again:',
+    fieldBottom: 'There are for sure more bugs you can discover, how about another round?',
     input: 'SingleButton',
-    singleButtonText: 'Play again',
+    singleButtonText: 'Play',
     button1Text: '',
     button2Text: '',
   }
