@@ -38,7 +38,7 @@ class App extends Component {
     this.isProcessingQueue = false;
     this.step = 0;
 
-    this.state = {currentBot: {}, ...stateMap[0]};
+    this.state = {currentBot: this.bots[0], ...stateMap[0]};
 
     //create ref for AudioVis component
     this.audioVis = React.createRef();
@@ -104,14 +104,12 @@ class App extends Component {
 
     //stop recording in AudioVis component
     if (this.state.main === 'AudioVis') { 
-      this.audioVis.current.state.record = false; 
       this.audioVis.current.stopRecording();
     };
 
     // update state 
     this.setState({...stateMap[this.step]})
   }
-
 
   handleResize = (e) => {
     const window = e.target || e;
@@ -120,11 +118,6 @@ class App extends Component {
     const input = document.querySelector('.container .text-form') || document.querySelector('.container .single-button') || document.querySelector('.container .double-button')  ;
     let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
     this.setState({dialogHeight});
-  }
-
-  //sets the initial state of the bot
-  componentWillMount() {
-    this.setState({currentBot: this.bots[0]})
   }
 
   componentDidMount() {

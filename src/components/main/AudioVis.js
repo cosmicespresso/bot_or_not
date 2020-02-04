@@ -15,6 +15,7 @@ class AudioVis extends Component {
 	}	
 
 	stopRecording = () => {
+		console.log('App.js called me');
 		this.setState({ record: false });
 	}
 
