@@ -8,16 +8,34 @@ export const getBotDelay = (msg, isQuick = false) => {
   return msg.length > BOT_MAX_CHARS ? delay : Math.floor(msg.length / speed);
 }
 
+// Feature detect passive event listeners
+// See https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md why this is a good idea
 
-export const convertTime = (startTime, endTime) => {
-	// time difference in ms
-	var timeDiff = endTime - startTime;
+let supportsPassiveOption = false;
+if (typeof window !== 'undefined') {
+  try {
+    const opts = Object.defineProperty({}, 'passive', {
+      get: function passive() {
+        supportsPassiveOption = true;
+      }
+    });
+    window.addEventListener('test', null, opts);
+  } catch (e) {} // eslint-disable-line no-empty
+}
 
-	// strip the ms
-	timeDiff /= 1000;
+// Get the passive event option based on its availability; otherwise just mark the event as not cancelable (which improves performance but not as reliably as {passive: true})
+// NEVER CALL preventDefault() IN A PASSIVE EVENT HANDLER
+export const passiveEvent = () => {
+  return supportsPassiveOption
+    ? {passive: true}
+    : false;
+};
 
-	// get seconds 
-	var secondsElapsed = Math.round(timeDiff % 60); 
-	var secondsRemaining = 30 - secondsElapsed;
-	return secondsRemaining;
+export const findNextState = (ID, stateMap) => {
+  for (let i = stateMap.length - 1; i >= 0; i--) {
+    if (ID >= stateMap[i].ID) {
+      return stateMap[i];
+    }
+  }
+  return stateMap[0];
 }
