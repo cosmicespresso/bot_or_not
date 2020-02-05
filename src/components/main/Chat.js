@@ -25,7 +25,6 @@ class Chat extends Component {
 			}
 			group.messages.push(msg.text);
 		}
-
 		// bot is typing
 		if (this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
@@ -35,7 +34,6 @@ class Chat extends Component {
 				groups[endIndex].messages.push(null);
 			}
 		}
-
 		return (
 			<div className="messages-wrapper" style={{height: `${this.props.dialogHeight}px`}}>
 				<div className="messages">

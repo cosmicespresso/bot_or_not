@@ -1,6 +1,7 @@
 
 export const stateMap = [
   {
+    ID: 1, 
     messages: [],
     isBotTyping: false,
     headerText: '[player name]',
@@ -12,6 +13,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
+    ID: 2, 
     messages: [],
     isBotTyping: false,
     headerText: '[timer]',
@@ -23,6 +25,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
+    ID: 3, 
     messages: [],
     isBotTyping: false,
     headerText: 'womp womp',
