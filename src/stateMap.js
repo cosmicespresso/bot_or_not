@@ -2,8 +2,7 @@
 export const stateMap = [
   {
     ID: 1, 
-    messages: [],
-    isBotTyping: false,
+    timeLimit: 1000,
     headerText: '[player name]',
     main: 'Narrator',
     fieldTop: 'Ready to user test?',
@@ -14,8 +13,7 @@ export const stateMap = [
     button2Text: '',
   },{
     ID: 2, 
-    messages: [],
-    isBotTyping: false,
+    timeLimit: 3,
     headerText: '[timer]',
     main: 'Chat',
     fieldTop: '',
@@ -26,8 +24,7 @@ export const stateMap = [
     button2Text: '',
   },{
     ID: 3, 
-    messages: [],
-    isBotTyping: false,
+    timeLimit: 1000,
     headerText: 'womp womp',
     main: 'Narrator',
     fieldTop: 'Time is up!',

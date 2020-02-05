@@ -11,7 +11,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay, passiveEvent, findNextState} from './Utils';
+import {getBotDelay, findNextState, getSeconds} from './Utils';
 
 import uuid from 'uuid';
 
@@ -21,6 +21,7 @@ import './styles/Main.css';
 import './styles/Input.css';
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
     this.bots = [{
@@ -38,12 +39,13 @@ class App extends Component {
     this.ID = 1;
 
     this.state = { 
-      timerOn: false,
-      timerStart: 0,
       timerTime: 0,
+      timerStart: 0,
+      messages: [],
+      isBotTyping: false,
       currentBot: this.bots[0], 
-      ...stateMap[0]};
   	};
+  }
 
   appendMessage = (text, isUser = false, next = () => {}) => {
     let messages = this.state.messages.slice();
@@ -97,63 +99,54 @@ class App extends Component {
     this.setState({dialogHeight});
   }
 
-  // startTimer = () => {
-  //   this.setState({
-  //     timerOn: true,
-  //     timerTime: this.state.timerTime,
-  //     timerStart: Date.now() - this.state.timerTime
-  //   });
-  //   this.timer = setInterval(() => {
-  //     this.setState({
-  //       timerTime: Date.now() - this.state.timerStart
-  //     });
-  //   }, 10);
-  // };
+  startTimer = () => {
+    console.log('started timer')
+    this.setState({
+      timerTime: this.state.timerTime,
+      timerStart: Date.now() - this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      this.setState({
+        timerTime: Date.now() - this.state.timerStart
+      });
+    }, 10);
+  };
 
-  // stopTimer = () => {
-  //   this.setState({ timerOn: false });
-  //   clearInterval(this.timer);
-  // };
-
-  // resetTimer = () => {
-  //   this.setState({
-  //     timerStart: 0,
-  //     timerTime: 0
-  //   });
-  // };
-
-  configureTimer = (props, state) => {
-    state.main === 'Chat' ? console.log('should keep time') : console.log('no time needed')
-  }
+  saveTimeStamp = (time) => {
+    this.setState({
+      timerStart: time
+    });
+    console.log('seconds elapsed from previous event', getSeconds(this.state.timerTime));
+  };
 
   componentWillMount() {
-    this.configureTimer(this.props, this.state);
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    this.configureTimer(nextProps, nextState);
+    // initialize app 
+    this.setState({ ...findNextState(this.ID, stateMap) })
+    
+    // start countdown
+    this.startTimer();
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize, passiveEvent());
+    window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, passiveEvent());
+    window.removeEventListener('resize', this.handleResize);
+    clearInterval(this.timer);
   }
 
-  handleButtonClick = (e) => {
-    e.preventDefault();
+  handleClick = () => {
+    this.saveTimeStamp(Date.now());
+
     if (this.ID < stateMap.length) {
       ++this.ID;
-    } else {
-      this.ID = 1;
-    }
-    this.handleProgression(this.props, this.state);
+      this.advanceState(this.props, this.state);
+    } 
   }
 
-  handleProgression =  (props, state) => {
+  advanceState =  (props, state) => {
     // which bot are we on
     const bot = this.bots.filter(function (key, val){
       return key.steps.includes(this.step)}.bind(this))
@@ -163,23 +156,19 @@ class App extends Component {
       this.setState({currentBot: bot[0]})
     }
 
-    // retrieve next state from StateMap
-    let nextState = findNextState(this.ID, stateMap) 
-
-    // update state
-    this.setState({ ...nextState})
+    // retrieve next state from StateMap and update state
+    this.setState({ ...findNextState(this.ID, stateMap) })
   }
 
   render() {
-    let seconds = ("0" + (Math.floor(this.state.timerTime / 1000) % 60)).slice(-2);
     return (
       <div className="App">
         <div className="container">
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={ this.state.main === 'Chat' ? `00:${seconds}` : this.state.headerText} /> 
+          <Header title={ this.state.main === 'Chat' ? `00:${getSeconds(this.state.timerTime)}` : this.state.headerText} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}     
-          {this.state.main === 'Chat' &&  
+          {this.state.main === 'Chat' &&
             <Chat 
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
@@ -193,14 +182,14 @@ class App extends Component {
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     
-          {this.state.input === 'MessageBar' &&
-            <MessageBar onSubmit={this.handleSubmitText}/>
+          {this.state.input === 'MessageBar' && 
+            <MessageBar onSubmit={ this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton click={this.handleButtonClick} buttonText={this.state.singleButtonText} />
+            <SingleButton click={this.handleClick} buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton click={this.handleButtonClick} button1={this.state.button1Text} button2={this.state.button2Text} />
+            <DoubleButton click={this.handleClick} button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
       </div>
