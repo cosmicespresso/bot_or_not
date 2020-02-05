@@ -60,12 +60,18 @@ class App extends Component {
     }
   }
 
-  processResponse = (text) => {
+  processResponse = async (text) => {
 
-    //breaks sentences into different messages
-    const messages = text
-      .match(/[^.!?]+[.!?]*/g)
-      .map(str => str.trim());
+    let messages;
+    //check if message pure punctuation, let it pass if so
+    if(text.match(/[a-zA-Z\s]/g)){
+      //breaks sentences into different messages
+      messages = text
+        .match(/[^.!?]+[.!?]*/g)
+        .map(str => str.trim());
+    }
+    else messages = text;
+
     this.botQueue = this.botQueue.concat(messages);
 
     // start processing bot queue
@@ -81,7 +87,9 @@ class App extends Component {
 
     if(!preProcess){
         runSample(text, this.state.currentBot)
-        .then( botResponse => { this.processResponse(botResponse); })
+        .then( 
+          botResponse => { 
+            this.processResponse(botResponse); })
     }
     else this.processResponse(preProcess);
   }
