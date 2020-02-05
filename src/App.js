@@ -60,17 +60,20 @@ class App extends Component {
     }
   }
 
-  processResponse = async (text) => {
+  processResponse = (text) => {
 
     let messages;
     //check if message pure punctuation, let it pass if so
-    if(text.match(/[a-zA-Z\s]/g)){
+    if(text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
       messages = text
         .match(/[^.!?]+[.!?]*/g)
         .map(str => str.trim());
     }
     else messages = text;
+
+    //error handling
+    if(!messages) messages = "huh??";
 
     this.botQueue = this.botQueue.concat(messages);
 
