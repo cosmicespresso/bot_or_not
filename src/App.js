@@ -161,13 +161,14 @@ class App extends Component {
     }
 
     // check if Chat has timed out 
-    if (this.state.main === 'Chat' && getSeconds(this.state.timerTime) > this.state.timeLimit) {
-      console.log('Chat timeout!')
+    if (this.state.main === 'Chat' && getSeconds(this.state.timerTime) >= this.state.timeLimit) {
+      this.recordEventTimestamp(Date.now());
       this.shouldUpdate = true;
     }
 
     // ------------------- advancing and updating state happens here -------------------
     if (this.shouldUpdate) { 
+      console.log('update')
       this.shouldUpdate = false;
       
       // get next state
