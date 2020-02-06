@@ -4,7 +4,7 @@ function Header(props) {
 
 	return(
 		<header>
-			{props.title}
+			<span className='text'>{props.title}</span>
 		</header>
 	);
 }

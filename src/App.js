@@ -38,6 +38,8 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
+    this.maxWindowHeight = 700;
+    this.maxAppHeight = 680;
 
     this.state = { 
       timerTime: 0,
@@ -69,7 +71,7 @@ class App extends Component {
 
     let messages;
     //check if message pure punctuation, let it pass if so
-    if(text.match(/[a-zA-Z]/g)){
+    if (text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
       messages = text
         .match(/[^.!?]+[.!?]*/g)
@@ -77,8 +79,11 @@ class App extends Component {
     }
     else messages = text;
 
-    //error handling
-    if(!messages) messages = "huh??";
+    // error handling
+    if (!messages) {
+      messages = 'huh??';
+      console.log('error handling messages:', messages)
+    }
 
     this.botQueue = this.botQueue.concat(messages);
 
@@ -104,9 +109,17 @@ class App extends Component {
 
   handleResize = (e) => {
     const window = e.target || e;
-    const y = window.innerHeight > 700 ? 680 : window.innerHeight; 
+    
+    const y = window.innerHeight > this.maxWindowHeight 
+              ? this.maxAppHeight 
+              : window.innerHeight; 
+    
     const header = document.querySelector('.container header');
-    const input = document.querySelector('.container .text-form') || document.querySelector('.container .single-button') || document.querySelector('.container .double-button')  ;
+    
+    const input = document.querySelector('.container .text-form') 
+                || document.querySelector('.container .single-button') 
+                || document.querySelector('.container .double-button');
+    
     let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
     this.setState({dialogHeight});
   }
@@ -161,35 +174,50 @@ class App extends Component {
     }
 
     // check if Chat has timed out 
-    if (this.state.main === 'Chat' && getSeconds(this.state.timerTime) >= this.state.timeLimit) {
-      this.recordEventTimestamp(Date.now());
-      this.shouldUpdate = true;
-    }
+    if (this.state.main === 'Chat' && 
+        getSeconds(this.state.timerTime) >= this.state.timeLimit) 
+      {
+        this.recordEventTimestamp(Date.now());
+        this.shouldUpdate = true;
+      }
 
-    // ------------------- advancing and updating state happens here -------------------
+    // ------------------- advancing and updating state happens here 
     if (this.shouldUpdate) { 
       console.log('update')
       this.shouldUpdate = false;
       
       // get next state
       let nextStep =  advanceStep(this.state.step, stateMap);
+      
       // update state
       this.setState({...getStateAtStep(nextStep, stateMap)})
     }
   }
 
   render() {
-    let timer = getSeconds(this.state.timerTime) < 10 ? `0${getSeconds(this.state.timerTime)}` : getSeconds(this.state.timerTime);
-    let AppClass = this.state.step === 3 ? 'App-Gameover' : 'App'
+    
+    let timer = getSeconds(this.state.timerTime) < 10 
+              ? `0${getSeconds(this.state.timerTime)}` 
+              : getSeconds(this.state.timerTime);
+    
+    let AppStyle = this.state.step === 3 ? 'App-Gameover' : 'App'
+    
     return (
-      <div className={AppClass}>
+      <div className={AppStyle}>
         <div className="container">
+          
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={ this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } /> 
+          
+          <Header 
+          title={ this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
+          
           {this.state.main === 'Narrator'  && 
-            <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
+            <Narrator 
+            dialogHeight={this.state.dialogHeight} 
+            headline={this.state.fieldTop} 
+            text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
             <Chat 
@@ -198,23 +226,29 @@ class App extends Component {
             dialogHeight={this.state.dialogHeight} />
           }           
           {this.state.main === 'AudioVis'  && 
-            <AudioVis ref={this.audioVis} dialogHeight={this.state.dialogHeight}/>
+            <AudioVis ref={this.audioVis} 
+            dialogHeight={this.state.dialogHeight}/>
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     
+          
           {this.state.input === 'MessageBar' && 
             <MessageBar onSubmit={ this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton click={this.handleClick} buttonText={this.state.singleButtonText} />
+            <SingleButton click={this.handleClick} 
+            buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton click={this.handleClick} button1={this.state.button1Text} button2={this.state.button2Text} />
+            <DoubleButton click={this.handleClick} 
+            button1={this.state.button1Text} 
+            button2={this.state.button2Text} />
           }
         </div>
-        { window.innerHeight > 700  && 
+        { window.innerHeight > `${this.maxWindowHeight}` && 
           <div className="info"> 
-            a <a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank">FOREIGN OBJECTS</a> early prototype 
+            a <a href="https://www.foreignobjects.net/"rel="noopener noreferrer" target="_blank">
+            FOREIGN OBJECTS</a> early prototype 
           </div>
         }
       </div>
