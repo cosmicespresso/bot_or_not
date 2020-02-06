@@ -12,5 +12,3 @@ export const getSeconds = (time) => {
   var seconds = (Math.floor(time / 1000) % 60);
   return seconds;
 }
-
-

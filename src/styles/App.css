@@ -3,7 +3,7 @@
 @import url('https://rsms.me/inter/inter.css');
 
 
-.App {
+.App, .App-Gameover  {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12,6 +12,9 @@
           align-items: center;
   height: 100vh;
   background: #fff;
+}
+.App-Gameover {
+  background: #000;
 }
 .container * {
   -webkit-box-sizing: border-box;

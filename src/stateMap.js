@@ -14,7 +14,7 @@ export const stateMap = [
   },{
     step: 2, 
     messages: [],
-    timeLimit: 10,
+    timeLimit: 30,
     headerText: '',
     main: 'Chat',
     fieldTop: '',
@@ -29,7 +29,7 @@ export const stateMap = [
     timeLimit: 1000,
     headerText: 'Womp womp',
     main: 'Narrator',
-    fieldTop: 'Time is up!',
+    fieldTop: 'Nooooooo time is up!',
     fieldBottom: 'There are for sure more bugs you can discover, how about another round?',
     input: 'SingleButton',
     singleButtonText: 'OOOOOOOOK.....',

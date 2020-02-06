@@ -180,8 +180,9 @@ class App extends Component {
 
   render() {
     let timer = getSeconds(this.state.timerTime) < 10 ? `0${getSeconds(this.state.timerTime)}` : getSeconds(this.state.timerTime);
+    let AppClass = this.state.step === 3 ? 'App-Gameover' : 'App'
     return (
-      <div className="App">
+      <div className={AppClass}>
         <div className="container">
           {/*-----------------------------TOP-----------------------------*/}     
           <Header title={ this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } /> 
