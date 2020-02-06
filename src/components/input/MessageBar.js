@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {EntypoPaperPlane, EntypoMic} from 'react-entypo';
+import {EntypoMic} from 'react-entypo';
 import Audio from './Audio';
 
 class MessageBar extends Component {
@@ -57,9 +57,6 @@ class MessageBar extends Component {
 								 required />
 					<button className="btn-voice" type="button" value="Voice" onClick={this.handleListen}>
 						<EntypoMic/>
-					</button>
-					<button className="btn-send" type="button" value="Send">
-						<EntypoPaperPlane/>
 					</button>
 				</form>
 	      	</div>

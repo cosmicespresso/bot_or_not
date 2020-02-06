@@ -202,6 +202,7 @@ class App extends Component {
     
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat' ? '#FF2D55' : '#00f';
+    const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
     
     return (
       <div className={AppStyle}>
@@ -248,7 +249,7 @@ class App extends Component {
           }
         </div>
         { window.innerHeight > `${this.maxWindowHeight}` && 
-          <div className="info"> 
+          <div className="info" style={{color: infoColor}} > 
             a <a href="https://www.foreignobjects.net/"rel="noopener noreferrer" target="_blank">
             FOREIGN OBJECTS</a> early prototype 
           </div>

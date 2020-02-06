@@ -34,6 +34,7 @@
 }
 
 .info {
+  font-family: 'Inter', sans-serif; 
   position: absolute;
   bottom: 1vh;
   left: 1vw;
@@ -42,6 +43,15 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #00f;
   font-size: 9px;
+  font-weight: 600;
+}
+
+.info > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.info > a:hover {
+  text-decoration: underline;
 }
