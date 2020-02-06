@@ -1,6 +1,7 @@
 export const stateMap = [
   {
     step: 1, 
+    messages: [],
     timeLimit: 1000,
     headerText: 'Welcome screen',
     main: 'Narrator',
@@ -12,17 +13,19 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 2, 
-    timeLimit: 3,
+    messages: [],
+    timeLimit: 10,
     headerText: '',
     main: 'Chat',
     fieldTop: '',
     fieldBottom: '',
-    input: 'SingleButton',
+    input: 'MessageBar',
     singleButtonText: '',
     button1Text: '',
     button2Text: '',
   },{
     step: 3, 
+    messages: [],
     timeLimit: 1000,
     headerText: 'Womp womp',
     main: 'Narrator',
