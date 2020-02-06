@@ -11,7 +11,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay, getStateAtStep, getSeconds, advanceState} from './Utils';
+import {getBotDelay, getStateAtStep, getSeconds, advanceStep} from './Utils';
 
 import uuid from 'uuid';
 
@@ -36,7 +36,6 @@ class App extends Component {
     }];
     this.botQueue = [];
     this.isProcessingQueue = false;
-    this.step = 1;
     this.shouldUpdate = false;
 
     this.state = { 
@@ -44,8 +43,8 @@ class App extends Component {
       timerStart: 0,
       messages: [],
       isBotTyping: false,
-      currentBot: this.bots[0], 
-      ...stateMap[0]
+      currentBot: this.bots[0],
+      ...getStateAtStep(0, stateMap)
   	};
   }
 
@@ -143,20 +142,22 @@ class App extends Component {
   configureState = (props, state) => {
     // which bot are we on
     const bot = this.bots.filter(function (key, val){
-      return key.steps.includes(this.step)}.bind(this))
+      return key.steps.includes(this.state.step)}.bind(this))
 
     // update bot, if it changes on this step
     if (bot.length > 0 && state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
 
-    let [nextStep, _shouldUpdate] =  advanceState(this.step, stateMap, this.shouldUpdate);
-    this.shouldUpdate = _shouldUpdate;
-
-    // update state
     if (this.shouldUpdate) { 
-      console.log('updating state to next step', nextStep)
-      this.setState({...stateMap[nextStep]})
+      console.log('current step', this.state.step)
+      // get next state
+      let nextStep =  advanceStep(this.state.step, stateMap);
+      
+      console.log('next step', nextStep)
+      // update state
+      this.setState({...getStateAtStep(nextStep, stateMap)})
+
       this.shouldUpdate = false;
     }
   }

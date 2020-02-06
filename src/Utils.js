@@ -9,12 +9,12 @@ export const getBotDelay = (msg, isQuick = false) => {
 }
 
 export const getStateAtStep = (step, stateMap) => {
-  for (let i = stateMap.length - 1; i >= 0; i--) {
-    if (step >= stateMap[i].step) {
-      return stateMap[i];
+  for (var i = 0; i < stateMap.length; i++) {
+    if (stateMap[i].step === step ) {
+      return stateMap[i]
     }
   }
-  return stateMap[0];
+  return stateMap[0]
 }
 
 export const getSeconds = (time) => {
@@ -22,27 +22,17 @@ export const getSeconds = (time) => {
 	return seconds;
 }
 
-export const advanceState = (step, stateMap, shouldUpdate) => {
-  // if the button was clicked 
+export const advanceStep = (step, stateMap) => {
+ 
   let nextStep;
-  let currentState = getStateAtStep(step, stateMap);
-  switch (currentState.main) {
-    case "Narrator":
-      if (shouldUpdate && step < stateMap.length) {
-        nextStep = ++step;
-      } 
-      else if (shouldUpdate && step >= stateMap.length) {
-        nextStep = 2 // Hack for now since we want to go through same flow multiple times
-      }
-      break;    
-    case "Chat":
-      nextStep = step;
-      break;
-    default:
-      throw new Error("Impossible state");
+  if (step < stateMap.length) {
+    nextStep = ++step;
+  } 
+  else {
+    nextStep = 2 // Hack for now since we want to go through same flow multiple times
   }
 
-  return [nextStep, shouldUpdate];
+  return nextStep;
 }
 
 
