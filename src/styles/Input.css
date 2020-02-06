@@ -3,7 +3,6 @@
  * MESSAGE BAR
  *
  */
-
 .text-form {
   border: 2px solid #00f;
   border-radius: 3px;
@@ -48,6 +47,11 @@ input::-webkit-input-placeholder {
   display: flex;
   font-size: 1.2rem;
   text-align: center;
+}
+
+.btn-send:hover, .btn-voice:hover {
+  cursor: pointer;
+  filter: grayscale(1);
 }
 
 /*animation*/
@@ -114,9 +118,13 @@ input::-webkit-input-placeholder {
   justify-content: space-between;
   height: 40px;
 }
-
 .double-button > .single-button {
   margin: 0;
   padding: 0;
   width: 42vw;
+}
+
+.single-button:hover, .double-button:hover {
+  cursor: pointer;
+  filter: grayscale(1);
 }

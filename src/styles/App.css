@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   height: 100vh;
+  background: #fff;
 }
 .container * {
   box-sizing: border-box;
@@ -20,3 +21,4 @@
   max-width: 414px;
   background: #fff;
 }
+

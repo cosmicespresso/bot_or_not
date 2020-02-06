@@ -1,5 +1,4 @@
 const truths = require('./lib/truths.json');
-const wyrResponse = require('./lib/wyrResponse.json');
 const blacklist = require('./lib/blacklist.json');
 
 export const runSample = async (sample, bot) => {
@@ -65,7 +64,6 @@ async function chooseTruth(bot) {
 
 
 export const preProcessor = async (sent, bot) => {
-  let sendToDF = true;
   let sentArr = sent.split(" ");
 
   //check against words blacklist
