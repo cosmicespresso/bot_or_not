@@ -28,4 +28,4 @@ yarn-error.log*
 keys*
 src/keys*
 
-package-lock.json
+*package-lock.json*
