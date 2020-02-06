@@ -11,7 +11,8 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay, getStateAtStep, getSeconds, advanceStep} from './Utils';
+import {getBotDelay, getSeconds} from './Utils';
+import {getStateAtStep, advanceStep} from './StateHelpers';
 
 import uuid from 'uuid';
 
@@ -103,7 +104,7 @@ class App extends Component {
 
   handleResize = (e) => {
     const window = e.target || e;
-    const y = window.innerHeight;
+    const y = window.innerHeight > 700 ? 680 : window.innerHeight;
     const header = document.querySelector('.container header');
     const input = document.querySelector('.container .text-form') || document.querySelector('.container .single-button') || document.querySelector('.container .double-button')  ;
     let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/

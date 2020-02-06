@@ -1,25 +1,22 @@
 @import url('https://rsms.me/inter/inter.css');
 
+
+.App {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
 .container * {
   box-sizing: border-box;
 }
 
 .container {
-  top: 0;
-  bottom: 0;
-  display: block;
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   width: 100%;
   border: 2px solid #00f;
   border-radius: 3px;
-  max-width: 450px;
+  max-width: 414px;
   background: #fff;
-}
-
-@media screen and (min-width: 700px) {
-  .container {
-    /*background: #ff0;*/
-  }
 }
