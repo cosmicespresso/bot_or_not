@@ -200,7 +200,8 @@ class App extends Component {
               ? `0${getSeconds(this.state.timerTime)}` 
               : getSeconds(this.state.timerTime);
     
-    let AppStyle = this.state.step === 3 ? 'App-Gameover' : 'App'
+    const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
+    const HeaderColor= this.state.main === 'Chat' ? '#FF2D55' : '#00f';
     
     return (
       <div className={AppStyle}>
@@ -209,7 +210,8 @@ class App extends Component {
           {/*-----------------------------TOP-----------------------------*/}     
           
           <Header 
-          title={ this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } /> 
+          title={this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } 
+          color={HeaderColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
           
