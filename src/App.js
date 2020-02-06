@@ -149,12 +149,17 @@ class App extends Component {
       this.setState({currentBot: bot[0]})
     }
 
+    // check if Chat or AudioVis have timed out 
+    if (getSeconds(this.state.timerTime) > this.state.timeLimit) {
+      console.log('timeout!!')
+      this.shouldUpdate = true; 
+    }
+
+    // ------------------- advancing and updating state happens here -------------------
     if (this.shouldUpdate) { 
-      console.log('current step', this.state.step)
       // get next state
       let nextStep =  advanceStep(this.state.step, stateMap);
       
-      console.log('next step', nextStep)
       // update state
       this.setState({...getStateAtStep(nextStep, stateMap)})
 
@@ -163,11 +168,12 @@ class App extends Component {
   }
 
   render() {
+    let timer = getSeconds(this.state.timerTime) < 10 ? `0${getSeconds(this.state.timerTime)}` : getSeconds(this.state.timerTime);
     return (
       <div className="App">
         <div className="container">
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={ this.state.main === 'Chat' ? `00:0${getSeconds(this.state.timerTime)}` : this.state.headerText } /> 
+          <Header title={ this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
           {this.state.main === 'Narrator'  && 

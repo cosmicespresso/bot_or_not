@@ -1,7 +1,7 @@
 export const stateMap = [
   {
     step: 1, 
-    timeLimit: 3,
+    timeLimit: 1000,
     headerText: 'Welcome screen',
     main: 'Narrator',
     fieldTop: 'Ready to user test?',
@@ -23,7 +23,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 3, 
-    timeLimit: 3,
+    timeLimit: 1000,
     headerText: 'Womp womp',
     main: 'Narrator',
     fieldTop: 'Time is up!',
