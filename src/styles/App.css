@@ -22,3 +22,14 @@
   background: #fff;
 }
 
+.info {
+  position: absolute;
+  bottom: 1vh;
+  left: 1vw;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #00f;
+  font-size: 9px;
+}

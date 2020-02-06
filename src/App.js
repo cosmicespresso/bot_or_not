@@ -211,6 +211,7 @@ class App extends Component {
             <DoubleButton click={this.handleClick} button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
+        { window.innerHeight > 700  && <div className="info"> a <a href="https://www.foreignobjects.net/" target="_blank">FOREIGN OBJECTS</a> early prototype </div>}
       </div>
     );
   }
