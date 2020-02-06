@@ -11,7 +11,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay, passiveEvent, findNextState} from './Utils';
+import {getBotDelay, getStateAtStep, getSeconds, advanceStep} from './Utils';
 
 import uuid from 'uuid';
 
@@ -21,6 +21,7 @@ import './styles/Main.css';
 import './styles/Input.css';
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
     this.bots = [{
@@ -35,15 +36,16 @@ class App extends Component {
     }];
     this.botQueue = [];
     this.isProcessingQueue = false;
-    this.ID = 1;
+    this.shouldUpdate = false;
 
     this.state = { 
-      timerOn: false,
-      timerStart: 0,
       timerTime: 0,
-      currentBot: this.bots[0], 
-      ...stateMap[0]};
+      timerStart: 0,
+      isBotTyping: false,
+      currentBot: this.bots[0],
+      ...getStateAtStep(0, stateMap)
   	};
+  }
 
   appendMessage = (text, isUser = false, next = () => {}) => {
     let messages = this.state.messages.slice();
@@ -108,110 +110,104 @@ class App extends Component {
     this.setState({dialogHeight});
   }
 
-  // startTimer = () => {
-  //   this.setState({
-  //     timerOn: true,
-  //     timerTime: this.state.timerTime,
-  //     timerStart: Date.now() - this.state.timerTime
-  //   });
-  //   this.timer = setInterval(() => {
-  //     this.setState({
-  //       timerTime: Date.now() - this.state.timerStart
-  //     });
-  //   }, 10);
-  // };
+  startTimer = () => {
+    console.log('started timer')
+    this.setState({
+      timerTime: this.state.timerTime,
+      timerStart: Date.now() - this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      this.setState({
+        timerTime: Date.now() - this.state.timerStart
+      });
+    }, 10);
+  };
 
-  // stopTimer = () => {
-  //   this.setState({ timerOn: false });
-  //   clearInterval(this.timer);
-  // };
-
-  // resetTimer = () => {
-  //   this.setState({
-  //     timerStart: 0,
-  //     timerTime: 0
-  //   });
-  // };
-
-  configureTimer = (props, state) => {
-    state.main === 'Chat' ? console.log('should keep time') : console.log('no time needed')
-  }
-
-  componentWillMount() {
-    this.configureTimer(this.props, this.state);
-  }
+  recordEventTimestamp = (time) => {
+    this.setState({
+      timerStart: time
+    });
+  };
 
   componentWillUpdate(nextProps, nextState) {
-    this.configureTimer(nextProps, nextState);
+    this.configureState(nextProps, nextState);
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize, passiveEvent());
+    window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
+    this.startTimer();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, passiveEvent());
+    window.removeEventListener('resize', this.handleResize);
+    clearInterval(this.timer);
   }
 
-  handleButtonClick = (e) => {
-    e.preventDefault();
-    if (this.ID < stateMap.length) {
-      ++this.ID;
-    } else {
-      this.ID = 1;
-    }
-    this.handleProgression(this.props, this.state);
+  handleClick = () => {
+    this.recordEventTimestamp(Date.now());
+    this.shouldUpdate = true;
   }
 
-  handleProgression =  (props, state) => {
+  configureState = (props, state) => {
     // which bot are we on
     const bot = this.bots.filter(function (key, val){
-      return key.steps.includes(this.step)}.bind(this))
+      return key.steps.includes(this.state.step)}.bind(this))
 
     // update bot, if it changes on this step
-    if(bot.length > 0 && this.state.currentBot !== bot[0]){
+    if (bot.length > 0 && state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
 
-    // retrieve next state from StateMap
-    let nextState = findNextState(this.ID, stateMap) 
+    // check if Chat has timed out 
+    if (this.state.main === 'Chat' && getSeconds(this.state.timerTime) > this.state.timeLimit) {
+      console.log('Chat timeout!')
+      this.shouldUpdate = true;
+    }
 
-    // update state
-    this.setState({ ...nextState})
+    // ------------------- advancing and updating state happens here -------------------
+    if (this.shouldUpdate) { 
+      this.shouldUpdate = false;
+      
+      // get next state
+      let nextStep =  advanceStep(this.state.step, stateMap);
+      
+      // update state
+      this.setState({...getStateAtStep(nextStep, stateMap)})
+    }
   }
 
   render() {
-    let seconds = ("0" + (Math.floor(this.state.timerTime / 1000) % 60)).slice(-2);
+    let timer = getSeconds(this.state.timerTime) < 10 ? `0${getSeconds(this.state.timerTime)}` : getSeconds(this.state.timerTime);
     return (
       <div className="App">
         <div className="container">
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={ this.state.main === 'Chat' ? `00:${seconds}` : this.state.headerText} /> 
+          <Header title={ this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } /> 
 
-          {/*-----------------------------MAIN-----------------------------*/}     
-          {this.state.main === 'Chat' &&  
+          {/*-----------------------------MAIN-----------------------------*/}   
+          {this.state.main === 'Narrator'  && 
+            <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
+          }   
+          {this.state.main === 'Chat' &&
             <Chat 
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
-          }
-          {this.state.main === 'Narrator'  && 
-            <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
-          }            
+          }           
           {this.state.main === 'AudioVis'  && 
             <AudioVis ref={this.audioVis} dialogHeight={this.state.dialogHeight}/>
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     
-          {this.state.input === 'MessageBar' &&
-            <MessageBar onSubmit={this.handleSubmitText}/>
+          {this.state.input === 'MessageBar' && 
+            <MessageBar onSubmit={ this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton click={this.handleButtonClick} buttonText={this.state.singleButtonText} />
+            <SingleButton click={this.handleClick} buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton click={this.handleButtonClick} button1={this.state.button1Text} button2={this.state.button2Text} />
+            <DoubleButton click={this.handleClick} button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
       </div>

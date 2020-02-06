@@ -1,10 +1,9 @@
-
 export const stateMap = [
   {
-    ID: 1, 
+    step: 1, 
     messages: [],
-    isBotTyping: false,
-    headerText: '[player name]',
+    timeLimit: 1000,
+    headerText: 'Welcome screen',
     main: 'Narrator',
     fieldTop: 'Ready to user test?',
     fieldBottom: 'We love you and thank you for your help <3 ',
@@ -13,10 +12,10 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    ID: 2, 
+    step: 2, 
     messages: [],
-    isBotTyping: false,
-    headerText: '[timer]',
+    timeLimit: 10,
+    headerText: '',
     main: 'Chat',
     fieldTop: '',
     fieldBottom: '',
@@ -25,10 +24,10 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    ID: 3, 
+    step: 3, 
     messages: [],
-    isBotTyping: false,
-    headerText: 'womp womp',
+    timeLimit: 1000,
+    headerText: 'Womp womp',
     main: 'Narrator',
     fieldTop: 'Time is up!',
     fieldBottom: 'There are for sure more bugs you can discover, how about another round?',
