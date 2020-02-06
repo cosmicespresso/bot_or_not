@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import Exchange from './Exchange';
 
 class Chat extends Component {
-	scrollToBottom() {
+	scrollToBottom = () => {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
-		end.scrollIntoView({behavior: 'smooth'});
+		end.scrollIntoViewIfNeeded({behavior: 'smooth'});
 	}
 
 	componentDidUpdate() {

@@ -21,9 +21,14 @@
       -ms-flex-direction: column-reverse;
           flex-direction: column-reverse;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 .messages {
   width: 100%;
-  padding: 0px 10px;
+  padding: 0px 5px;
   overflow-y: auto;
 }
 .group {
@@ -31,7 +36,7 @@
   max-width: 50%;
 }
 .group .message {
-  padding: 10px;
+  padding: 5px;
 }
 .group-user {
   float: right;
