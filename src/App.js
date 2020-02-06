@@ -172,7 +172,6 @@ class App extends Component {
       
       // get next state
       let nextStep =  advanceStep(this.state.step, stateMap);
-      
       // update state
       this.setState({...getStateAtStep(nextStep, stateMap)})
     }
@@ -211,7 +210,11 @@ class App extends Component {
             <DoubleButton click={this.handleClick} button1={this.state.button1Text} button2={this.state.button2Text} />
           }
         </div>
-        { window.innerHeight > 700  && <div className="info"> a <a href="https://www.foreignobjects.net/" target="_blank">FOREIGN OBJECTS</a> early prototype </div>}
+        { window.innerHeight > 700  && 
+          <div className="info"> 
+            a <a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank">FOREIGN OBJECTS</a> early prototype 
+          </div>
+        }
       </div>
     );
   }

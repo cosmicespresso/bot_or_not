@@ -32,7 +32,7 @@ export const stateMap = [
     fieldTop: 'Time is up!',
     fieldBottom: 'There are for sure more bugs you can discover, how about another round?',
     input: 'SingleButton',
-    singleButtonText: 'Play',
+    singleButtonText: 'OOOOOOOOK.....',
     button1Text: '',
     button2Text: '',
   }

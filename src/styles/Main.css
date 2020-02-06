@@ -1,3 +1,7 @@
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.26, autoprefixer: v9.7.3) */
+
+@import url('https://rsms.me/inter/inter.css');
+
 /*
  * 
  * CHAT
@@ -9,8 +13,13 @@
   border-radius: 3px;
   margin: 10px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column-reverse;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
 }
 .messages {
   width: 100%;
@@ -55,9 +64,15 @@
   border-radius: 3px;
   margin: 10px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 .narrator .field-top {
   font-family:'Inter', sans-serif; 
@@ -75,5 +90,7 @@
   font-weight: 600;
   padding: 10px;
   min-height: 20vh;
-  flex-grow: 0.3;
+  -webkit-box-flex: 0.3;
+      -ms-flex-positive: 0.3;
+          flex-grow: 0.3;
 }
