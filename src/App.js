@@ -11,7 +11,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay, findNextState, getSeconds} from './Utils';
+import {getBotDelay, getStateAtStep, getSeconds, advanceState} from './Utils';
 
 import uuid from 'uuid';
 
@@ -36,7 +36,8 @@ class App extends Component {
     }];
     this.botQueue = [];
     this.isProcessingQueue = false;
-    this.ID = 1;
+    this.step = 1;
+    this.shouldUpdate = false;
 
     this.state = { 
       timerTime: 0,
@@ -44,6 +45,7 @@ class App extends Component {
       messages: [],
       isBotTyping: false,
       currentBot: this.bots[0], 
+      ...stateMap[0]
   	};
   }
 
@@ -112,24 +114,20 @@ class App extends Component {
     }, 10);
   };
 
-  saveTimeStamp = (time) => {
+  recordEventTimestamp = (time) => {
     this.setState({
       timerStart: time
     });
-    console.log('seconds elapsed from previous event', getSeconds(this.state.timerTime));
   };
 
-  componentWillMount() {
-    // initialize app 
-    this.setState({ ...findNextState(this.ID, stateMap) })
-    
-    // start countdown
-    this.startTimer();
+  componentWillUpdate(nextProps, nextState) {
+    this.configureState(nextProps, nextState);
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize(window);
+    this.startTimer();
   }
 
   componentWillUnmount() {
@@ -138,26 +136,29 @@ class App extends Component {
   }
 
   handleClick = () => {
-    this.saveTimeStamp(Date.now());
-
-    if (this.ID < stateMap.length) {
-      ++this.ID;
-      this.advanceState(this.props, this.state);
-    } 
+    this.recordEventTimestamp(Date.now());
+    this.shouldUpdate = true;
   }
 
-  advanceState =  (props, state) => {
+  configureState = (props, state) => {
     // which bot are we on
     const bot = this.bots.filter(function (key, val){
       return key.steps.includes(this.step)}.bind(this))
 
     // update bot, if it changes on this step
-    if(bot.length > 0 && this.state.currentBot !== bot[0]){
+    if (bot.length > 0 && state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
 
-    // retrieve next state from StateMap and update state
-    this.setState({ ...findNextState(this.ID, stateMap) })
+    let [nextStep, _shouldUpdate] =  advanceState(this.step, stateMap, this.shouldUpdate);
+    this.shouldUpdate = _shouldUpdate;
+
+    // update state
+    if (this.shouldUpdate) { 
+      console.log('updating state to next step', nextStep)
+      this.setState({...stateMap[nextStep]})
+      this.shouldUpdate = false;
+    }
   }
 
   render() {
@@ -165,18 +166,18 @@ class App extends Component {
       <div className="App">
         <div className="container">
           {/*-----------------------------TOP-----------------------------*/}     
-          <Header title={ this.state.main === 'Chat' ? `00:${getSeconds(this.state.timerTime)}` : this.state.headerText} /> 
+          <Header title={ this.state.main === 'Chat' ? `00:0${getSeconds(this.state.timerTime)}` : this.state.headerText } /> 
 
-          {/*-----------------------------MAIN-----------------------------*/}     
+          {/*-----------------------------MAIN-----------------------------*/}   
+          {this.state.main === 'Narrator'  && 
+            <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
+          }   
           {this.state.main === 'Chat' &&
             <Chat 
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
-          }
-          {this.state.main === 'Narrator'  && 
-            <Narrator dialogHeight={this.state.dialogHeight} headline={this.state.fieldTop} text={this.state.fieldBottom}/>
-          }            
+          }           
           {this.state.main === 'AudioVis'  && 
             <AudioVis ref={this.audioVis} dialogHeight={this.state.dialogHeight}/>
           }    
