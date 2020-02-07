@@ -1,21 +1,9 @@
 import React, {Component} from 'react';
-import {EntypoMic} from 'react-entypo';
-import Audio from './Audio';
 
 class MessageBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {value: ''};
-	}
-	
-	handleAudio = (e) => {
-		console.log('done listening to audio')
-		const last = e.results.length - 1;
-		this.setState((prevState, props) => {
-			return {
-				value: prevState.value + e.results[last][0].transcript
-			};
-		});
 	}
 
 	handleChange = (e) => {
@@ -26,11 +14,6 @@ class MessageBar extends Component {
 		this.setState({value});
 	}
 
-	handleListen = () =>{
-		console.log('listening to audio')
-		this.audio.listen();
-	}
-
 	handleSubmit = (e) =>{
 		e.preventDefault();
 		this.props.onSubmit(this.state.value);
@@ -39,7 +22,6 @@ class MessageBar extends Component {
 
 	componentDidMount() {
 		this._text.focus();
-		this.audio = new Audio(this.handleAudioStart, this.handleAudio, this.handleAudioError);
 	}
 
 	render() {
@@ -55,9 +37,6 @@ class MessageBar extends Component {
 								 onChange={this.handleChange}
 								 autoComplete={'off'}
 								 required />
-					<button className="btn-voice" type="button" value="Voice" onClick={this.handleListen}>
-						<EntypoMic/>
-					</button>
 				</form>
 	      	</div>
 		);

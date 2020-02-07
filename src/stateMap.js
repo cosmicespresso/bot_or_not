@@ -8,7 +8,7 @@ export const stateMap = [
     fieldTop: 'Ready to play some truth or dare?',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Play',
+    singleButtonText: 'Chat',
     button1Text: '',
     button2Text: '',
   },{
@@ -25,18 +25,6 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 3, 
-    timeLimit: 1000,
-    messages: [],
-    headerText: 'Screen 4',
-    main: 'Narrator',
-    fieldTop: '',
-    fieldBottom: 'OK enough chatting! Now its time to start playing. You have 3 rounds of truth or dare - choose them (and your words) wisely! ',
-    input: 'DoubleButton',
-    singleButtonText: 'Start round 1',
-    button1Text: 'Truth',
-    button2Text: 'Dare',
-  },{
-    step: 4, 
     timeLimit: 10,
     messages: [],
     headerText: 'Screen 5',
@@ -48,7 +36,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 5, 
+    step: 4, 
     timeLimit: 10,
     messages: [],
     headerText: 'Screen 3',
@@ -60,7 +48,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 6, 
+    step: 5, 
     messages: [],
     timeLimit: 1000,
     headerText: 'Womp womp',

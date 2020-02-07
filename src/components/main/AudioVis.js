@@ -39,7 +39,7 @@ class AudioVis extends Component {
 		          strokeColor="#FF2D55"
 		          backgroundColor="#fff"
 		          />
-		          <button onClick={this.stopRecording}>Stop</button>
+		          {/*<button onClick={this.stopRecording}>Stop</button>*/}
 			</div>
 		);
 	}
