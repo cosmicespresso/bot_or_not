@@ -88,6 +88,7 @@ class App extends Component {
     else this.processResponse(preProcess);
   }
 
+
   startTimer = () => {
     console.log('started timer')
     this.setState({
@@ -134,7 +135,7 @@ class App extends Component {
       return key.steps.includes(this.state.step)}.bind(this))
 
     // update bot, if it changes on this step
-    if (bot.length > 0 && state.currentBot !== bot[0]){
+    if (bot.length > 0 && this.state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
 
