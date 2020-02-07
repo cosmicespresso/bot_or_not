@@ -32,39 +32,6 @@ input::-webkit-input-placeholder {
   width: 100%;
 }
 
-/*icons*/
-.btn-send {
-  color: #00f;
-  background: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  font-family: 'Inter', sans-serif; 
-  font-size: 1.2rem;
-  border: 1px solid #00f;
-  border-radius: 3px;
-  margin: 4px;
-}
-
-.btn-voice {
-  color: #00f;
-  border: 1px solid #00f;
-  border-radius: 3px;
-  margin: 4px;
-  background: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.btn-send:hover, .btn-voice:hover {
-  cursor: pointer;
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
-}
-
 /*animation*/
 #wave {
   position: relative;
@@ -159,11 +126,18 @@ input::-webkit-input-placeholder {
 }
 .double-button > .single-button {
   margin: 0;
-  padding: 0;
-  width: 42vw;
+  padding: 0px;
+  flex-grow: 1;
 }
 
-.single-button:hover, .double-button:hover {
+.double-button > .single-button:first-child {
+  margin-right: 10px;
+}
+.double-button > .single-button:last-child {
+  margin-left: 10px;
+}
+
+.single-button:hover, .double-button > .singlebutton:hover {
   cursor: pointer;
   -webkit-filter: grayscale(1);
           filter: grayscale(1);
