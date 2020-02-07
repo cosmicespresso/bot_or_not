@@ -15,7 +15,7 @@ export const stateMap = [
     step: 2, 
     timeLimit: 1000,
     messages: [],
-    headerText: 'Screen 1',
+    headerText: 'Screen 2',
     main: 'Narrator',
     fieldTop: 'Choose below',
     fieldBottom: '',
@@ -26,7 +26,7 @@ export const stateMap = [
   },
   {
     step: 3, 
-    timeLimit: 10,
+    timeLimit: 3,
     messages: [],
     headerText: 'Screen 3',
     main: 'Chat',

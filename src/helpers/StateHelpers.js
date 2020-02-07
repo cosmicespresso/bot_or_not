@@ -3,17 +3,21 @@ import uuid from 'uuid';
 export const getStateAtStep = (step, stateMap) => {
   for (var i = 0; i < stateMap.length; i++) {
     if (stateMap[i].step === step ) {
+      console.log(step, stateMap[i].main)
       return stateMap[i]
     }
   }
-  return stateMap[0]
+  // return stateMap[0]
 }
 
-export const advanceStep = (step, stateMap) => {
-  let nextStep;
-  if (step < stateMap.length) {
-    nextStep = ++step;
+export const advanceStep = (currentStep, stateMap) => {
+  let nextStep=currentStep;
+  if (currentStep < stateMap.length) {
+    ++nextStep;
   } 
+  else {
+    nextStep=2;
+  }
   return nextStep;
 }
 

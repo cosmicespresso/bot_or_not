@@ -33,7 +33,7 @@ class App extends Component {
       timerStart: 0,
       isBotTyping: false,
       currentBot: bots[0],
-      ...getStateAtStep(0, stateMap)
+      ...getStateAtStep(1, stateMap)
   	};
   }
 
@@ -99,7 +99,7 @@ class App extends Component {
       this.setState({
         timerTime: Date.now() - this.state.timerStart
       });
-    }, 10);
+    }, 1000);
   };
 
   recordEventTimestamp = (time) => {
@@ -107,6 +107,13 @@ class App extends Component {
       timerStart: time
     });
   };
+
+  handleClick = (e) => {
+    e.preventDefault();
+    // console.log('click', e.target.firstElementChild)
+    this.recordEventTimestamp(Date.now());
+    this.shouldUpdate = true;
+  }
 
   componentWillUpdate(nextProps, nextState) {
     this.configureState(nextProps, nextState);
@@ -124,12 +131,7 @@ class App extends Component {
     clearInterval(this.timer);
   }
 
-  handleClick = () => {
-    this.recordEventTimestamp(Date.now());
-    this.shouldUpdate = true;
-  }
-
-  configureState = (props, state) => {
+  configureBots = () => {
     // which bot are we on
     const bot = bots.filter(function (key, val){
       return key.steps.includes(this.state.step)}.bind(this))
@@ -138,23 +140,30 @@ class App extends Component {
     if (bot.length > 0 && this.state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
     }
+  }
 
-    // check if Chat has timed out 
+  checkChatTimeout = () => {
     if (this.state.main === 'Chat' && 
-        getSeconds(this.state.timerTime) >= this.state.timeLimit) 
-      {
-        this.recordEventTimestamp(Date.now());
-        this.shouldUpdate = true;
-      }
+        !this.shouldUpdate &&
+        this.state.timeLimit === getSeconds(this.state.timerTime))
+    {
+      this.recordEventTimestamp(Date.now());
+      this.shouldUpdate = true;
+    }
+  }
+
+  configureState = (props, state) => {
+    
+    // check if Chat has timed out 
+    this.checkChatTimeout();
 
     // ------------------- advancing and updating state happens here 
     if (this.shouldUpdate) { 
-      console.log('update')
       this.shouldUpdate = false;
-      
       // get next state
       let nextStep =  advanceStep(this.state.step, stateMap);
-      
+      // update bots
+      this.configureBots();
       // update state
       this.setState({...getStateAtStep(nextStep, stateMap)})
     }
