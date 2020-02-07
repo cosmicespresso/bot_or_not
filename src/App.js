@@ -11,10 +11,9 @@ import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
-import {getStateAtStep, advanceStep} from './helpers/StateHelpers';
+import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { preProcessor, runSample } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
-import uuid from 'uuid';
 
 import './styles/App.css';
 import './styles/Top.css';
@@ -25,16 +24,6 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.bots = [{
-      "name": "truth_bot_setting",
-      "sessionId": uuid.v4(),
-      "projectId": "g191120-truth-bot-hluhsq",
-      "steps": [0, 1, 2, 3, 4, 5] },{
-      "name": "truth_bot_answering",
-      "sessionId": uuid.v4(),
-      "projectId": "c200103-challenge-truth-bot-wc",
-      "steps": [6]
-    }];
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
@@ -43,7 +32,7 @@ class App extends Component {
       timerTime: 0,
       timerStart: 0,
       isBotTyping: false,
-      currentBot: this.bots[0],
+      currentBot: bots[0],
       ...getStateAtStep(0, stateMap)
   	};
   }
@@ -66,7 +55,6 @@ class App extends Component {
   }
 
   processResponse = (text) => {
-
     let messages;
     //check if message pure punctuation, let it pass if so
     if (text.match(/[a-zA-Z]/g)){
@@ -76,27 +64,21 @@ class App extends Component {
         .map(str => str.trim());
     }
     else messages = text;
-
     // error handling
     if (!messages) {
       messages = 'huh??';
       console.log('error handling messages:', messages)
     }
-
     this.botQueue = this.botQueue.concat(messages);
-
     // start processing bot queue
     const isQuick = !this.state.isBotTyping;
-    
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
   handleSubmitText = async (text) => {
     // append user text
     this.appendMessage(text, true);
-
     const preProcess = await preProcessor(text, this.state.currentBot);
-
     if(!preProcess){
         runSample(text, this.state.currentBot)
         .then( 
@@ -148,7 +130,7 @@ class App extends Component {
 
   configureState = (props, state) => {
     // which bot are we on
-    const bot = this.bots.filter(function (key, val){
+    const bot = bots.filter(function (key, val){
       return key.steps.includes(this.state.step)}.bind(this))
 
     // update bot, if it changes on this step
@@ -231,6 +213,7 @@ class App extends Component {
             button2={this.state.button2Text} />
           }
         </div>
+        {/*-----------------------------INFO-----------------------------*/}     
         { window.innerHeight > `${maxWindowHeight}` && 
           <div className="info" style={{color: infoColor}} > 
             a <a href="https://www.foreignobjects.net/"rel="noopener noreferrer" target="_blank">

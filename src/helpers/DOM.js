@@ -15,6 +15,5 @@ export const handleResize = (e) => {
                 || document.querySelector('.container .double-button');
     
     let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
-    console.log(dialogHeight)
     return dialogHeight;
 }
