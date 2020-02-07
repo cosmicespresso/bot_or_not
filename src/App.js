@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Header from './components/top/Header';
-import { preProcessor, runSample } from './helpers/textProcessing'
 
+import Header from './components/top/Header';
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
 import AudioVis from './components/main/AudioVis';
@@ -11,9 +10,10 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {getBotDelay, getSeconds} from './Utils';
-import {getStateAtStep, advanceStep} from './StateHelpers';
-
+import {getBotDelay, getSeconds} from './helpers/Utils';
+import {getStateAtStep, advanceStep} from './helpers/StateHelpers';
+import { preProcessor, runSample } from './helpers/textProcessing'
+import { maxWindowHeight, handleResize } from './helpers/DOM'
 import uuid from 'uuid';
 
 import './styles/App.css';
@@ -38,8 +38,6 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
-    this.maxWindowHeight = 700;
-    this.maxAppHeight = 680;
 
     this.state = { 
       timerTime: 0,
@@ -89,6 +87,7 @@ class App extends Component {
 
     // start processing bot queue
     const isQuick = !this.state.isBotTyping;
+    
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
@@ -105,23 +104,6 @@ class App extends Component {
             this.processResponse(botResponse); })
     }
     else this.processResponse(preProcess);
-  }
-
-  handleResize = (e) => {
-    const window = e.target || e;
-    
-    const y = window.innerHeight > this.maxWindowHeight 
-              ? this.maxAppHeight 
-              : window.innerHeight; 
-    
-    const header = document.querySelector('.container header');
-    
-    const input = document.querySelector('.container .text-form') 
-                || document.querySelector('.container .single-button') 
-                || document.querySelector('.container .double-button');
-    
-    let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
-    this.setState({dialogHeight});
   }
 
   startTimer = () => {
@@ -148,13 +130,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize(window);
+    let dialogHeight = handleResize(window);
+    this.setState({dialogHeight});
+    window.addEventListener('resize', handleResize);
     this.startTimer();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('resize', handleResize);
     clearInterval(this.timer);
   }
 
@@ -248,7 +231,7 @@ class App extends Component {
             button2={this.state.button2Text} />
           }
         </div>
-        { window.innerHeight > `${this.maxWindowHeight}` && 
+        { window.innerHeight > `${maxWindowHeight}` && 
           <div className="info" style={{color: infoColor}} > 
             a <a href="https://www.foreignobjects.net/"rel="noopener noreferrer" target="_blank">
             FOREIGN OBJECTS</a> early prototype 
