@@ -27,6 +27,7 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
+    this.target = null;
 
     this.state = { 
       timerTime: 0,
@@ -88,7 +89,6 @@ class App extends Component {
     else this.processResponse(preProcess);
   }
 
-
   startTimer = () => {
     console.log('started timer')
     this.setState({
@@ -102,17 +102,16 @@ class App extends Component {
     }, 1000);
   };
 
-  recordEventTimestamp = (time) => {
-    this.setState({
-      timerStart: time
-    });
-  };
-
   handleClick = (e) => {
-    e.preventDefault();
-    // console.log('click', e.target.firstElementChild)
-    this.recordEventTimestamp(Date.now());
+    this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;
+    
+    this.target = e.target.firstElementChild !== null ? 
+                  e.target.firstElementChild.textContent 
+                  : e.target.textContent;
+    
+    if (this.target === 'Truth' || this.target==='Dare') console.log('set bot to', this.target)
+
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -142,22 +141,21 @@ class App extends Component {
     }
   }
 
-  checkChatTimeout = () => {
-    if (this.state.main === 'Chat' && 
+  checkTimeout = (Component) => {
+    if (this.state.main === Component && 
         !this.shouldUpdate &&
         this.state.timeLimit === getSeconds(this.state.timerTime))
     {
-      this.recordEventTimestamp(Date.now());
+    this.setState({ timerStart: Date.now()});
       this.shouldUpdate = true;
     }
   }
 
   configureState = (props, state) => {
-    
-    // check if Chat has timed out 
-    this.checkChatTimeout();
+    // check if a component has timed out 
+    this.checkTimeout('Chat');
 
-    // ------------------- advancing and updating state happens here 
+    // advancing and updating state happens here 
     if (this.shouldUpdate) { 
       this.shouldUpdate = false;
       // get next state
@@ -170,10 +168,8 @@ class App extends Component {
   }
 
   render() {
-    
-    let timer = getSeconds(this.state.timerTime) < 10 
-              ? `0${getSeconds(this.state.timerTime)}` 
-              : getSeconds(this.state.timerTime);
+    let seconds = getSeconds(this.state.timerTime);
+    let timer = seconds < 10  ? `0${seconds}`  : seconds;
     
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat' ? '#FF2D55' : '#00f';
