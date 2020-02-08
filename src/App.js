@@ -92,8 +92,8 @@ class App extends Component {
   startTimer = () => {
     console.log('started timer')
     this.setState({
-      timerTime: this.state.timerTime,
-      timerStart: Date.now() - this.state.timerTime
+      timerTime: Date.now(),
+      timerStart: Date.now()
     });
     this.timer = setInterval(() => {
       this.setState({
