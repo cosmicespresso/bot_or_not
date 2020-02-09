@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {EntypoPaperPlane} from 'react-entypo';
 
 class MessageBar extends Component {
 	constructor(props) {
@@ -37,6 +38,9 @@ class MessageBar extends Component {
 								 onChange={this.handleChange}
 								 autoComplete={'off'}
 								 required />
+					<button className="btn-send" type="button" value="Send">
+						<EntypoPaperPlane/>
+					</button>
 				</form>
 	      	</div>
 		);

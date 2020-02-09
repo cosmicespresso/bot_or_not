@@ -31,6 +31,23 @@ input::-webkit-input-placeholder {
   padding: 0 10px;
   width: 100%;
 }
+/*icons*/
+.btn-send {
+  color: #00f;
+  background: none;
+  display: flex;
+  font-family: 'Inter', sans-serif; 
+  font-size: 1.2rem;
+  border: 1px solid #00f;
+  border-radius: 3px;
+  margin: 4px;
+}
+
+.btn-send:hover {
+  cursor: pointer;
+  filter: grayscale(1);
+}
+
 
 /*animation*/
 #wave {

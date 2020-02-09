@@ -38,8 +38,11 @@ class AudioVis extends Component {
 		          className="sound-wave"
 		          strokeColor="#FF2D55"
 		          backgroundColor="#fff"
+		          className="field-top"
 		          />
-		          {/*<button onClick={this.stopRecording}>Stop</button>*/}
+		          <div onClick={this.stopRecording} className='AudioVis-button'>
+					<p>Stop recording</p>
+				  </div>
 			</div>
 		);
 	}

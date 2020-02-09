@@ -39,9 +39,9 @@ export const stateMap = [
   // },
   {
     step: 3, 
-    timeLimit: 10,
+    timeLimit: 100,
     messages: [],
-    headerText: 'Screen 3',
+    headerText: '• Recording',
     main: 'AudioVis',
     fieldTop: '',
     fieldBottom: '',

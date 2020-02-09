@@ -154,6 +154,7 @@ class App extends Component {
   configureState = (props, state) => {
     // check if a component has timed out 
     this.checkTimeout('Chat');
+    this.checkTimeout('AudioVis');
 
     // advancing and updating state happens here 
     if (this.shouldUpdate) { 
@@ -172,7 +173,7 @@ class App extends Component {
     let timer = seconds < 10  ? `0${seconds}`  : seconds;
     
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
-    const HeaderColor= this.state.main === 'Chat' ? '#FF2D55' : '#00f';
+    const HeaderColor= this.state.main === 'Chat' || this.state.main === 'AudioVis' ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
     
     return (
