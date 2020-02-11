@@ -105,30 +105,4 @@
  *
  */
 
-.AudioVis-button {
-  font-family: 'Inter', sans-serif; 
-  border: 2px solid #000;
-  border-radius: 2px;
-  margin: 0 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 40px;
-  width: 25vw;
-}
-.AudioVis-button:hover {
-  background: #ccc;
-  border: 2px solid #ccc;
-  cursor: pointer;
-}
 
-.AudioVis-button > p {
-  color: #000;
-  font-size: 1.3rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin: 0 auto;
-  padding: 0;
-  line-height: 35px;
-  font-style: italic;
-}
