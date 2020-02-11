@@ -201,7 +201,7 @@ class App extends Component {
             dialogHeight={this.state.dialogHeight} />
           }           
           {this.state.main === 'AudioVis'  && 
-            <AudioVis ref={this.audioVis} 
+            <AudioVis 
             dialogHeight={this.state.dialogHeight}/>
           }    
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ReactMic } from '@cleandersonlobo/react-mic';
+import AudioRecorder from 'react-audio-recorder';
 
 class AudioVis extends Component {
 	
@@ -15,34 +15,26 @@ class AudioVis extends Component {
 	}	
 
 	stopRecording = () => {
-		console.log('App.js called me');
 		this.setState({ record: false });
 	}
 
+	simulateClick = (e) => {
+		e.click()
+	}
+
 	componentDidMount() {
-		console.log('AudioVis mounted');
-		this.startRecording();
+		console.log('AudioVis mounted, starting recording');
+		// this.startRecording();
 	}
 
 	componentWillUnmount() {
-		console.log('AudioVis unmounted');
+		console.log('AudioVis unmounted, stopping recording');
 	}
 
 	render(props) {
 		return (
 			<div className="narrator" style={{height: `${this.props.dialogHeight}px`}}>
-				<ReactMic
-		          record={this.state.record}
-		          onStop={this.onStop}
-		          visualSetting='frequencyBars'
-		          className="sound-wave"
-		          strokeColor="#FF2D55"
-		          backgroundColor="#fff"
-		          className="field-top"
-		          />
-		          <div onClick={this.stopRecording} className='AudioVis-button'>
-					<p>Stop recording</p>
-				  </div>
+				<AudioRecorder />
 			</div>
 		);
 	}

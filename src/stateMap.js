@@ -39,7 +39,7 @@ export const stateMap = [
   // },
   {
     step: 3, 
-    timeLimit: 100,
+    timeLimit: 10,
     messages: [],
     headerText: '• Recording',
     main: 'AudioVis',
