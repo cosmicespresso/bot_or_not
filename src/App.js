@@ -111,7 +111,10 @@ class App extends Component {
                   : e.target.textContent;
     
     if (this.target === 'Truth' || this.target==='Dare') console.log('set bot to', this.target)
+  }
 
+  audioStop = (e) => {
+    console.log('click')
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -154,7 +157,6 @@ class App extends Component {
   configureState = (props, state) => {
     // check if a component has timed out 
     this.checkTimeout('Chat');
-    this.checkTimeout('AudioVis');
 
     // advancing and updating state happens here 
     if (this.shouldUpdate) { 
@@ -202,7 +204,9 @@ class App extends Component {
           }           
           {this.state.main === 'AudioVis'  && 
             <AudioVis 
-            dialogHeight={this.state.dialogHeight}/>
+            dialogHeight={this.state.dialogHeight}
+            audioStop={this.audioStop}
+            />
           }    
 
           {/*-----------------------------INPUT-----------------------------*/}     

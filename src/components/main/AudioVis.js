@@ -27,7 +27,7 @@ class AudioVis extends Component {
 		console.log('chunk of real-time data is: ', recordedBlob);
 	}
 
-	onStop(recordedBlob) {
+	onStop(props, recordedBlob) {
 		console.log('recordedBlob is: ', recordedBlob);
 	}
 
@@ -47,7 +47,7 @@ class AudioVis extends Component {
 		          strokeColor="#FF2D55"
 		          backgroundColor="#fff"
 		          />
-        		  <button onClick={this.stopRecording}>Stop</button>
+        		  <button onClick={() => {this.stopRecording(); this.props.audioStop(); }}>Stop</button>
 			</div>
 		);
 	}
