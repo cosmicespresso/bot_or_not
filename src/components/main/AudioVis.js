@@ -32,7 +32,7 @@ class AudioVis extends Component {
 	}
 
 	componentDidMount() {
-		this.startRecording();
+		// this.startRecording();
 	}
 
 	render(props) {
@@ -47,7 +47,9 @@ class AudioVis extends Component {
 		          strokeColor="#FF2D55"
 		          backgroundColor="#fff"
 		          />
-        		  <button onClick={() => {this.stopRecording(); this.props.audioStop(); }}>Stop</button>
+        		  <button className="AudioVis-button" onClick={() => {this.stopRecording(); this.props.audioStop(); }}>
+        		  	<p>Stop</p>
+        		  </button>
 			</div>
 		);
 	}

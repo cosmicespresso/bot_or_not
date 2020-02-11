@@ -114,7 +114,7 @@ class App extends Component {
   }
 
   audioStop = (e) => {
-    console.log('click')
+    this.shouldUpdate = true;
   }
 
   componentWillUpdate(nextProps, nextState) {

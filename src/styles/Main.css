@@ -104,5 +104,28 @@
  * AudioVis
  *
  */
+.AudioVis-button {
+  font-family: 'Inter', sans-serif; 
+  border: none;
+  background: #FF2D55;
+  border-radius: 2px;
+  margin: 10px;
+  height: 40px;
+  width: 110px;
+  margin: 0 auto;
+}
 
+.AudioVis-button:hover {
+  cursor: pointer;
+  background: #a81f38;
+}
 
+.AudioVis-button > p {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 auto;
+  padding: 0;
+  line-height: 35px;
+}
