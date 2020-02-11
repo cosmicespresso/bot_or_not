@@ -18,10 +18,6 @@ class AudioVis extends Component {
 		this.setState({ record: false });
 	}
 
-	simulateClick = (e) => {
-		e.click()
-	}
-
 	componentDidMount() {
 		console.log('AudioVis mounted, starting recording');
 		// this.startRecording();
@@ -34,7 +30,7 @@ class AudioVis extends Component {
 	render(props) {
 		return (
 			<div className="narrator" style={{height: `${this.props.dialogHeight}px`}}>
-				<AudioRecorder />
+				hey
 			</div>
 		);
 	}
