@@ -37,7 +37,7 @@ class AudioVis extends Component {
 
 	render(props) {
 		return (
-			<div className="narrator" style={{display: this.props.visible ? 'block' : 'none' , height: `${this.props.dialogHeight}px`}}>
+			<div className="narrator" style={{display: this.props.visible ? 'flex' : 'none' , height: `${this.props.dialogHeight}px`}}>
 				<ReactMic
 		          record={this.state.record}
 		          onStop={this.onStop}

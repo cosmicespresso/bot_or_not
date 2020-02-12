@@ -27,7 +27,7 @@ export const stateMap = [
   },
   {
     step: 3, 
-    timeLimit: 40,
+    timeLimit: 10,
     messages: [],
     headerText: '',
     main: 'Chat',

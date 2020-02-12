@@ -58,7 +58,7 @@ class Chat extends Component {
 		return (
 			<div> 
 				<div className="messages-wrapper" 
-					style={{display: !this.state.showAudioVis ? 'block' :'none', height: `${this.props.dialogHeight}px`}}>
+					style={{display: !this.state.showAudioVis ? 'visible' :'none', height: `${this.props.dialogHeight}px`}}>
 					<div className="messages">
 						{groups.map((group, i) =>
 							<Exchange key={i} group={group}/>
