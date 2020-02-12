@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Header from './components/top/Header';
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
+import Round from './components/main/Round';
 
 import MessageBar from './components/input/MessageBar';
 import SingleButton from './components/input/SingleButton';
@@ -186,6 +187,12 @@ class App extends Component {
           
           {this.state.main === 'Narrator'  && 
             <Narrator 
+            dialogHeight={this.state.dialogHeight} 
+            headline={this.state.fieldTop} 
+            text={this.state.fieldBottom}/>
+          }            
+          {this.state.main === 'Round'  && 
+            <Round 
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>

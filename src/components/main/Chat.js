@@ -36,7 +36,7 @@ class Chat extends Component {
 
 	componentDidMount() {
 		if (this.props.choice === 'Dare') {
-			setTimeout( () => { this.startRecording() }, 2000);
+			setTimeout( () => { this.startRecording() }, 4000);
 		}
 	}
 
