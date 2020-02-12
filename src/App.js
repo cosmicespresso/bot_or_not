@@ -179,7 +179,7 @@ class App extends Component {
           {/*-----------------------------TOP-----------------------------*/}     
           
           <Header 
-          title={this.state.main === 'Chat' || this.state.choice !== '' ? `00:${timer}` : this.state.headerText } 
+          title={this.state.main === 'Chat' && (this.state.choice === 'Truth' || this.state.choice === 'Dare') ? `00:${timer}` : this.state.headerText } 
           color={HeaderColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   

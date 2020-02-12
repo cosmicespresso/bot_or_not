@@ -6,9 +6,7 @@ import AudioVis from './AudioVis';
 class Chat extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			showAudioVis: false
-		}
+		this.showAudioVis = false;
 	}
 
 	scrollToBottom = () => {
@@ -18,13 +16,13 @@ class Chat extends Component {
 
 	audioStop = () => {
 		console.log('click')
-		this.setState({showAudioVis: false})
+		this.showAudioVis = false;
 	}
 
 	componentDidMount() {
 		setTimeout(() => { 
-			this.setState({ showAudioVis: this.props.choice === 'Dare' ? true : false})
-		}, 2000);
+			this.showAudioVis = this.props.choice === 'Dare' ? true : false;
+		}, 3000);
 	}
 
 	render() {
@@ -49,11 +47,12 @@ class Chat extends Component {
 				groups[endIndex].messages.push(null);
 			}
 		}
-		console.log('show audio vis', this.state.showAudioVis)
+
 		return (
 			<div> 
-				<div className="messages-wrapper" 
-					style={{display: !this.state.showAudioVis ? 'visible' :'none', height: `${this.props.dialogHeight}px`}}>
+				<div 
+					style={{display: !this.showAudioVis ? 'visible' :'none', height: `${this.props.dialogHeight}px`}} 
+					className="messages-wrapper" >
 					<div className="messages">
 						{groups.map((group, i) =>
 							<Exchange key={i} group={group}/>
@@ -62,7 +61,7 @@ class Chat extends Component {
 					</div>
 				</div>
 	            <AudioVis 
-	            	visible={this.state.showAudioVis}
+	            	visible={this.showAudioVis}
 	            	dialogHeight={this.props.dialogHeight}
 	            	audioStop={this.audioStop}
 	            />
