@@ -89,7 +89,6 @@ class App extends Component {
   }
 
   startTimer = () => {
-    console.log('started timer')
     this.setState({
       timerTime: Date.now(),
       timerStart: Date.now()
@@ -109,12 +108,12 @@ class App extends Component {
                   e.target.firstElementChild.textContent 
                   : e.target.textContent;
     
-    if (target === 'Chat' || target === 'Truth' || target ==='Dare') this.setState({choice: target})
+    if (target === 'Chat' || target === 'Truth' || target ==='Dare' || target ==='Bot') this.setState({choice: target})
   }
 
 
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     this.configureState(nextProps, nextState);
   }
 
@@ -174,7 +173,8 @@ class App extends Component {
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
-    
+    const endingText = this.state.choice === 'Bot' ? 'Correct!' : 'You were fooled!'
+
     return (
       <div className={AppStyle}>
         <div className="container">
@@ -182,7 +182,7 @@ class App extends Component {
           {/*-----------------------------TOP-----------------------------*/}     
           
           <Header 
-          title={this.state.choice === 'Truth' || this.state.choice === 'Dare' ? `00:${timer}` : this.state.headerText } 
+          title={this.state.main === 'Chat' || this.state.choice !== '' ? `00:${timer}` : this.state.headerText } 
           color={HeaderColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
@@ -199,6 +199,12 @@ class App extends Component {
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
+          }            
+          {this.state.main === 'Ending' &&
+            <Narrator 
+            dialogHeight={this.state.dialogHeight} 
+            headline={endingText} 
+            text={this.state.fieldBottom}/>
           }              
 
           {/*-----------------------------INPUT-----------------------------*/}     
