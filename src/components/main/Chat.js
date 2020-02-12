@@ -1,15 +1,36 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Exchange from './Exchange';
+import AudioVis from './AudioVis';
 
 class Chat extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			showAudioVis: false
+		}
+	}
+
 	scrollToBottom = () => {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
 		end.scrollIntoViewIfNeeded({behavior: 'smooth'});
 	}
 
+	audioStop = (e) => {
+		console.log('click')
+		this.setState({showAudioVis: false})
+	}
+
 	componentDidUpdate() {
 		this.scrollToBottom();
+	}	
+
+	componentDidMount() {
+		this.setState({showAudioVis: this.props.choice === 'Dare' ? true : false})
+	}
+
+	componentWillUnmount() {
+		this.setState({showAudioVis: false})
 	}
 
 	render() {
@@ -35,17 +56,21 @@ class Chat extends Component {
 			}
 		}
 		return (
-			<div className="messages-wrapper" style={{height: `${this.props.dialogHeight}px`}}>
-				<div className="messages">
-					{groups.map((group, i) =>
-						<Exchange
-							key={i}
-							group={group}/>
-					)}
-					<div
-						style={{ float: "left", clear: "both" }}
-						ref={el => this.scrollTarget = el} />
+			<div> 
+				<div className="messages-wrapper" 
+					style={{display: !this.state.showAudioVis ? 'block' :'none', height: `${this.props.dialogHeight}px`}}>
+					<div className="messages">
+						{groups.map((group, i) =>
+							<Exchange key={i} group={group}/>
+						)}
+						<div style={{ float: "left", clear: "both" }} ref={el => this.scrollTarget = el} />
+					</div>
 				</div>
+	            <AudioVis 
+	            	visible={this.state.showAudioVis }
+	            	dialogHeight={this.props.dialogHeight}
+	            	audioStop={this.audioStop}
+	            />
 			</div>
 		);
 	}

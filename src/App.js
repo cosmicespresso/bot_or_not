@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Header from './components/top/Header';
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
-import AudioVis from './components/main/AudioVis';
 
 import MessageBar from './components/input/MessageBar';
 import SingleButton from './components/input/SingleButton';
@@ -27,9 +26,9 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
-    this.target = null;
 
     this.state = { 
+      choice: '',
       timerTime: 0,
       timerStart: 0,
       isBotTyping: false,
@@ -106,16 +105,14 @@ class App extends Component {
     this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;
     
-    this.target = e.target.firstElementChild !== null ? 
+    let target = e.target.firstElementChild !== null ? 
                   e.target.firstElementChild.textContent 
                   : e.target.textContent;
     
-    if (this.target === 'Truth' || this.target==='Dare') console.log('set bot to', this.target)
+    if (target === 'Chat' || target === 'Truth' || target ==='Dare') this.setState({choice: target})
   }
 
-  audioStop = (e) => {
-    this.shouldUpdate = true;
-  }
+
 
   componentWillUpdate(nextProps, nextState) {
     this.configureState(nextProps, nextState);
@@ -175,7 +172,7 @@ class App extends Component {
     let timer = seconds < 10  ? `0${seconds}`  : seconds;
     
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
-    const HeaderColor= this.state.main === 'Chat' || this.state.main === 'AudioVis' ? '#FF2D55' : '#00f';
+    const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
     
     return (
@@ -185,7 +182,7 @@ class App extends Component {
           {/*-----------------------------TOP-----------------------------*/}     
           
           <Header 
-          title={this.state.main === 'Chat' ? `00:${timer}` : this.state.headerText } 
+          title={this.state.choice === 'Chat' ? `00:${timer}` : this.state.headerText } 
           color={HeaderColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
@@ -198,16 +195,11 @@ class App extends Component {
           }   
           {this.state.main === 'Chat' &&
             <Chat 
+            choice={this.state.choice}
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
-          }           
-          {this.state.main === 'AudioVis'  && 
-            <AudioVis 
-            dialogHeight={this.state.dialogHeight}
-            audioStop={this.audioStop}
-            />
-          }    
+          }              
 
           {/*-----------------------------INPUT-----------------------------*/}     
           
