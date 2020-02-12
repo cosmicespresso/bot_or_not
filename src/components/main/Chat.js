@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Exchange from './Exchange';
-import AudioVis from './AudioVis';
+import { ReactMic } from '@cleandersonlobo/react-mic';
 
 class Chat extends Component {
 	constructor(props) {
 		super(props);
-		this.showAudioVis = false;
+		this.state = {
+			record: false
+		}
 	}
 
 	scrollToBottom = () => {
@@ -14,15 +16,26 @@ class Chat extends Component {
 		end.scrollIntoViewIfNeeded({behavior: 'smooth'});
 	}
 
-	audioStop = () => {
-		console.log('click')
-		this.showAudioVis = false;
+	startRecording = () => {
+		console.log('start recording')
+    	this.setState({
+      		record: true
+		});
+	}
+
+	stopRecording = () => {
+		console.log('stop recording')
+		this.setState({
+	  		record: false
+		});
+	}
+
+	onStop(recordedBlob) {
+		console.log('recordedBlob is: ', recordedBlob);
 	}
 
 	componentDidMount() {
-		setTimeout(() => { 
-			this.showAudioVis = this.props.choice === 'Dare' ? true : false;
-		}, 3000);
+		if (this.props.choice === 'Dare') this.startRecording();
 	}
 
 	render() {
@@ -48,23 +61,36 @@ class Chat extends Component {
 			}
 		}
 
+		let displayChat = !this.state.record ? 'visible' :'none';
+		let displayAudioVis = this.state.record ? 'flex' : 'none';
+
 		return (
 			<div> 
-				<div 
-					style={{display: !this.showAudioVis ? 'visible' :'none', height: `${this.props.dialogHeight}px`}} 
+				{/* ---- Chat ---- */}
+				<div style={{display: displayChat , height: `${this.props.dialogHeight}px`}} 
 					className="messages-wrapper" >
 					<div className="messages">
 						{groups.map((group, i) =>
 							<Exchange key={i} group={group}/>
 						)}
-						<div style={{ float: "left", clear: "both" }} ref={el => this.scrollTarget = el} />
+						<div style={{ float: "left", clear: "both" }} ref={el => this.scrollTarget = el} > </div>
 					</div>
 				</div>
-	            <AudioVis 
-	            	visible={this.showAudioVis}
-	            	dialogHeight={this.props.dialogHeight}
-	            	audioStop={this.audioStop}
-	            />
+	            
+				{/* ---- AudioVis ---- */}
+	            <div className="narrator" style={{display: displayAudioVis, height: `${this.props.dialogHeight}px`}}>
+					<ReactMic
+			          record={this.state.record}
+			          onStop={this.onStop}
+			          visualSetting='frequencyBars'
+			          className="sound-wave"
+			          strokeColor="#FF2D55"
+			          backgroundColor="#fff"
+			          />
+					<div onClick={this.stopRecording} className='AudioVis-button '>
+						<p>Stop</p>
+					</div>
+				</div>
 			</div>
 		);
 	}
