@@ -14,9 +14,6 @@ export const advanceStep = (currentStep, stateMap) => {
   if (currentStep < stateMap.length) {
     ++nextStep;
   } 
-  else {
-    nextStep=2;
-  }
   return nextStep;
 }
 
