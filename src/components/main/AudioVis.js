@@ -31,10 +31,6 @@ class AudioVis extends Component {
 		console.log('recordedBlob is: ', recordedBlob);
 	}
 
-	componentDidMount() {
-		// this.startRecording();
-	}	
-
 	render(props) {
 		return (
 			<div className="narrator" style={{display: this.props.visible ? 'flex' : 'none' , height: `${this.props.dialogHeight}px`}}>
@@ -47,9 +43,14 @@ class AudioVis extends Component {
 		          strokeColor="#FF2D55"
 		          backgroundColor="#fff"
 		          />
-        		  <button className="AudioVis-button" onClick={() => {this.stopRecording(); this.props.audioStop(); }}>
-        		  	<p>Stop</p>
-        		  </button>
+        		  <div className='double-button'>
+					<div onClick={() => {this.startRecording(); }}  className='AudioVis-button '>
+						<p>Start</p>
+					</div>
+					<div  onClick={() => {this.stopRecording(); this.props.audioStop(); }}  className='AudioVis-button '>
+						<p>Stop</p>
+					</div>
+				</div>
 			</div>
 		);
 	}

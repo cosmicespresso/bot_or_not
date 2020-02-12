@@ -16,15 +16,17 @@ class Chat extends Component {
 		end.scrollIntoViewIfNeeded({behavior: 'smooth'});
 	}
 
-	audioStop = (e) => {
+	audioStop = () => {
 		console.log('click')
 		this.setState({showAudioVis: false})
 	}
 
 	componentDidMount() {
-		this.setState({ showAudioVis: this.props.choice === 'Dare' ? true : false})
+		setTimeout(() => { 
+			this.setState({ showAudioVis: this.props.choice === 'Dare' ? true : false})
+		}, 2000);
 	}
-	
+
 	render() {
 		let groups = [];
 		let group, lastMsgIsUser;
@@ -47,7 +49,7 @@ class Chat extends Component {
 				groups[endIndex].messages.push(null);
 			}
 		}
-		console.log(this.state.showAudioVis)
+		console.log('show audio vis', this.state.showAudioVis)
 		return (
 			<div> 
 				<div className="messages-wrapper" 
