@@ -61,7 +61,7 @@ class Chat extends Component {
 			}
 		}
 
-		let displayChat = !this.state.record ? 'visible' :'none';
+		let displayChat = !this.state.record ? 'flex' :'none';
 		let displayAudioVis = this.state.record ? 'flex' : 'none';
 
 		return (
