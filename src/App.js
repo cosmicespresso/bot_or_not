@@ -97,7 +97,7 @@ class App extends Component {
       this.setState({
         timerTime: Date.now() - this.state.timerStart
       });
-    }, 1000);
+    }, 10);
   };
 
   handleClick = (e) => {
@@ -110,8 +110,6 @@ class App extends Component {
     
     if (target === 'Chat' || target === 'Truth' || target ==='Dare' || target ==='Bot') this.setState({choice: target})
   }
-
-
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
     this.configureState(nextProps, nextState);
@@ -168,8 +166,7 @@ class App extends Component {
 
   render() {
     let seconds = getSeconds(this.state.timerTime);
-    let timer = seconds < 10  ? `0${seconds}`  : seconds;
-    
+    let timer = seconds < 10  ? `0${seconds}` : seconds;
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
@@ -195,6 +192,8 @@ class App extends Component {
           }   
           {this.state.main === 'Chat' &&
             <Chat 
+            time={getSeconds(this.state.timerTime)}
+            timeLimit={getSeconds(this.state.timeLimit)}
             choice={this.state.choice}
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}

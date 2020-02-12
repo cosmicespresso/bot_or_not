@@ -33,7 +33,7 @@ class AudioVis extends Component {
 
 	componentDidMount() {
 		// this.startRecording();
-	}
+	}	
 
 	render(props) {
 		return (

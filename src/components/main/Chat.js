@@ -21,23 +21,14 @@ class Chat extends Component {
 		this.setState({showAudioVis: false})
 	}
 
-	componentDidUpdate() {
-		this.scrollToBottom();
-	}	
-
 	componentDidMount() {
-		this.setState({showAudioVis: this.props.choice === 'Dare' ? true : false})
+		this.setState({ showAudioVis: this.props.choice === 'Dare' ? true : false})
 	}
-
-	componentWillUnmount() {
-		this.setState({showAudioVis: false})
-	}
-
+	
 	render() {
 		let groups = [];
 		let group, lastMsgIsUser;
 		for (let msg of this.props.messages) {
-			
 			// next group
 			if (lastMsgIsUser !== msg.isUser) {
 				lastMsgIsUser = msg.isUser;
@@ -46,6 +37,7 @@ class Chat extends Component {
 			}
 			group.messages.push(msg.text);
 		}
+
 		// bot is typing
 		if (this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
@@ -55,6 +47,7 @@ class Chat extends Component {
 				groups[endIndex].messages.push(null);
 			}
 		}
+		console.log(this.state.showAudioVis)
 		return (
 			<div> 
 				<div className="messages-wrapper" 
@@ -67,7 +60,7 @@ class Chat extends Component {
 					</div>
 				</div>
 	            <AudioVis 
-	            	visible={this.state.showAudioVis }
+	            	visible={this.state.showAudioVis}
 	            	dialogHeight={this.props.dialogHeight}
 	            	audioStop={this.audioStop}
 	            />
