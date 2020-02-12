@@ -193,7 +193,6 @@ class App extends Component {
           {this.state.main === 'Chat' &&
             <Chat 
             time={getSeconds(this.state.timerTime)}
-            timeLimit={getSeconds(this.state.timeLimit)}
             choice={this.state.choice}
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}

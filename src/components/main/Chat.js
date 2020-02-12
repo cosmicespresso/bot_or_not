@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Exchange from './Exchange';
-import { ReactMic } from '@cleandersonlobo/react-mic';
+import { ReactMic } from 'react-mic';
 
 class Chat extends Component {
 	constructor(props) {
@@ -30,17 +30,13 @@ class Chat extends Component {
 		});
 	}
 
-	onData(recordedBlob) {
-		console.log('chunk of real-time data is: ', recordedBlob);
-	}
-
 	onStop(recordedBlob) {
 		console.log('recordedBlob is: ', recordedBlob);
 	}
 
 	componentDidMount() {
 		if (this.props.choice === 'Dare') {
-			this.setState({ record: true });
+			setTimeout( () => { this.startRecording() }, 2000);
 		}
 	}
 
