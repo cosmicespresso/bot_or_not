@@ -30,15 +30,25 @@ class Chat extends Component {
 		});
 	}
 
+	onData(recordedBlob) {
+		console.log('chunk of real-time data is: ', recordedBlob);
+	}
+
 	onStop(recordedBlob) {
 		console.log('recordedBlob is: ', recordedBlob);
 	}
 
 	componentDidMount() {
-		if (this.props.choice === 'Dare') this.startRecording();
+		if (this.props.choice === 'Dare') {
+			this.setState({ record: true });
+		}
 	}
 
-	render() {
+	componentWillUnmount() {
+		this.setState({ record: false });
+	}
+
+	render(props) {
 		let groups = [];
 		let group, lastMsgIsUser;
 		for (let msg of this.props.messages) {
@@ -82,6 +92,7 @@ class Chat extends Component {
 					<ReactMic
 			          record={this.state.record}
 			          onStop={this.onStop}
+			          onData={this.onData}
 			          visualSetting='frequencyBars'
 			          className="sound-wave"
 			          strokeColor="#FF2D55"

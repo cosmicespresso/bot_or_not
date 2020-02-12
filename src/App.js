@@ -143,7 +143,7 @@ class App extends Component {
         !this.shouldUpdate &&
         this.state.timeLimit === getSeconds(this.state.timerTime))
     {
-    this.setState({ timerStart: Date.now()});
+      this.setState({ timerStart: Date.now()});
       this.shouldUpdate = true;
     }
   }
