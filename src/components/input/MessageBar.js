@@ -32,7 +32,7 @@ class MessageBar extends Component {
 					<input className="text-input"
 								 type="search"
 								 name="inputText"
-								 placeholder="Your message"
+								 placeholder="Say something..."
 								 value={this.state.value}
 								 ref={input => this._text = input}
 								 onChange={this.handleChange}

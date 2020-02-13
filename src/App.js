@@ -175,7 +175,7 @@ class App extends Component {
     let seconds = getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
     
-    const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
+    const AppStyle = this.state.step >= stateMap.length-1 ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
     const endingText = this.state.choice === 'Bot' ? 'Correct!' : 'You were fooled!'
@@ -184,7 +184,7 @@ class App extends Component {
     if (this.state.main === 'Narrator' || this.state.main === 'Round' || this.state.main === 'Ending') {
       title = this.state.name ? `Playing as: ${this.state.name}` : this.state.headerText
     } else {
-      title = `${this.state.choice}  00:${timer}`
+      title =  this.state.step < 12 ? `${this.state.choice}  00:${timer}` : `Playing as: ${this.state.name}`
     }
 
     return (
