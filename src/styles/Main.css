@@ -54,7 +54,7 @@
   font-family: 'Inter', sans-serif; 
   font-size: 1.1rem;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.2;
   overflow-wrap: break-word;
 }
 
@@ -68,7 +68,7 @@
   border:2px solid #00f;
   border-radius: 3px;
   margin: 10px;
-  line-height: 1.3;
+  line-height: 1.1;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -83,23 +83,34 @@
 .narrator .field-top {
   font-family:'Inter', sans-serif; 
   color: #00f;
-  font-size: 5rem;
+  font-size: 15vw;
   font-weight: 800;
   font-style: italic;
   padding: 10px;
-  max-height: 50vh;
+  /*max-height: 50vh;*/
 }
 .narrator .field-bottom {
   font-family: 'Inter', sans-serif; 
   color:#00f;
-  font-size: 1.5rem;
+  font-size: 5vw;
   font-weight: 600;
   padding: 10px;
-  min-height: 20vh;
+  /*min-height: 20vh;*/
   -webkit-box-flex: 0.3;
       -ms-flex-positive: 0.3;
           flex-grow: 0.3;
 }
+
+@media screen and (min-width: 700px)  {
+  .narrator .field-top { 
+    font-size: 5rem;
+  }
+  .narrator .field-bottom { 
+    font-size: 2.5rem;
+  }
+}
+
+
 /*
  * 
  * Round
