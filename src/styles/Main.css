@@ -68,7 +68,7 @@
   border:2px solid #00f;
   border-radius: 3px;
   margin: 10px;
-  line-height: 1.1;
+  line-height: 1.2;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -106,7 +106,7 @@
     font-size: 5rem;
   }
   .narrator .field-bottom { 
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
 }
 
