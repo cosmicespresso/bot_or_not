@@ -3,7 +3,7 @@ function getRandomInt(max) {
 }
 
 const BOT_DELAY = 4000;
-const BOT_SPEED = getRandomInt(4) * 0.001;;
+const BOT_SPEED = getRandomInt(4) * 0.001;
 const BOT_MAX_CHARS = 350;
 
 export const getBotDelay = (msg, isQuick = false) => {
