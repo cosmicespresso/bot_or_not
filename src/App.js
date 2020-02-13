@@ -108,7 +108,7 @@ class App extends Component {
     let target = e.target.firstElementChild !== null ? 
                   e.target.firstElementChild.textContent 
                   : e.target.textContent;
-    
+    console.log('click')
     if (target === 'Chat' || target === 'Truth' || target ==='Dare' || target ==='Bot') this.setState({choice: target})
   }
 
@@ -215,7 +215,7 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           
           {this.state.input === 'MessageBar' && 
-            <MessageBar onSubmit={ this.handleSubmitText}/>
+            <MessageBar onSubmit={this.handleSubmitText}/>
           }          
           {this.state.input === 'SingleButton' &&
             <SingleButton click={this.handleClick} 

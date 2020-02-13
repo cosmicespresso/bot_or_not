@@ -38,7 +38,7 @@ class MessageBar extends Component {
 								 onChange={this.handleChange}
 								 autoComplete={'off'}
 								 required />
-					<button className="btn-send" type="button" value="Send">
+					<button className="btn-send" type="submit" value="Send">
 						<EntypoPaperPlane/>
 					</button>
 				</form>
