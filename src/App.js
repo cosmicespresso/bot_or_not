@@ -29,6 +29,7 @@ class App extends Component {
     this.shouldUpdate = false;
 
     this.state = { 
+      name: '',
       choice: '',
       timerTime: 0,
       timerStart: 0,
@@ -87,6 +88,12 @@ class App extends Component {
             this.processResponse(botResponse); })
     }
     else this.processResponse(preProcess);
+
+    // handle name submission in Intro
+    if (this.state.step === 1) {
+      this.shouldUpdate = true;
+      this.setState({name: text})
+    }
   }
 
   startTimer = () => {
@@ -108,7 +115,6 @@ class App extends Component {
     let target = e.target.firstElementChild !== null ? 
                   e.target.firstElementChild.textContent 
                   : e.target.textContent;
-    console.log('click')
     if (target === 'Chat' || target === 'Truth' || target ==='Dare' || target ==='Bot') this.setState({choice: target})
   }
 
@@ -168,10 +174,18 @@ class App extends Component {
   render() {
     let seconds = getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
+    
     const AppStyle = this.state.step === stateMap.length ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
     const endingText = this.state.choice === 'Bot' ? 'Correct!' : 'You were fooled!'
+    
+    let title = ''
+    if (this.state.main === 'Narrator' || this.state.main === 'Round' || this.state.main === 'Ending') {
+      title = this.state.name ? `Playing as: ${this.state.name}` : this.state.headerText
+    } else {
+      title = `${this.state.choice}  00:${timer}`
+    }
 
     return (
       <div className={AppStyle}>
@@ -180,7 +194,7 @@ class App extends Component {
           {/*-----------------------------TOP-----------------------------*/}     
           
           <Header 
-          title={this.state.main === 'Chat' && (this.state.choice === 'Truth' || this.state.choice === 'Dare') ? `00:${timer}` : this.state.headerText } 
+          title={title} 
           color={HeaderColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   

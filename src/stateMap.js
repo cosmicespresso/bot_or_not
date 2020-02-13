@@ -3,7 +3,7 @@ export const stateMap = [
     step: 1, 
     timeLimit: 1000,
     messages: [],
-    headerText: 'Welcome',
+    headerText: 'Truth or Dare Turing Test🤖💁‍♀️',
     main: 'Narrator',
     fieldTop: 'Ready to play some truth or dare?',
     fieldBottom: 'You are about to be paired with either a bot or a human. The goal of the game is to correctly identify if you were talking to a human or to a bot. Before you start chatting, enter your name below: ',
@@ -53,7 +53,7 @@ export const stateMap = [
   },
   {
     step: 5, 
-    timeLimit: 30,
+    timeLimit: 3,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -79,7 +79,7 @@ export const stateMap = [
   },
   {
     step: 7, 
-    timeLimit: 30,
+    timeLimit: 3,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -104,7 +104,7 @@ export const stateMap = [
   },
   {
     step: 9, 
-    timeLimit: 30,
+    timeLimit: 3,
     messages: [],
     headerText: '',
     main: 'Chat',
