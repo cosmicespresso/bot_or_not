@@ -27,7 +27,7 @@ export const stateMap = [
   },
   {
     step: 3, 
-    timeLimit: 2,
+    timeLimit: 10,
     messages: [],
     headerText: 'Practice round',
     main: 'Chat',
@@ -53,7 +53,7 @@ export const stateMap = [
   },
   {
     step: 5, 
-    timeLimit: 3,
+    timeLimit: 10,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -79,7 +79,7 @@ export const stateMap = [
   },
   {
     step: 7, 
-    timeLimit: 3,
+    timeLimit: 10,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -104,7 +104,7 @@ export const stateMap = [
   },
   {
     step: 9, 
-    timeLimit: 3,
+    timeLimit: 10,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -134,7 +134,7 @@ export const stateMap = [
     messages: [],
     headerText: 'Thanks for playing!',
     main: 'Ending',
-    fieldTop: '',
+    fieldTop: 'You were correct!',
     fieldBottom: 'What made you decide that? <br>  Were there any tells that made you feel certain about your choice? <br>  <br>  If you are curious to learn more, you can read about what is going on behind the scenes by clicking on the button below. <br> <br> You can also just continue chatting with the bot🤖',
     input: 'DoubleButton',
     singleButtonText: '',
