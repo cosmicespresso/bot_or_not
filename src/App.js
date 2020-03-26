@@ -79,18 +79,20 @@ class App extends Component {
 
   handleSubmitText = async (text) => {
     // append user text
-    this.appendMessage(text, true);
-    const preProcess = await preProcessor(text, this.state.currentBot);
-    if(!preProcess){
-        runSample(text, this.state.currentBot)
-        .then( 
-          botResponse => { 
-            this.processResponse(botResponse); })
-    }
-    else this.processResponse(preProcess);
 
+    if (this.state.step !== 1) {
+      this.appendMessage(text, true);
+      const preProcess = await preProcessor(text, this.state.currentBot);
+      if(!preProcess){
+          runSample(text, this.state.currentBot)
+          .then( 
+            botResponse => { 
+              this.processResponse(botResponse); })
+      }
+      else this.processResponse(preProcess);
+    }
     // handle name submission in Intro
-    if (this.state.step === 1) {
+    else {
       this.shouldUpdate = true;
       this.setState({name: text})
     }
