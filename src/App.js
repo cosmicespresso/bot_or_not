@@ -12,7 +12,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { preProcessor, runSample } from './helpers/textProcessing'
+import { preProcessor, runSample, chooseTruth } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
 
 import './styles/App.css';
@@ -144,7 +144,16 @@ class App extends Component {
     // update bot, if it changes on this step
     if (bot.length > 0 && this.state.currentBot !== bot[0]){
       this.setState({currentBot: bot[0]})
-    }
+
+      //if it's a truth bot, get a truth challenge
+      if (bot[0].name === "truth_bot_asking"){
+        chooseTruth(bot[0]).then( 
+          botResponse => { 
+            console.log(botResponse);
+            this.appendMessage(botResponse); 
+          })
+        }
+      }
   }
 
   checkTimeout = (Component) => {

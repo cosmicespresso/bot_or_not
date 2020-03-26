@@ -13,7 +13,7 @@ export const advanceStep = (currentStep, stateMap) => {
   let nextStep=currentStep;
   if (currentStep < stateMap.length) {
     ++nextStep;
-  } 
+  }
   return nextStep;
 }
 
@@ -26,7 +26,7 @@ export const bots = [
   },
 
   {
-    "name": "truth_bot_regenerated",
+    "name": "truth_bot_asking",
     "sessionId": uuid.v4(),
     "projectId": "u170220-truth-bot-regenerat-hw",
     "steps": [4, 5, 8, 9, 10, 11, 12] 

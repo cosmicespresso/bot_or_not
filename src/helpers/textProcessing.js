@@ -52,7 +52,7 @@ async function createContext(context, lifespan, bot) {
   })
 }
 
-async function chooseTruth(bot) {
+export const chooseTruth = async (bot) => {
   deleteAllContexts(bot);
   let truth = truths[Math.floor(Math.random()*truths.length)];
   const contextId = truth.context;
