@@ -180,6 +180,7 @@ class App extends Component {
     const AppStyle = this.state.step >= stateMap.length-1 ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
+    const placeHolderText = this.state.step === 1 ? 'Enter your name' : 'Say something...'
     const endingText = this.state.choice === 'Bot' ? 'Correct!' : 'You were fooled!'
     
     let title = ''
@@ -231,7 +232,7 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           
           {this.state.input === 'MessageBar' && 
-            <MessageBar onSubmit={this.handleSubmitText}/>
+            <MessageBar onSubmit={this.handleSubmitText} placeholder={placeHolderText}/>
           }          
           {this.state.input === 'SingleButton' &&
             <SingleButton click={this.handleClick} 
