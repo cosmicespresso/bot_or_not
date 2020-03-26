@@ -17,13 +17,25 @@ export const advanceStep = (currentStep, stateMap) => {
   return nextStep;
 }
 
-export const bots = [{
-  "name": "truth_bot_setting",
-  "sessionId": uuid.v4(),
-  "projectId": "g191120-truth-bot-hluhsq",
-  "steps": [0, 1, 2, 3, 4, 5] },{
-  "name": "truth_bot_answering",
-  "sessionId": uuid.v4(),
-  "projectId": "c200103-challenge-truth-bot-wc",
-  "steps": [6]
-}];
+export const bots = [
+  {
+    "name": "intro_bot",
+    "sessionId": uuid.v4(),
+    "projectId": "prolific-texter-uhpjbf",
+    "steps": [0, 1, 2, 3] 
+  },
+
+  {
+    "name": "truth_bot_regenerated",
+    "sessionId": uuid.v4(),
+    "projectId": "u170220-truth-bot-regenerat-hw",
+    "steps": [4, 5, 8, 9, 10, 11, 12] 
+  },
+
+  {
+    "name": "truth_bot_answering",
+    "sessionId": uuid.v4(),
+    "projectId": "c200103-challenge-truth-bot-wc",
+    "steps": [6, 7]
+  }
+];
