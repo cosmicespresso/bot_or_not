@@ -27,7 +27,7 @@ export const stateMap = [
   },
   {
     step: 3, 
-    timeLimit: 30,
+    timeLimit: 10,
     messages: [],
     headerText: 'Practice round',
     main: 'Chat',
@@ -53,7 +53,7 @@ export const stateMap = [
   },
   {
     step: 5, 
-    timeLimit: 30,
+    timeLimit: 10,
     messages: [],
     headerText: '',
     main: 'Chat',

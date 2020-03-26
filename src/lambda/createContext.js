@@ -29,6 +29,8 @@ async function createContext(request) {
 
   const sessionPath = sessionClient.sessionPath(request.bot.projectId, request.bot.sessionId);
 
+  console.log('creating context', request)
+
   const contextPath = contextsClient.contextPath(
     request.bot.projectId,
     request.bot.sessionId,

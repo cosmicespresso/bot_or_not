@@ -86,7 +86,7 @@ function toFirstPerson(sent) {
   return sent;
 }
 
-async function parseTruthChallenge(sent) {
+async function parseTruthChallenge(sent, bot) {
   //parse out obvious would you rathers
   var subSent;
   
@@ -122,7 +122,7 @@ async function parseTruthChallenge(sent) {
   }
 
   else{
-    await createContext('notQuestion');
+    await createContext('notQuestion', 5, bot);
   }
 
 }
@@ -146,7 +146,7 @@ export const preProcessor = async (sent, bot, context) => {
 
   switch(context){
     case "truthChallenge":
-      parsed = await parseTruthChallenge(sent);
+      parsed = await parseTruthChallenge(sent, bot);
       break;
   }
 
