@@ -82,7 +82,10 @@ class App extends Component {
 
     if (this.state.step !== 1) {
       this.appendMessage(text, true);
-      const preProcess = await preProcessor(text, this.state.currentBot);
+
+      //hacky line for now, need to figure out a good way to manage this
+      let context = this.state.step === 7 ? "truthChallenge" : "other"
+      const preProcess = await preProcessor(text, this.state.currentBot, context);
       if(!preProcess){
           runSample(text, this.state.currentBot)
           .then( 
