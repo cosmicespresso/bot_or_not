@@ -154,6 +154,9 @@ class App extends Component {
           })
         }
       }
+
+      //clear out the message queue
+      this.setState({botQueue: []})
   }
 
   checkTimeout = (Component) => {
