@@ -29,7 +29,14 @@ export const bots = [
     "name": "truth_bot_asking",
     "sessionId": uuid.v4(),
     "projectId": "u170220-truth-bot-regenerat-hw",
-    "steps": [4, 5, 8, 9, 10, 11, 12] 
+    "steps": [4, 5, 10, 11, 12] 
+  },
+
+  {
+    "name": "dare_bot",
+    "sessionId": uuid.v4(),
+    "projectId": "g191120-truth-bot-hluhsq",
+    "steps": [8, 9] 
   },
 
   {
