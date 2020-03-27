@@ -2,7 +2,7 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max)+1);
 }
 
-const BOT_DELAY = 4000;
+const BOT_DELAY = 2000;
 const BOT_SPEED = getRandomInt(4) * 0.001;
 const BOT_MAX_CHARS = 350;
 

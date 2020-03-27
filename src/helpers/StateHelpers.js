@@ -22,7 +22,7 @@ export const bots = [
     "name": "intro_bot",
     "sessionId": uuid.v4(),
     "projectId": "prolific-texter-uhpjbf",
-    "steps": [0, 1, 2, 3] 
+    "steps": [0, 1] 
   },
 
   {
@@ -36,7 +36,7 @@ export const bots = [
     "name": "dare_bot",
     "sessionId": uuid.v4(),
     "projectId": "g191120-truth-bot-hluhsq",
-    "steps": [8, 9] 
+    "steps": [8, 9, 2, 3] 
   },
 
   {

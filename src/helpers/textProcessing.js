@@ -68,15 +68,17 @@ export const chooseTruth = async (bot) => {
   return truth.truth;
 }
 
+
+//right now, just queues a response at random into the returned array
 export const chooseDare = async (bot) => {
   deleteAllContexts(bot);
   let dare = dares[Math.floor(Math.random()*dares.length)];
-  console.log(dare);
+  let randResponse = dare.responses[Math.floor(Math.random()*dare.responses.length)];
   const contextId = dare.context;
   await createContext(contextId, 5, bot);
   await listContexts(bot);
 
-  return dare.dare;
+  return [dare.dare, randResponse];
 }
 
 async function replacementGrammar(options, sentences){

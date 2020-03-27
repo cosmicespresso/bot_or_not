@@ -162,13 +162,13 @@ class App extends Component {
         chooseDare(bot[0]).then( 
           botResponse => { 
             console.log(botResponse);
-            this.appendMessage(botResponse); 
+            this.appendMessage(botResponse[0]); 
+            this.botQueue = this.botQueue.concat(botResponse[1]); 
+            const isQuick = !this.state.isBotTyping;
+            this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
           })
         }
       }
-
-      //clear out the message queue
-      this.setState({botQueue: []})
   }
 
   checkTimeout = (Component) => {
