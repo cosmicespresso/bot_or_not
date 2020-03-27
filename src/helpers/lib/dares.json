@@ -1,31 +1,37 @@
 [
 	{
 		"dare": "scream as loud as you can",
-		"context": "scream"
+		"context": "scream",
+		"responses": ["lol i can shout louder than that", "loooool i cannot hear u", "my cat would be way louder than this"]
 	},
 
 	{
 		"dare": "talk to me like a hamster",
-		"context": "hamster"
+		"context": "hamster",
+		"responses": ["omggg", "omgggggg 🙈", "🐹🐹🐹🐹🐹", "like, moreso!"]
 	},
 
 	{
 		"dare": "do your best animal impression",
-		"context": "animal"
+		"context": "animal",
+		"responses": ["haha is that a cow", "lol nice bunny impression", "omg haha have u been practicing", "omgggggg 🙈"]
 	},
 	
 	{
 		"dare": "shout ur crushes name as loud as you can",
-		"context": "crush"
+		"context": "crush",
+		"responses": ["lol i can shout louder than that", "loooool i cannot hear u", "omgggggg 🙈"]
 	},
 
 	{
 		"dare": "omg yell 'I love donald trump's dad bod' as loud as possible",
-		"context": "trump"
+		"context": "trump",
+		"responses": ["lol i can shout louder than that", "loooool i cannot hear u", "loooool you do tho", "omgggggg 🙈", "omg so he can hear it"]
 	},
 
 	{
 		"dare": "okk.... scream 'I LOVE MARK ZUCKERBERG AND I WISH I HAD HIS HAIRCUT' at the top of your voice",
-		"context": "zuck"
+		"context": "zuck",
+		"responses": ["lol i can shout louder than that", "loooool i cannot hear u", "omg i knew it, u r a bot", "omg so he can hear it"]
 	}
 ]
