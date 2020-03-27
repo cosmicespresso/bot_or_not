@@ -3,6 +3,7 @@ const compendium = require('compendium-js');
 
 //text processing lib
 const truths = require('./lib/truths.json');
+const dares = require('./lib/dares.json');
 const blacklist = require('./lib/blacklist.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 
@@ -65,6 +66,17 @@ export const chooseTruth = async (bot) => {
   await listContexts(bot);
 
   return truth.truth;
+}
+
+export const chooseDare = async (bot) => {
+  deleteAllContexts(bot);
+  let dare = dares[Math.floor(Math.random()*dares.length)];
+  console.log(dare);
+  const contextId = dare.context;
+  await createContext(contextId, 5, bot);
+  await listContexts(bot);
+
+  return dare.dare;
 }
 
 async function replacementGrammar(options, sentences){

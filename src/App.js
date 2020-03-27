@@ -12,7 +12,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { preProcessor, runSample, chooseTruth } from './helpers/textProcessing'
+import { preProcessor, runSample, chooseTruth, chooseDare } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
 
 import './styles/App.css';
@@ -151,6 +151,15 @@ class App extends Component {
       //if it's a truth bot, get a truth challenge
       if (bot[0].name === "truth_bot_asking"){
         chooseTruth(bot[0]).then( 
+          botResponse => { 
+            console.log(botResponse);
+            this.appendMessage(botResponse); 
+          })
+        }
+
+      //if it's a dare bot, get a dare
+      if (bot[0].name === "dare_bot"){
+        chooseDare(bot[0]).then( 
           botResponse => { 
             console.log(botResponse);
             this.appendMessage(botResponse); 
