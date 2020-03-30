@@ -26,7 +26,7 @@ input::-webkit-input-placeholder {
   border-style: none;
   color: #00f;
   font-family: 'Inter', sans-serif; 
-  font-size:1.1vw;
+  font-size: 1.1vw;
   font-weight: 600;
   padding: 0 10px;
   width: 100%;
@@ -101,6 +101,22 @@ input::-webkit-input-placeholder {
             transform: translateY(-6px);
   }
 }
+
+
+
+@media screen and (max-width: 500px)  {
+
+  .text-input {
+    font-size: 1.1rem !important;
+  }
+
+  /*icons*/
+  .btn-send {
+    font-size: 1.6rem !important;
+  }
+}
+
+
 /*
  * 
  * SINGLE BUTTON
