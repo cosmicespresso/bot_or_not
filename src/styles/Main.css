@@ -46,8 +46,6 @@
           flex-grow: 0.3;
 }
 
-
-
 /*
  * 
  * Round
@@ -83,6 +81,18 @@
   .narrator .field-bottom { 
     font-size: 1.5vw;
   }
+}
+
+@media screen and (max-width: 500px)  {
+
+
+  .narrator .round-top {
+    font-size: 4rem;
+  }
+  .narrator .round-bottom { 
+    font-size: 15rem;
+  }
+
 }
 
 
@@ -141,4 +151,11 @@
   font-weight: 600;
   line-height: 1.2;
   overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 500px)  {
+
+  .message p {
+    font-size: 1.1rem;
+  }
 }
