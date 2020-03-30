@@ -26,18 +26,19 @@ input::-webkit-input-placeholder {
   border-style: none;
   color: #00f;
   font-family: 'Inter', sans-serif; 
-  font-size:1.2rem;
+  font-size:1.1vw;
   font-weight: 600;
   padding: 0 10px;
   width: 100%;
 }
+
 /*icons*/
 .btn-send {
   color: #00f;
   background: none;
   display: flex;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.2rem;
+  font-size: 1.6vw;
   border: 1px solid #00f;
   border-radius: 3px;
   margin: 4px;
@@ -118,7 +119,7 @@ input::-webkit-input-placeholder {
 }
 .single-button > p {
   color: #00f;
-  font-size: 1.3rem;
+  font-size: 1.3vw;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0 auto;
