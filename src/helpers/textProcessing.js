@@ -7,6 +7,9 @@ const dares = require('./lib/dares.json');
 const blacklist = require('./lib/blacklist.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 
+//set up question answering for truth challenge
+let askedQuestion = false;
+
 export const runSample = async (sample, bot) => {
   const response = await fetch(".netlify/functions/runSample", {
     method: 'POST',
@@ -68,7 +71,6 @@ export const chooseTruth = async (bot) => {
   return truth.truth;
 }
 
-
 //right now, just queues a response at random into the returned array
 export const chooseDare = async (bot) => {
   deleteAllContexts(bot);
@@ -100,22 +102,22 @@ function toFirstPerson(sent) {
   return sent;
 }
 
+function levenshteinVariants(sent, variants) {
+  let subSent;
+
+  variants.forEach( variant => {
+    if(natural.LevenshteinDistance(variant, sent, {search: true}).distance < 3){
+      subSent = sent.replace(natural.LevenshteinDistance(variant, sent, {search: true}).substring, '').trim();
+    }
+  })
+
+  return subSent;
+}
+
 async function parseTruthChallenge(sent, bot) {
   //parse out obvious would you rathers
-  var subSent;
-  
-  if(natural.LevenshteinDistance("Would you rather", sent, {search: true}).distance < 3){
-    //remove substring
-    var subSent = sent.replace(natural.LevenshteinDistance("Would you rather", sent, {search: true}).substring, '').trim();
-  }
-
-  else if(natural.LevenshteinDistance("would u rather", sent, {search: true}).distance < 3){
-    var subSent = sent.replace(natural.LevenshteinDistance("would u rather", sent, {search: true}).substring, '').trim();
-  }
-
-  else if(natural.LevenshteinDistance("wd u rather", sent, {search: true}).distance < 3){
-    var subSent = sent.replace(natural.LevenshteinDistance("wd u rather", sent, {search: true}).substring, '').trim();
-  }
+  const wyrVariants = ["Would you rather", "would u rather", "wd u rather"]
+  let subSent = levenshteinVariants(sent, wyrVariants)
 
   if(subSent) {
     var options = subSent.split(' or ');
@@ -132,7 +134,7 @@ async function parseTruthChallenge(sent, bot) {
   const profile = compendium.analyse(sent)[0].profile;
 
   if(profile.types.includes('interrogative')){
-    console.log(`asked a ${profile.dirtiness > 0.15 ? "dirty " : ''}question in the ${profile.main_tense} tense`)
+    askedQuestion = true;
   }
 
   else{
@@ -158,9 +160,13 @@ export const preProcessor = async (sent, bot, context) => {
 
   let parsed;
 
+  console.log('context', context)
+
   switch(context){
     case "truthChallenge":
-      parsed = await parseTruthChallenge(sent, bot);
+      if(!askedQuestion){
+        parsed = await parseTruthChallenge(sent, bot);
+      }
       break;
   }
 
