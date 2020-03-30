@@ -181,3 +181,11 @@ input {
   -webkit-filter: grayscale(1);
           filter: grayscale(1);
 }
+
+
+@media screen and (max-width: 500px)  {
+
+  .single-button > p {
+    font-size: 1.3rem !important;
+  }
+}
