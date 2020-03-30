@@ -22,6 +22,11 @@ input::-webkit-input-placeholder {
   font-weight: 400;
 }
 
+input {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
 .text-input {
   border-style: none;
   color: #00f;
