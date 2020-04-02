@@ -64,12 +64,12 @@ async function createContext(context, lifespan, bot) {
 
 export const chooseTruth = async (bot) => {
   deleteAllContexts(bot);
-  let truth = truths[Math.floor(Math.random()*truths.length)];
-  const contextId = truth.context;
-  await createContext(contextId, 5, bot);
+
+  let truth = getResponse(truths)
+  await createContext(truth.context, 5, bot);
   await listContexts(bot);
 
-  return truth.truth;
+  return truth.response;
 }
 
 //right now, just queues a response at random into the returned array
@@ -139,6 +139,7 @@ async function parseTruthChallenge(sent, bot) {
 
     if(options.length > 1){
       const response = replacementGrammar(options, wyrResponse);
+      askedQuestion = true;
       return response;
     }
   }
@@ -159,7 +160,7 @@ async function parseTruthChallenge(sent, bot) {
 
 }
 
-export const preProcessor = async (sent, bot, context) => {
+export const textProcessor = async (sent, bot, context) => {
   let sentArr = sent.split(" ");
 
   //check against words blacklist
@@ -176,8 +177,6 @@ export const preProcessor = async (sent, bot, context) => {
 
   let parsed;
 
-  console.log('context', context)
-
   switch(context){
     case "truthChallenge":
       if(!askedQuestion){
@@ -186,8 +185,15 @@ export const preProcessor = async (sent, bot, context) => {
       break;
   }
 
+  //if something came out the parsing step
   if(parsed !== undefined){
     console.log('parsed', parsed)
     return parsed;
+  }
+
+  //if nothing send the bot
+  else {
+    const botResponse = await runSample(sent, bot);
+    return botResponse;
   }
 }

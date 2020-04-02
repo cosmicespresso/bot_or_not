@@ -12,7 +12,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { preProcessor, runSample, chooseTruth, chooseDare } from './helpers/textProcessing'
+import { textProcessor, runSample, chooseTruth, chooseDare } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
 
 import './styles/App.css';
@@ -78,26 +78,16 @@ class App extends Component {
   }
 
   handleSubmitText = async (text) => {
-    // append user text
 
     if (this.state.step !== 1) {
+      // append user text
       this.appendMessage(text, true);
 
-      //hacky line for now, need to figure out a good way to manage this
+      //hacky line for now, need to add to state helpers
       let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other"
+      const response = await textProcessor(text, this.state.currentBot, context);
+      this.processResponse(response);
 
-      var t0 = performance.now();
-      const preProcess = await preProcessor(text, this.state.currentBot, context);
-      var t1 = performance.now();
-      console.log("Call to preprocessor took " + (t1 - t0) + " milliseconds.");
-
-      if(!preProcess){
-          runSample(text, this.state.currentBot)
-          .then( 
-            botResponse => { 
-              this.processResponse(botResponse); })
-      }
-      else this.processResponse(preProcess);
     }
     // handle name submission in Intro
     else {
