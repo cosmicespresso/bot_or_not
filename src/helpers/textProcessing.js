@@ -6,6 +6,7 @@ const truths = require('./lib/truths.json');
 const dares = require('./lib/dares.json');
 const blacklist = require('./lib/blacklist.json');
 const wyrResponse = require('./lib/wyrResponse.json');
+let notQuestion = require('./lib/notQuestion.json');
 
 //set up question answering for truth challenge
 let askedQuestion = false;
@@ -102,6 +103,19 @@ function toFirstPerson(sent) {
   return sent;
 }
 
+function getResponse(responseArr) {
+  let response = responseArr[Math.floor(Math.random()*responseArr.length)];
+
+  //remove the element so not repeating ourselves
+  const index = responseArr.indexOf(response);
+  if (index > -1) {
+    responseArr.splice(index, 1);
+  }
+  
+  console.log(responseArr);
+  return response;
+}
+
 function levenshteinVariants(sent, variants) {
   let subSent;
 
@@ -138,7 +152,9 @@ async function parseTruthChallenge(sent, bot) {
   }
 
   else{
-    await createContext('notQuestion', 5, bot);
+    const noQuestionResponse = getResponse(notQuestion)
+    await createContext(noQuestionResponse.context, 5, bot);
+    return noQuestionResponse.response;
   }
 
 }
@@ -149,7 +165,7 @@ export const preProcessor = async (sent, bot, context) => {
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
   if(matched.length !== 0){
-    await createContext('blacklist', 5, bot);
+    // await createContext('blacklist', 5, bot);
     return "hey, not cool";
   }
 

@@ -86,10 +86,10 @@ class App extends Component {
       //hacky line for now, need to figure out a good way to manage this
       let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other"
 
-      // var t0 = performance.now();
+      var t0 = performance.now();
       const preProcess = await preProcessor(text, this.state.currentBot, context);
-      // var t1 = performance.now();
-      // console.log("Call to preprocessor took " + (t1 - t0) + " milliseconds.");
+      var t1 = performance.now();
+      console.log("Call to preprocessor took " + (t1 - t0) + " milliseconds.");
 
       if(!preProcess){
           runSample(text, this.state.currentBot)

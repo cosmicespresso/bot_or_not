@@ -53,7 +53,7 @@ export const stateMap = [
   },
   {
     step: 5, 
-    timeLimit: 10,
+    timeLimit: 30,
     messages: [],
     headerText: '',
     main: 'Chat',
