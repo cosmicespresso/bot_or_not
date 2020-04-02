@@ -49,11 +49,6 @@ input {
   margin: 4px;
 }
 
-.btn-send:hover {
-  cursor: pointer;
-  filter: grayscale(1);
-}
-
 
 /*animation*/
 #wave {
@@ -106,8 +101,6 @@ input {
             transform: translateY(-6px);
   }
 }
-
-
 
 @media screen and (max-width: 500px)  {
 
@@ -178,10 +171,7 @@ input {
 
 .single-button:hover, .double-button > .singlebutton:hover {
   cursor: pointer;
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
 }
-
 
 @media screen and (max-width: 500px)  {
 

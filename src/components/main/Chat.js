@@ -6,7 +6,12 @@ class Chat extends Component {
 
 	scrollToBottom = () => {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
-		end.scrollIntoViewIfNeeded({behavior: 'smooth'});
+		// end.scrollIntoView({ behavior: 'smooth', block: 'nearest'})
+		end.parentNode.scrollTop = end.offsetTop;
+	}
+
+	componentDidUpdate() {
+		this.scrollToBottom();
 	}
 
 	render(props) {
@@ -39,7 +44,7 @@ class Chat extends Component {
 					{groups.map((group, i) =>
 						<Exchange key={i} group={group}/>
 					)}
-					<div style={{ float: "left", clear: "both" }} ref={el => this.scrollTarget = el} > </div>
+						<div style={{ float: "left", clear: "both" }} ref={el => this.scrollTarget = el} > </div>
 				</div>
 			</div>
 	            

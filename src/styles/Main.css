@@ -125,6 +125,7 @@
   width: 100%;
   padding: 0px 5px;
   overflow-y: auto;
+  /*overflow: -moz-hidden-unscrollable;*/
 }
 .group {
   clear: both;
