@@ -36,13 +36,13 @@ export const bots = [
     "name": "dare_bot",
     "sessionId": uuid.v4(),
     "projectId": "g191120-truth-bot-hluhsq",
-    "steps": [8, 9, 2, 3] 
+    "steps": [8, 9] 
   },
 
   {
     "name": "truth_bot_answering",
     "sessionId": uuid.v4(),
     "projectId": "c200103-challenge-truth-bot-wc",
-    "steps": [6, 7]
+    "steps": [2, 3, 6, 7]
   }
 ];
