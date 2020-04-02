@@ -101,6 +101,7 @@ input {
             transform: translateY(-6px);
   }
 }
+/* -------------------------------------------------------------------------------- RESPONSIVE TEXT INPUT AND BTN*/
 
 @media screen and (max-width: 500px)  {
 
@@ -173,8 +174,8 @@ input {
   cursor: pointer;
 }
 
+/* -------------------------------------------------------------------------------- RESPONSIVE BUTTONS*/
 @media screen and (max-width: 500px)  {
-
   .single-button > p {
     font-size: 1.3rem !important;
   }
