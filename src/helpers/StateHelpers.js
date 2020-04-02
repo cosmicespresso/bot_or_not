@@ -22,7 +22,7 @@ export const bots = [
     "name": "intro_bot",
     "sessionId": uuid.v4(),
     "projectId": "prolific-texter-uhpjbf",
-    "steps": [0, 1, 2, 3] 
+    "steps": [] 
   },
 
   {
@@ -43,6 +43,6 @@ export const bots = [
     "name": "truth_bot_answering",
     "sessionId": uuid.v4(),
     "projectId": "c200103-challenge-truth-bot-wc",
-    "steps": [6, 7, 8, 9]
+    "steps": [0, 1, 2, 3, 6, 7, 8, 9]
   }
 ];

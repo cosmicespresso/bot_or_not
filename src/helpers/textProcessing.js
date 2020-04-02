@@ -111,7 +111,7 @@ function getResponse(responseArr) {
   if (index > -1) {
     responseArr.splice(index, 1);
   }
-  
+
   console.log(responseArr);
   return response;
 }
@@ -153,7 +153,7 @@ async function parseTruthChallenge(sent, bot) {
 
   else{
     const noQuestionResponse = getResponse(notQuestion)
-    await createContext(noQuestionResponse.context, 5, bot);
+    createContext(noQuestionResponse.context, 5, bot);
     return noQuestionResponse.response;
   }
 
