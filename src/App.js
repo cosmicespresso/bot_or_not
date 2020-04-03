@@ -12,7 +12,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { preProcessor, runSample, chooseTruth, chooseDare } from './helpers/textProcessing'
+import { textProcessor, runSample, chooseTruth, chooseDare } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
 
 import './styles/App.css';
@@ -79,18 +79,17 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-  handleSubmitText = async (text) => {
+   handleSubmitText = async (text) => {
 
-    if (this.state.step !== 1) { // not intro
+    if (this.state.step !== 1) {
+      // append user text
       this.appendMessage(text, true);
-      let context = this.state.step === 7 ? "truthChallenge" : "other" //hacky line for now, need to figure out a good way to manage this
-      const preProcess = await preProcessor(text, this.state.currentBot, context);
-      
-      if(!preProcess){
-        runSample(text, this.state.currentBot)
-        .then(botResponse => {this.processResponse(botResponse); })
-      }
-      else {this.processResponse(preProcess);}
+
+      //hacky line for now, need to add to state helpers
+      let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other"
+      const response = await textProcessor(text, this.state.currentBot, context);
+      this.processResponse(response);
+
     }
     // handle name submission in Intro
     else {
