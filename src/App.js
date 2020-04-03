@@ -261,13 +261,6 @@ class App extends Component {
             button2={this.state.button2Text} />
           }
         </div>
-        {/*-----------------------------INFO-----------------------------*/}     
-        { window.innerHeight > `${maxWindowHeight}` && 
-          <div className="info" style={{color: infoColor}} > 
-            a <a href="https://www.foreignobjects.net/"rel="noopener noreferrer" target="_blank">
-            FOREIGN OBJECTS</a> early prototype 
-          </div>
-        }
       </div>
     );
   }
