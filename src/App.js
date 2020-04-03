@@ -58,22 +58,18 @@ class App extends Component {
   }
 
   processResponse = (text) => {
-    let messages;
     //check if message pure punctuation, let it pass if so
     if (text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
-      messages = text
+      text = text
         .match(/[^.!?]+[.!?]*/g)
         .map(str => str.trim());
     }
-    else messages = text;
-    // error handling
-    if (!messages) {
-      messages = 'huh??';
-      console.log('error handling messages:', messages)
+    else if (!text) {
+      text = 'huh??';
     }
-    this.botQueue = this.botQueue.concat(messages);
-    console.log(this.botQueue)
+
+    this.botQueue = this.botQueue.concat(text);
     // start processing bot queue
     const isQuick = !this.state.isBotTyping;
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
