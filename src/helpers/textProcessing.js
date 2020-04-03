@@ -108,11 +108,10 @@ function getResponse(responseArr) {
 
   //remove the element so not repeating ourselves
   const index = responseArr.indexOf(response);
-  if (index > -1) {
+  if (index > 0) {
     responseArr.splice(index, 1);
   }
 
-  console.log(responseArr);
   return response;
 }
 

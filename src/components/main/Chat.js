@@ -28,7 +28,7 @@ class Chat extends Component {
 		}
 
 		// bot is typing
-		if (props && this.props.isBotTyping) {
+		if (this.props && this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
 			if (groups[endIndex].isUser) {
 				groups.push({isUser: false, messages: [null]});
