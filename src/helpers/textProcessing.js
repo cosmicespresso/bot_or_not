@@ -3,7 +3,6 @@ const compendium = require('compendium-js');
 
 //text processing lib
 const truths = require('./lib/truths.json');
-const dares = require('./lib/dares.json');
 const blacklist = require('./lib/blacklist.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 let notQuestion = require('./lib/notQuestion.json');
@@ -70,18 +69,6 @@ export const chooseTruth = async (bot) => {
   await listContexts(bot);
 
   return truth.response;
-}
-
-//right now, just queues a response at random into the returned array
-export const chooseDare = async (bot) => {
-  deleteAllContexts(bot);
-  let dare = dares[Math.floor(Math.random()*dares.length)];
-  let randResponse = dare.responses[Math.floor(Math.random()*dare.responses.length)];
-  const contextId = dare.context;
-  await createContext(contextId, 5, bot);
-  await listContexts(bot);
-
-  return [dare.dare, randResponse];
 }
 
 async function replacementGrammar(options, sentences){

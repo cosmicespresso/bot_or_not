@@ -12,7 +12,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { textProcessor, runSample, chooseTruth, chooseDare } from './helpers/textProcessing'
+import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
 
 import './styles/App.css';
@@ -113,7 +113,7 @@ class App extends Component {
     let target = e.target.firstElementChild !== null ? 
                   e.target.firstElementChild.textContent 
                   : e.target.textContent;
-    if (target === 'Chat' || target === 'Truth' || target ==='Dare' || target ==='Bot') this.setState({choice: target})
+    if (target === 'Chat' || target === 'Truth' || target ==='Bot') this.setState({choice: target})
   }
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -150,17 +150,6 @@ class App extends Component {
           })
         }
 
-      //if it's a dare bot, get a dare
-      if (bot[0].name === "dare_bot"){
-        chooseDare(bot[0]).then( 
-          botResponse => { 
-            console.log(botResponse);
-            this.appendMessage(botResponse[0]); 
-            this.botQueue = this.botQueue.concat(botResponse[1]); 
-            const isQuick = !this.state.isBotTyping;
-            this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
-          })
-        }
       }
   }
 
