@@ -28,19 +28,17 @@
 .narrator .field-top {
   font-family:'Inter', sans-serif; 
   color: #00f;
-  font-size: 15vw;
+  font-size: 4rem;
   font-weight: 800;
   font-style: italic;
   padding: 10px;
-  /*max-height: 50vh;*/
 }
 .narrator .field-bottom {
   font-family: 'Inter', sans-serif; 
   color:#00f;
-  font-size: 5vw;
+  font-size: 1.5rem;
   font-weight: 600;
   padding: 10px;
-  /*min-height: 20vh;*/
   -webkit-box-flex: 0.3;
       -ms-flex-positive: 0.3;
           flex-grow: 0.3;
@@ -54,47 +52,36 @@
 .narrator .round-top {
   font-family:'Inter', sans-serif; 
   color: #00f;
-  font-size: 4vw;
+  font-size: 4rem;
   font-weight: 800;
   font-style: italic;
   padding: 10px;
   max-height: 50vh;
   text-align: center;
 }
+
 .narrator .round-bottom {
   font-family: 'Inter', sans-serif; 
   color:#00f;
-  font-size: 15vw;
+  font-size: 1.5rem;
   font-style: italic;
   font-weight: 600;
   text-align: center;
-  min-height: 20vh;
   -webkit-box-flex: 0.3;
       -ms-flex-positive: 0.3;
           flex-grow: 0.3;
 }
 
-@media screen and (min-width: 700px)  {
-  .narrator .field-top { 
-    font-size: 4vw;
-  }
-  .narrator .field-bottom { 
-    font-size: 1.5vw;
-  }
-}
-
-@media screen and (max-width: 500px)  {
-
-
+/* -------------------------------------------------------------------------------- RESPONSIVE NARRATOR and ROUND*/
+/*
+@media screen and (max-width: 800px)  {
   .narrator .round-top {
     font-size: 4rem;
   }
   .narrator .round-bottom { 
-    font-size: 15rem;
+    font-size: 1.5rem;
   }
-
-}
-
+}*/
 
 
 /*
@@ -125,7 +112,6 @@
   width: 100%;
   padding: 0px 5px;
   overflow-y: auto;
-  /*overflow: -moz-hidden-unscrollable;*/
 }
 .group {
   clear: both;
@@ -148,15 +134,16 @@
 }
 .message p {
   font-family: 'Inter', sans-serif; 
-  font-size: 1.1vw;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.2;
   overflow-wrap: break-word;
 }
 
-@media screen and (max-width: 500px)  {
-
+/* -------------------------------------------------------------------------------- RESPONSIVE CHAT*/
+/*@media screen and (max-width: 500px)  {
   .message p {
     font-size: 1.1rem;
   }
 }
+*/

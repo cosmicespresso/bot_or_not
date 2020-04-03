@@ -164,6 +164,7 @@ export const textProcessor = async (sent, bot, context) => {
 
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
+  
   if(matched.length !== 0){
     createContext('blacklist', 5, bot);
     return "hey, not cool";

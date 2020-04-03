@@ -31,7 +31,7 @@ input {
   border-style: none;
   color: #00f;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.1vw;
+  font-size: 1.1rem;
   font-weight: 600;
   padding: 0 10px;
   width: 100%;
@@ -43,7 +43,7 @@ input {
   background: none;
   display: flex;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.6vw;
+  font-size: 1.6rem;
   border: 1px solid #00f;
   border-radius: 3px;
   margin: 4px;
@@ -101,18 +101,18 @@ input {
             transform: translateY(-6px);
   }
 }
+/* -------------------------------------------------------------------------------- RESPONSIVE TEXT INPUT AND BTN*/
 
-@media screen and (max-width: 500px)  {
+/*@media screen and (max-width: 500px)  {
 
   .text-input {
     font-size: 1.1rem !important;
   }
 
-  /*icons*/
   .btn-send {
     font-size: 1.6rem !important;
   }
-}
+}*/
 
 
 /*
@@ -133,7 +133,7 @@ input {
 }
 .single-button > p {
   color: #00f;
-  font-size: 1.3vw;
+  font-size: 1.3rem;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0 auto;
@@ -173,9 +173,9 @@ input {
   cursor: pointer;
 }
 
-@media screen and (max-width: 500px)  {
-
+/* -------------------------------------------------------------------------------- RESPONSIVE BUTTONS*/
+/*@media screen and (max-width: 500px)  {
   .single-button > p {
     font-size: 1.3rem !important;
   }
-}
+}*/

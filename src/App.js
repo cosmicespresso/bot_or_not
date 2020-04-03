@@ -47,6 +47,7 @@ class App extends Component {
 
   processBotQueue = (isQuick = false) => {
     if (!this.isProcessingQueue && this.botQueue.length) {
+      console.log(this.botQueue)
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
       setTimeout(() => {
@@ -72,12 +73,13 @@ class App extends Component {
       console.log('error handling messages:', messages)
     }
     this.botQueue = this.botQueue.concat(messages);
+    console.log(this.botQueue)
     // start processing bot queue
     const isQuick = !this.state.isBotTyping;
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-  handleSubmitText = async (text) => {
+   handleSubmitText = async (text) => {
 
     if (this.state.step !== 1) {
       // append user text
