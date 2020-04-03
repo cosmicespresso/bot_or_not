@@ -134,7 +134,7 @@
 }
 .message p {
   font-family: 'Inter', sans-serif; 
-  font-size: 1.1vw;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.2;
   overflow-wrap: break-word;
