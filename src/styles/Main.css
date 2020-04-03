@@ -73,7 +73,7 @@
 }
 
 /* -------------------------------------------------------------------------------- RESPONSIVE NARRATOR and ROUND*/
-
+/*
 @media screen and (max-width: 800px)  {
   .narrator .round-top {
     font-size: 4rem;
@@ -81,7 +81,7 @@
   .narrator .round-bottom { 
     font-size: 1.5rem;
   }
-}
+}*/
 
 
 /*
@@ -141,8 +141,9 @@
 }
 
 /* -------------------------------------------------------------------------------- RESPONSIVE CHAT*/
-@media screen and (max-width: 500px)  {
+/*@media screen and (max-width: 500px)  {
   .message p {
     font-size: 1.1rem;
   }
 }
+*/
