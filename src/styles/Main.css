@@ -8,7 +8,7 @@
  * NARRATOR
  *
  */
-.narrator {
+.narrator, .round, .end, .about {
   background: #fff;
   border:2px solid #00f;
   border-radius: 3px;
@@ -29,8 +29,7 @@
   font-family:'Inter', sans-serif; 
   color: #00f;
   font-size: 4rem;
-  font-weight: 800;
-  font-style: italic;
+  font-weight: 600;
   padding: 10px;
 }
 .narrator .field-bottom {
@@ -49,39 +48,80 @@
  * Round
  *
  */
-.narrator .round-top {
+.round .round-top {
   font-family:'Inter', sans-serif; 
   color: #00f;
   font-size: 4rem;
-  font-weight: 800;
-  font-style: italic;
+  font-weight: 600;
   padding: 10px;
   max-height: 50vh;
   text-align: center;
 }
 
-.narrator .round-bottom {
+.round .round-bottom {
   font-family: 'Inter', sans-serif; 
   color:#00f;
-  font-size: 1.5rem;
-  font-style: italic;
+  font-size: 15rem;
   font-weight: 600;
   text-align: center;
   -webkit-box-flex: 0.3;
       -ms-flex-positive: 0.3;
           flex-grow: 0.3;
 }
-
-/* -------------------------------------------------------------------------------- RESPONSIVE NARRATOR and ROUND*/
 /*
-@media screen and (max-width: 800px)  {
-  .narrator .round-top {
-    font-size: 4rem;
-  }
-  .narrator .round-bottom { 
-    font-size: 1.5rem;
-  }
-}*/
+ * 
+ * End
+ *
+ */
+.end .end-top {
+  font-family:'Inter', sans-serif; 
+  color: #00f;
+  font-size: 4rem;
+  font-weight: 600;
+  padding: 10px;
+  max-height: 50vh;
+  text-align: center;
+}
+
+.end .end-bottom {
+  font-family: 'Inter', sans-serif; 
+  color:#00f;
+  font-size: 1.5rem;
+  padding: 10px;
+  font-weight: 600;
+  text-align: left;
+  -webkit-box-flex: 0.3;
+      -ms-flex-positive: 0.3;
+          flex-grow: 0.3;
+}
+/*
+ * 
+ * About
+ *
+ */
+
+.about .text {
+  overflow-y: scroll;
+}
+
+.about > * {
+  font-family: 'Inter', sans-serif; 
+  color: #00f;
+  font-size: 1.3rem;
+  padding: 10px;
+  font-weight: 600;
+  text-align: left;
+  -webkit-box-flex: 0.3;
+      -ms-flex-positive: 0.3;
+          flex-grow: 0.3;
+}
+
+.about .text > a {
+  color: inherit;
+}
+.about .text > a:visited {
+  color: inherit;
+}
 
 
 /*
@@ -139,11 +179,3 @@
   line-height: 1.2;
   overflow-wrap: break-word;
 }
-
-/* -------------------------------------------------------------------------------- RESPONSIVE CHAT*/
-/*@media screen and (max-width: 500px)  {
-  .message p {
-    font-size: 1.1rem;
-  }
-}
-*/

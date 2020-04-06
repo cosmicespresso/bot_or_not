@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import Header from './components/top/Header';
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
+import NarratorWait from './components/main/NarratorWait';
 import Round from './components/main/Round';
+import End from './components/main/End';
+import About from './components/main/About';
 
 import MessageBar from './components/input/MessageBar';
 import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
+import SocialMediaButton from './components/input/SocialMediaButton';
 
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
@@ -77,7 +81,7 @@ class App extends Component {
 
    handleSubmitText = async (text) => {
 
-    if (this.state.step !== 1) {
+    if (this.state.step !== 3) {
       // append user text
       this.appendMessage(text, true);
 
@@ -194,21 +198,22 @@ class App extends Component {
     let seconds = getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
     
-    const AppStyle = this.state.step >= stateMap.length-1 ? 'App-Gameover' : 'App'
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
-    const infoColor= this.state.step === stateMap.length ? '#fff' : '#FF2D55';
     const placeHolderText = this.state.step === 1 ? 'Enter your name' : 'Say something...'
-    const endingText = this.state.choice === 'Bot' ? 'Correct!' : 'You were fooled!'
     
     let title = ''
-    if (this.state.main === 'Narrator' || this.state.main === 'Round' || this.state.main === 'Ending') {
-      title = this.state.name ? `Playing as: ${this.state.name}` : this.state.headerText
-    } else {
-      title =  this.state.step < 12 ? `${this.state.choice}  00:${timer}` : `Playing as: ${this.state.name}`
+    if (this.state.main === 'About') {
+      title = 'About'
     }
+    else if (this.state.main === 'Chat') {
+      title = `00:${timer}`
+    }
+    else {
+      title = this.state.name ? `Playing as: ${this.state.name}` : this.state.headerText
+    } 
 
     return (
-      <div className={AppStyle}>
+      <div className='App'>
         <div className="container">
           
           {/*-----------------------------TOP-----------------------------*/}     
@@ -230,20 +235,29 @@ class App extends Component {
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>
+          }            
+          {this.state.main === 'NarratorWait'  && 
+            <NarratorWait 
+            dialogHeight={this.state.dialogHeight} 
+            headline={this.state.fieldTop} 
+            text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
             <Chat 
             time={getSeconds(this.state.timerTime)}
-            choice={this.state.choice}
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
             dialogHeight={this.state.dialogHeight} />
           }            
-          {this.state.main === 'Ending' &&
-            <Narrator 
+          {this.state.main === 'End' &&
+            <End 
             dialogHeight={this.state.dialogHeight} 
-            headline={endingText} 
+            headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>
+          }            
+          {this.state.main === 'About' &&
+            <About 
+            dialogHeight={this.state.dialogHeight} />
           }              
 
           {/*-----------------------------INPUT-----------------------------*/}     
@@ -260,6 +274,10 @@ class App extends Component {
             button1={this.state.button1Text} 
             button2={this.state.button2Text} />
           }
+          {this.state.input === 'SocialMediaButton' &&
+            <SocialMediaButton click={this.handleClick} 
+            buttonText={this.state.singleButtonText} />
+          }  
         </div>
       </div>
     );

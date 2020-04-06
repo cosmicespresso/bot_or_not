@@ -134,13 +134,18 @@ input {
 .single-button > p {
   color: #00f;
   font-size: 1.3rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   margin: 0 auto;
   padding: 0;
   line-height: 35px;
-  font-style: italic;
 }
+
+/*
+ * 
+ * DOUBLE BUTTON
+ *
+ */
 .double-button {
   font-family: 'Inter', sans-serif; 
   margin: 10px;
@@ -160,6 +165,7 @@ input {
   margin: 0;
   padding: 0px;
   flex-grow: 1;
+  width: 30vw;
 }
 
 .double-button > .single-button:first-child {
@@ -170,6 +176,29 @@ input {
 }
 
 .single-button:hover, .double-button > .singlebutton:hover {
+  cursor: pointer;
+}
+
+/*
+ * 
+ * SHARE ICONS
+ *
+ */
+
+.icons {
+  /*border: 1px solid;*/
+}
+
+.icons > img:first-child {
+  margin-left: 10px;
+}
+
+.icons > img {
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+.icons > img:hover {
   cursor: pointer;
 }
 
