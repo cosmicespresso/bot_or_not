@@ -36,6 +36,7 @@ export const stateMap = [
     step: 3, 
     timeLimit: 1000,
     messages: [],
+    headerText: 'Bot or Not',
     main: 'Narrator',
     className: 'theme2',
     headerText: 'Truth or Dare Turing Test',
