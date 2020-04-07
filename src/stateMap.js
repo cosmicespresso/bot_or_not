@@ -61,7 +61,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 5, 
-    timeLimit: 5,
+    timeLimit: 30,
     messages: [],
     className: 'theme1',
     headerText: 'Practice round',
@@ -113,7 +113,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 9, 
-    timeLimit: 5,
+    timeLimit: 30,
     messages: [],
     className: 'theme1',
     headerText: '',
@@ -152,7 +152,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 12, 
-    timeLimit: 5,
+    timeLimit: 30,
     messages: [],
     className: 'theme1',
     headerText: '',
@@ -191,7 +191,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 15, 
-    timeLimit: 5,
+    timeLimit: 30,
     messages: [],
     className: 'theme1',
     headerText: '',
