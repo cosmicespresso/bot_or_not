@@ -6,6 +6,7 @@ const truths = require('./lib/truths.json');
 const blacklist = require('./lib/blacklist.json');
 const wyrResponse = require('./lib/wyrResponse.json');
 const whats = require('./lib/whats.json');
+const questions = require('./lib/questions.json');
 let notQuestion = require('./lib/notQuestion.json');
 
 //set up question answering for truth challenge
@@ -67,9 +68,20 @@ export const chooseTruth = async (bot) => {
 
   let truth = getResponse(truths)
   await createContext(truth.context, 5, bot);
-  await listContexts(bot);
+  listContexts(bot);
 
   return truth.response;
+}
+
+//change the topic of conversation
+export const changeTopic = async (bot) => {
+  deleteAllContexts(bot);
+
+  let question = getResponse(questions)
+  await createContext(question.context, 5, bot);
+  listContexts(bot);
+
+  return question.response;
 }
 
 async function replacementGrammar(options, sentences){
@@ -165,7 +177,8 @@ async function genericParser(sent, bot) {
 
   //breaking the what loop
   if(whats.includes(sent.replace(/\?/g, ''))) {
-    return 'what alert'
+    const output = await changeTopic(bot);
+    return output;
   }
 }
 
