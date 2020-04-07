@@ -191,7 +191,7 @@ class App extends Component {
     if (this.state.main === 'Chat') { 
       title = `Playing with ${this.state.opponent}       00:${timer}`
     }
-    else if (this.state.main === 'Narrator' && this.state.name !== '') { 
+    else if ((this.state.main === 'Narrator' || this.state.main === 'NarratorWait') && this.state.name !== '') { 
       title = `You are playing with ${this.state.opponent}`
     }
     else {
