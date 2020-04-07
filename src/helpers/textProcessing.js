@@ -5,6 +5,7 @@ const compendium = require('compendium-js');
 const truths = require('./lib/truths.json');
 const blacklist = require('./lib/blacklist.json');
 const wyrResponse = require('./lib/wyrResponse.json');
+const whats = require('./lib/whats.json');
 let notQuestion = require('./lib/notQuestion.json');
 
 //set up question answering for truth challenge
@@ -146,8 +147,8 @@ async function parseTruthChallenge(sent, bot) {
 
 }
 
-export const textProcessor = async (sent, bot, context) => {
-  let sentArr = sent.split(" ");
+async function genericParser(sent, bot) {
+    let sentArr = sent.split(" ");
 
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
@@ -162,7 +163,15 @@ export const textProcessor = async (sent, bot, context) => {
     return output;
   }
 
-  let parsed;
+  //breaking the what loop
+  if(whats.includes(sent.replace(/\?/g, ''))) {
+    return 'what alert'
+  }
+}
+
+export const textProcessor = async (sent, bot, context) => {
+
+  let parsed = await genericParser(sent, bot)
 
   switch(context){
     case "truthChallenge":
