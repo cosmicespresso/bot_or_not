@@ -164,13 +164,13 @@
   float: right;
 }
 .group-user .message {
-  color:  #FF2D55;
+  color: #00f ;
 }
 .group-bot {
   float: left;
 }
 .group-bot .message {
-  color: #00f ;
+  color:  #FF2D55;
 }
 .message p {
   font-family: 'Inter', sans-serif; 
@@ -178,4 +178,57 @@
   font-weight: 600;
   line-height: 1.2;
   overflow-wrap: break-word;
+}
+
+
+/*animation*/
+#wave {
+  position: relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#wave .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 3px;
+  background: #FF2D55;
+  -webkit-animation: wave 1.3s linear infinite;
+          animation: wave 1.3s linear infinite;
+}
+#wave .dot:nth-child(2) {
+  -webkit-animation-delay: -1.1s;
+          animation-delay: -1.1s;
+}
+
+#wave .dot:nth-child(3) {
+  -webkit-animation-delay: -0.9s;
+          animation-delay: -0.9s;
+}
+
+@-webkit-keyframes wave {
+  0%, 60%, 100% {
+    -webkit-transform: initial;
+            transform: initial;
+  }
+
+  30% {
+    -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+  }
+}
+
+@keyframes wave {
+  0%, 60%, 100% {
+    -webkit-transform: initial;
+            transform: initial;
+  }
+
+  30% {
+    -webkit-transform: translateY(-6px);
+            transform: translateY(-6px);
+  }
 }

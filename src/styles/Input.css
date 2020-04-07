@@ -49,58 +49,6 @@ input {
   margin: 4px;
 }
 
-
-/*animation*/
-#wave {
-  position: relative;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#wave .dot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  margin-right: 3px;
-  background: #00f;
-  -webkit-animation: wave 1.3s linear infinite;
-          animation: wave 1.3s linear infinite;
-}
-#wave .dot:nth-child(2) {
-  -webkit-animation-delay: -1.1s;
-          animation-delay: -1.1s;
-}
-
-#wave .dot:nth-child(3) {
-  -webkit-animation-delay: -0.9s;
-          animation-delay: -0.9s;
-}
-
-@-webkit-keyframes wave {
-  0%, 60%, 100% {
-    -webkit-transform: initial;
-            transform: initial;
-  }
-
-  30% {
-    -webkit-transform: translateY(-6px);
-            transform: translateY(-6px);
-  }
-}
-
-@keyframes wave {
-  0%, 60%, 100% {
-    -webkit-transform: initial;
-            transform: initial;
-  }
-
-  30% {
-    -webkit-transform: translateY(-6px);
-            transform: translateY(-6px);
-  }
-}
 /* -------------------------------------------------------------------------------- RESPONSIVE TEXT INPUT AND BTN*/
 
 /*@media screen and (max-width: 500px)  {

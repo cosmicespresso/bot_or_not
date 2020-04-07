@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 
 import Header from './components/top/Header';
+
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
 import NarratorWait from './components/main/NarratorWait';
-import Round from './components/main/Round';
+import Credits from './components/main/Credits';
 import End from './components/main/End';
 import About from './components/main/About';
 
 import MessageBar from './components/input/MessageBar';
 import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
-import SocialMediaButton from './components/input/SocialMediaButton';
 
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
@@ -32,10 +32,10 @@ class App extends Component {
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
 
-    this.state = { 
+    this.state = {  
+      opponent: 'RANDO',  // should source random funny names
       name: '',
-      choice: '',
-      timerTime: 0,
+      timerTime: 0, 
       timerStart: 0,
       isBotTyping: false,
       currentBot: bots[0],
@@ -79,20 +79,16 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-   handleSubmitText = async (text) => {
-
-    if (this.state.step !== 3) {
-      // append user text
+  handleSubmitText = async (text) => {
+    if (this.state.step !== 3) { // message bar function except for step 3 
       this.appendMessage(text, true);
 
-      //hacky line for now, need to add to state helpers
-      let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other"
+      let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other" //hacky line for now, need to add to state helpers
       const response = await textProcessor(text, this.state.currentBot, context);
       this.processResponse(response);
 
     }
-    // handle name submission in Intro
-    else {
+    else {  // handle step 3 (player entering their name)
       this.shouldUpdate = true;
       this.setState({name: text})
     }
@@ -113,11 +109,13 @@ class App extends Component {
   handleClick = (e) => {
     this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;
-    
+
     let target = e.target.firstElementChild !== null ? 
                   e.target.firstElementChild.textContent 
                   : e.target.textContent;
-    if (target === 'Chat' || target === 'Truth' || target ==='Bot') this.setState({choice: target})
+
+    // if we are on End and clicked on Chat, we should see Chat component but with modified timeLimit
+    if (this.state.main === 'End' && target==='Chat') this.setState({step: target}) 
   }
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -188,18 +186,17 @@ class App extends Component {
     let timer = seconds < 10  ? `0${seconds}` : seconds;
     
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
-    const placeHolderText = this.state.step === 1 ? 'Enter your name' : 'Say something...'
-    
-    let title = ''
-    if (this.state.main === 'About') {
-      title = 'About'
+    const placeHolderText = this.state.step === 3 ? 'Enter your name' : 'Say something...'
+    let title;
+    if (this.state.main === 'Chat') { 
+      title = `Playing with ${this.state.opponent}       00:${timer}`
     }
-    else if (this.state.main === 'Chat') {
-      title = `00:${timer}`
+    else if (this.state.main === 'Narrator' && this.state.name !== '') { 
+      title = `You are playing with ${this.state.opponent}`
     }
     else {
-      title = this.state.name ? `Playing as: ${this.state.name}` : this.state.headerText
-    } 
+      title = this.state.headerText
+    }
 
     return (
       <div className='App'>
@@ -218,13 +215,7 @@ class App extends Component {
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>
-          }            
-          {this.state.main === 'Round'  && 
-            <Round 
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
-          }            
+          }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
             dialogHeight={this.state.dialogHeight} 
@@ -248,7 +239,12 @@ class App extends Component {
             <About 
             dialogHeight={this.state.dialogHeight} />
           }              
-
+          {this.state.main === 'Credits'  && 
+            <Credits 
+            dialogHeight={this.state.dialogHeight} 
+            headline={this.state.fieldTop} 
+            text={this.state.fieldBottom}/>
+          }   
           {/*-----------------------------INPUT-----------------------------*/}     
           
           {this.state.input === 'MessageBar' && 
@@ -263,10 +259,6 @@ class App extends Component {
             button1={this.state.button1Text} 
             button2={this.state.button2Text} />
           }
-          {this.state.input === 'SocialMediaButton' &&
-            <SocialMediaButton click={this.handleClick} 
-            buttonText={this.state.singleButtonText} />
-          }  
         </div>
       </div>
     );
