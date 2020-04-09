@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 function Message(props) {
 	return (
-		<div className="message" style={{fontSize: `${props.fontSize}rem`}}>
+		<div className="message" style={{fontSize: `${props.fontSize}px`}}>
 		{props.text === null ? <TypingAnimation/> : <p>{props.text}</p>}
 	</div>
 	)

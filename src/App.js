@@ -35,6 +35,7 @@ class App extends Component {
 
     this.state = {  
       opponent: opponent, 
+      name: '',
       timerTime: 0, 
       timerStart: 0,
       isBotTyping: false,
@@ -52,7 +53,6 @@ class App extends Component {
 
   processBotQueue = (isQuick = false) => {
     if (!this.isProcessingQueue && this.botQueue.length) {
-      console.log(this.botQueue)
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
       setTimeout(() => {
@@ -81,6 +81,7 @@ class App extends Component {
   }
 
   handleSubmitText = async (text) => {
+    this.setState({name: text})
     /*
     *EDGE CASE
     */
@@ -121,8 +122,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let dialogHeight = handleResize(window);
-    this.setState({dialogHeight});
+    let {dialogWidth, dialogHeight} = handleResize(window);
+    this.setState({dialogWidth: dialogWidth, dialogHeight: dialogHeight});
     window.addEventListener('resize', handleResize);
     this.startTimer();
   }
@@ -180,7 +181,6 @@ class App extends Component {
   }
 
   render() {
-
     /*
     * TIME
     */ 
@@ -188,9 +188,16 @@ class App extends Component {
     let timer = seconds < 10  ? `0${seconds}` : seconds;
 
     /*
+    * FONT SIZES
+    */     
+    let baseFontSize = 200/this.state.dialogWidth;
+    let mediumFontSize = 1.3;
+    let largeFontSize = 3.2;
+
+    /*
     * TOP
     */      
-    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer);
+    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
     const headerClass= 'header';
     const headerColor= this.state.main === 'Chat'  ? '#FF2D55' : (headerClass === 'header theme2' ? '#fff' : '#00f');
     
@@ -216,26 +223,25 @@ class App extends Component {
     return (
       <div className='App'>
         <div className="container">
-          
           {/*-----------------------------TOP-----------------------------*/}     
           <Header 
+            fontSize={baseFontSize}
             headerClass={headerClass}
-            fontSize={1.1}
             title={title} 
             color={headerColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
           {this.state.main === 'Narrator'  && 
             <Narrator 
+              fontSize={largeFontSize}
               narratorClass={narratorClass}
-              fontSize={3.3}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.fieldTop} 
               text={this.state.fieldBottom}/>
           }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
-              fontSize={3.3}
+              fontSize={largeFontSize}
               narratorWaitClass={narratorWaitClass}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.opponent+ ' ' +this.state.fieldTop} 
@@ -243,8 +249,8 @@ class App extends Component {
           }   
           {this.state.main === 'Chat' &&
             <Chat 
+              fontSize={baseFontSize}
               chatClass={chatClass}
-              fontSize={1.3}
               time={getSeconds(this.state.timerTime)}
               messages={this.state.messages}
               isBotTyping={this.state.isBotTyping}
@@ -252,22 +258,22 @@ class App extends Component {
           }            
           {this.state.main === 'End' &&
             <End 
+              fontSizeTop={largeFontSize}
+              fontSizeBottom={mediumFontSize}
               endClass={endClass}
-              fontSizeTop={3.3}
-              fontSizeBottom={1.5}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.result} 
               text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
             <About 
-              fontSize={1.3}
+              fontSize={baseFontSize}
               aboutClass={aboutClass}
               dialogHeight={this.state.dialogHeight} />
           }              
           {this.state.main === 'Credits'  && 
             <Credits 
-              fontSize={1.3}
+              fontSize={baseFontSize}
               creditsClass={creditsClass}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.fieldTop} 
@@ -277,23 +283,23 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           {this.state.input === 'MessageBar' && 
             <MessageBar 
+              fontSize={baseFontSize}
+              buttonSize={mediumFontSize}
               messageBarClass={messageBarClass}
-              fontSize={1.3}
-              buttonSize={1.6}
               onSubmit={this.handleSubmitText} 
               placeholder={placeHolderText}/>
           }   
           {this.state.input === 'SingleButton' &&
             <SingleButton 
+              fontSize={baseFontSize}
               singleButtonClass={singleButtonClass}
-              fontSize={1.3}
-              click={this.state.main === 'NarratorWait' ? null : this.handleClick} 
+              click={this.state.main === 'NarratorWait' ? null : this.handleClick}  // disable this button for NarratorWait
               buttonText={this.state.singleButtonText} />
           }      
           {this.state.input === 'DoubleButton' &&
             <DoubleButton 
+              fontSize={baseFontSize}
               doubleButtonClass={doubleButtonClass}
-              fontSize={1.3}
               click={this.handleClick} 
               button1={this.state.button1Text} 
               button2={this.state.button2Text} />

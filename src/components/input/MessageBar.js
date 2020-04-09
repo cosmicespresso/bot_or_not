@@ -32,7 +32,7 @@ class MessageBar extends Component {
 			<div>
 				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
-						style={{fontSize: `${this.props.fontSize}rem`}}
+						style={{fontSize: `${this.props.fontSize}px`}}
 						type="search"
 						name="inputText"
 						placeholder={this.props.placeholder}
@@ -41,7 +41,7 @@ class MessageBar extends Component {
 						onChange={this.handleChange}
 						autoComplete={'off'}
 						required />
-					<button className="btn-send" type="submit" value="Send" style={{fontSize: `${this.props.buttonSize}rem`}}>
+					<button className="btn-send" type="submit" value="Send" style={{fontSize: `${this.props.buttonSize}px`}}>
 						<EntypoPaperPlane/>
 					</button>
 				</form>
