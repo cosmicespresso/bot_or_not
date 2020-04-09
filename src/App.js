@@ -107,28 +107,15 @@ class App extends Component {
   };
 
   handleClick = (e) => {
-    /*
-    * 
-    * EDGE CASES
-    * 1. handle narrator wait
-    * 2. handle Bot or Human decision
-    * 3. handle Restart case
-    *
-    */
 
     // grab text of button
     let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
     
-    // EDGE CASE 1
-    // if (this.state.step === 7 && this.state.step === 13) this.shouldUpdate = false;
-
-    // EDGE CASE 2
-    if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are incorrect - this was a bot! '})
-    if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are correct - this was a bot! '})
-
-    // EDGE CASE 3
-    if (this.state.step === 20 && target==='Play again') this.setState({step: 3}) 
-
+    /*
+    * EDGE CASE
+    */
+    if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
+    if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
 
     this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;

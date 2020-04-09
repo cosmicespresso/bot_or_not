@@ -14,6 +14,13 @@ export const advanceStep = (currentStep, stateMap) => {
   if (currentStep < stateMap.length) {
     ++nextStep;
   }
+  /*
+  * HANDLE RESTART
+  */
+  else if (currentStep==stateMap.length) {
+    nextStep = 3
+  }
+  
   return nextStep;
 }
 
