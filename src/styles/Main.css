@@ -2,7 +2,6 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
-
 /*
  * 
  * NARRATOR
@@ -43,6 +42,18 @@
           flex-grow: 0.3;
 }
 
+.theme2 {
+  background: rgba(0,0,0,0.2);
+}
+
+/*
+ * 
+ * NARRATOR theme2 theme
+ *
+ */
+.theme2 > .field-top {
+  color: #fff;
+}
 
 
 /*
@@ -204,6 +215,17 @@
 
 /*
  * 
+ * END theme2 theme
+ *
+ */
+
+.end.theme2 .end-top , .theme2 .end-bottom {
+  color: #fff;
+}
+
+
+/*
+ * 
  * ABOUT
  *
  */
@@ -228,6 +250,19 @@
 }
 .about .text > a:visited {
   color: inherit;
+}
+
+/*
+ * 
+ * ABOUT theme2 theme
+ *
+ */
+.about.theme2 .text > p {
+  color: #fff;
+}
+
+.about.theme2 .text > a {
+  color: #fff;
 }
 
 
@@ -264,5 +299,23 @@
 }
 .credits > .text > .share  > a > img {
   width: 20px;
+}
+
+
+/*
+ * 
+ * CREDITS theme2 theme
+ *
+ */
+.credits.theme2 > * {
+  color: #fff;
+}
+
+.credits.theme2 .text > a {
+  color: #fff;
+}
+
+.credits.theme2 > .text > .share  > a > img {
+  color: #fff;
 }
 

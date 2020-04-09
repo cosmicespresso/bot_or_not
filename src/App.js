@@ -81,17 +81,15 @@ class App extends Component {
   }
 
   handleSubmitText = async (text) => {
-    if (this.state.step !== 3) { 
-    // message bar function except for step 3 
+    /*
+    *EDGE CASE
+    */
+    if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
       this.appendMessage(text, true);
       const response = await textProcessor(text, this.state.currentBot);
       this.processResponse(response);
     }
-
-    else {  
-    // handle step 3 (player entering their name)
-      this.shouldUpdate = true;
-    }
+    else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
   }
 
   startTimer = () => {
@@ -107,13 +105,10 @@ class App extends Component {
   };
 
   handleClick = (e) => {
-
-    // grab text of button
-    let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
-    
     /*
     * EDGE CASE
     */
+    let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
     if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
     if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
 
@@ -186,14 +181,37 @@ class App extends Component {
   }
 
   render() {
+    /*
+    * TIME
+    */ 
     let seconds = getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
+
+    /*
+    * TOP
+    */      
+    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer);
+    const headerClass= 'header';
+    const headerColor= this.state.main === 'Chat'  ? '#FF2D55' : (headerClass === 'header theme2' ? '#fff' : '#00f');
     
-    const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
+    /*
+    * MAIN
+    */     
+    const narratorClass = 'narrator'
+    const narratorWaitClass = 'narrator wait'
+    const chatClass = 'messages-wrapper'
+    const endClass = 'end'
+    const aboutClass = 'about'
+    const creditsClass = 'credits'
+
+    /*
+    * INPUT
+    */  
     const placeHolderText = this.state.step === 3 ? 'Enter your name' : 'Say something...'
     const singleButtonClass = this.state.main === 'NarratorWait' ? 'single-button wait' : 'single-button'
+    const doubleButtonClass = 'double-button'
+    const messageBarClass = 'text-form'
 
-    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer);
 
     return (
       <div className='App'>
@@ -202,25 +220,29 @@ class App extends Component {
           {/*-----------------------------TOP-----------------------------*/}     
           
           <Header 
+          headerClass={headerClass}
           title={title} 
-          color={HeaderColor} /> 
+          color={headerColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
           
           {this.state.main === 'Narrator'  && 
             <Narrator 
+            narratorClass={narratorClass}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>
           }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
+            narratorWaitClass={narratorWaitClass}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.opponent+ ' ' +this.state.fieldTop} 
             text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
             <Chat 
+            chatClass={chatClass}
             time={getSeconds(this.state.timerTime)}
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
@@ -228,35 +250,47 @@ class App extends Component {
           }            
           {this.state.main === 'End' &&
             <End 
+            endClass={endClass}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.result} 
             text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
             <About 
+            aboutClass={aboutClass}
             dialogHeight={this.state.dialogHeight} />
           }              
           {this.state.main === 'Credits'  && 
             <Credits 
+            creditsClass={creditsClass}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>
           }   
+
+
           {/*-----------------------------INPUT-----------------------------*/}     
           
           {this.state.input === 'MessageBar' && 
-            <MessageBar onSubmit={this.handleSubmitText} placeholder={placeHolderText}/>
-          }          
+            <MessageBar 
+              messageBarClass={messageBarClass}
+              onSubmit={this.handleSubmitText} 
+              placeholder={placeHolderText}/>
+          }   
+
           {this.state.input === 'SingleButton' &&
             <SingleButton 
               singleButtonClass={singleButtonClass}
               click={this.state.main === 'NarratorWait' ? null : this.handleClick} 
               buttonText={this.state.singleButtonText} />
-          }          
+          }      
+
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton click={this.handleClick} 
-            button1={this.state.button1Text} 
-            button2={this.state.button2Text} />
+            <DoubleButton 
+              doubleButtonClass={doubleButtonClass}
+              click={this.handleClick} 
+              button1={this.state.button1Text} 
+              button2={this.state.button2Text} />
           }
         </div>
       </div>

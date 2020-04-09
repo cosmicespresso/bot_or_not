@@ -38,8 +38,8 @@ class Chat extends Component {
 		}
 
 		return (
-			<div style={{height: `${this.props.dialogHeight}px`}} 
-				className="messages-wrapper" >
+			<div className={props ? props.chatClass : 'messages-wrapper'} 
+				style={{height: `${this.props.dialogHeight}px`}} >
 				<div className="messages">
 					{groups.map((group, i) =>
 						<Exchange key={i} group={group}/>
