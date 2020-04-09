@@ -220,7 +220,7 @@ class App extends Component {
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
             dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
+            headline={this.state.opponent+ ' ' +this.state.fieldTop} 
             text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
