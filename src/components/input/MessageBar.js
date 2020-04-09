@@ -27,7 +27,6 @@ class MessageBar extends Component {
 	}
 
 	render(props) {
-		console.log(props)
 		
 		return (
 			<div>
