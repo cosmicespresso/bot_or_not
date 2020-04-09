@@ -146,7 +146,7 @@ async function parseTruthChallenge(sent, bot) {
 
 }
 
-export const textProcessor = async (sent, bot, context) => {
+export const textProcessor = async (sent, bot) => {
   let sentArr = sent.split(" ");
 
   //check against words blacklist
@@ -164,8 +164,8 @@ export const textProcessor = async (sent, bot, context) => {
 
   let parsed;
 
-  switch(context){
-    case "truthChallenge":
+  switch(bot.name){
+    case "truth_bot_answering":
       if(!askedQuestion){
         parsed = await parseTruthChallenge(sent, bot);
       }
