@@ -21,7 +21,7 @@ export const advanceStep = (currentStep, stateMap) => {
     nextStep = 3
   }
   
-  return nextStep;
+  return nextStep
 }
 
 export const bots = [

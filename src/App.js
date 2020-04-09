@@ -163,20 +163,19 @@ class App extends Component {
     }
   }
 
-  configureState = (props, state) => {
+  configureState = (props, state) => { // advancing and updating state happens here 
+    
     // check if a component has timed out 
     this.checkTimeout('Chat');
     this.checkTimeout('NarratorWait');
 
-    // advancing and updating state happens here 
+    
     if (this.shouldUpdate) { 
       this.shouldUpdate = false;
-      // get next state
-      let nextStep =  advanceStep(this.state.step, stateMap);
-      // update bots
-      this.configureBots();
-      // update state
-      this.setState({...getStateAtStep(nextStep, stateMap)})
+      
+      let {nextStep, opponent} =  advanceStep(this.state.step, stateMap); // get next state
+      this.configureBots(); // update bots
+      this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
   }
 

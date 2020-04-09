@@ -176,14 +176,14 @@
 }
 
 @keyframes blink {
-  0% {opacity: 0;}
+  0% {opacity: 0.3;}
   50% {opacity: 1;}
-  100% {opacity: 0;}
+  100% {opacity: 0.3;}
 }
 @-webkit-keyframes blink {
-  0% {opacity: 0;}
+  0% {opacity: 0.3;}
   50% {opacity: 1;}
-  100% {opacity: 0;}
+  100% {opacity: 0.3;}
 }
 
 /*
