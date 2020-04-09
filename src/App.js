@@ -81,15 +81,15 @@ class App extends Component {
   }
 
   handleSubmitText = async (text) => {
-    if (this.state.step !== 3) { // message bar function except for step 3 
+    if (this.state.step !== 3) { 
+    // message bar function except for step 3 
       this.appendMessage(text, true);
-
-      let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other" //hacky line for now, need to add to state helpers
-      const response = await textProcessor(text, this.state.currentBot, context);
+      const response = await textProcessor(text, this.state.currentBot);
       this.processResponse(response);
-
     }
-    else {  // handle step 3 (player entering their name)
+
+    else {  
+    // handle step 3 (player entering their name)
       this.shouldUpdate = true;
     }
   }
