@@ -228,12 +228,14 @@ class App extends Component {
           {this.state.main === 'Narrator'  && 
             <Narrator 
             narratorClass={narratorClass}
+            fontSize={3.3}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 
             text={this.state.fieldBottom}/>
           }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
+            fontSize={3.3}
             narratorWaitClass={narratorWaitClass}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.opponent+ ' ' +this.state.fieldTop} 
@@ -242,6 +244,7 @@ class App extends Component {
           {this.state.main === 'Chat' &&
             <Chat 
             chatClass={chatClass}
+            fontSize={1.3}
             time={getSeconds(this.state.timerTime)}
             messages={this.state.messages}
             isBotTyping={this.state.isBotTyping}
@@ -250,17 +253,21 @@ class App extends Component {
           {this.state.main === 'End' &&
             <End 
             endClass={endClass}
+            fontSizeTop={3.3}
+            fontSizeBottom={1.5}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.result} 
             text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
             <About 
+            fontSize={1.3}
             aboutClass={aboutClass}
             dialogHeight={this.state.dialogHeight} />
           }              
           {this.state.main === 'Credits'  && 
             <Credits 
+            fontSize={1.3}
             creditsClass={creditsClass}
             dialogHeight={this.state.dialogHeight} 
             headline={this.state.fieldTop} 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 function Message(props) {
 	return (
-		<div className="message">
+		<div className="message" style={{fontSize: `${props.fontSize}rem`}}>
 		{props.text === null ? <TypingAnimation/> : <p>{props.text}</p>}
 	</div>
 	)
@@ -19,9 +19,10 @@ function TypingAnimation(props) {
 };
 
 class Exchange extends Component {
-	render() {
+	render(props) {
 		const messages = this.props.group.messages.map((text, i) => (
 			<Message
+				fontSize={this.props.fontSize}
 				key={i}
 				text={text}/>
 		));

@@ -30,7 +30,7 @@ class MessageBar extends Component {
 		
 		return (
 			<div>
-				<form className={props ? props.messageBarClass : 'text-form'} onSubmit={this.handleSubmit}>
+				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
 						 type="search"
 						 name="inputText"
