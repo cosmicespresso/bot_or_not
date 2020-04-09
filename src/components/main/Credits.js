@@ -6,7 +6,7 @@ import email from '../../assets/email.svg'
 
 function Credits(props)  {
 	return (
-		<div className="about" style={{height: `${props.dialogHeight}px`}}>
+		<div className="credits" style={{height: `${props.dialogHeight}px`}}>
 			<div className='text'>
 				<p style={{color: '#FF2D55'}}>Who is on the other end?</p> 
 				<p>Bot or Not is a chat interface meant to act as a Turing test experience for chatbots. We conceived of this because ____.</p> 			

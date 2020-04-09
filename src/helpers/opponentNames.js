@@ -1,7 +1,8 @@
 const opponents = [
-    {name: 'rando'},
-    {name: 'presidente'},
-    {name: 'CNNhost'},
+    {name: 'Rando'},
+    {name: 'Presidente'},
+    {name: 'Bernie'},
+    {name: 'Yango'},
 ];
 
 function getRandomInt(min, max) {

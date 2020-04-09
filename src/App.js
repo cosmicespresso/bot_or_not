@@ -108,15 +108,31 @@ class App extends Component {
   };
 
   handleClick = (e) => {
+
     this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;
 
-    let target = e.target.firstElementChild !== null ? 
-                  e.target.firstElementChild.textContent 
-                  : e.target.textContent;
+    /*
+    * 
+    * EDGE CASES
+    * 1. handle narrator wait
+    * 2. handle Bot or Human decision
+    * 3. handle Restart case
+    *
+    */
 
-    // if we are on End and clicked on Chat, we should see Chat component but with modified timeLimit
-    if (this.state.main === 'End' && target==='Chat') this.setState({step: target}) 
+    // grab text of button
+    let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
+    
+    // EDGE CASE 1
+    if (this.state.step === 7 && this.state.step === 13) this.shouldUpdate = false;
+
+    // EDGE CASE 2
+    if (this.state.step === 17 && target==='Bot 🤖') console.log('incorrect text should show up')
+    if (this.state.step === 17 && target==='Human 🤷‍♀️') console.log('correct text should show up')
+
+    // EDGE CASE 3
+    if (this.state.step === 20 && target==='Play again') this.setState({step: 3}) 
   }
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -169,6 +185,7 @@ class App extends Component {
   configureState = (props, state) => {
     // check if a component has timed out 
     this.checkTimeout('Chat');
+    this.checkTimeout('NarratorWait');
 
     // advancing and updating state happens here 
     if (this.shouldUpdate) { 
