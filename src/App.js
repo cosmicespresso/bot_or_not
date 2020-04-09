@@ -173,7 +173,7 @@ class App extends Component {
     if (this.shouldUpdate) { 
       this.shouldUpdate = false;
       
-      let {nextStep, opponent} =  advanceStep(this.state.step, stateMap); // get next state
+      let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureBots(); // update bots
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
