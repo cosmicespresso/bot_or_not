@@ -14,6 +14,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
+import {opponent} from './helpers/opponentNames';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
@@ -33,7 +34,7 @@ class App extends Component {
     this.shouldUpdate = false;
 
     this.state = {  
-      opponent: 'RANDO',  // should source random funny names
+      opponent: opponent,  // should source random funny names
       name: '',
       timerTime: 0, 
       timerStart: 0,
