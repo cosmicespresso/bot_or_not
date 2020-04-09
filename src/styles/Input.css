@@ -36,7 +36,7 @@ input {
   border-style: none;
   color: #00f;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   padding: 0 10px;
   width: 100%;
@@ -59,7 +59,7 @@ input {
 /*@media screen and (max-width: 500px)  {
 
   .text-input {
-    font-size: 1.1rem !important;
+    font-size: 1.3rem !important;
   }
 
   .btn-send {
