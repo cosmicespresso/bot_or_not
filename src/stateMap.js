@@ -235,7 +235,7 @@ export const stateMap = [
     main: 'End',
     className: 'theme1',
     headerText: 'Thanks for playing!',
-    fieldTop: 'You’re correct - this was a bot! ',
+    fieldTop: '',
     fieldBottom: 'Many chat bots today use cheap tactics to keep the conversation going, but rarely self-identify to you who they “actually” are. Good job.',
     input: 'SingleButton',
     singleButtonText: 'Find out more!',

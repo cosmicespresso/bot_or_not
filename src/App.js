@@ -34,13 +34,13 @@ class App extends Component {
     this.shouldUpdate = false;
 
     this.state = {  
-      opponent: opponent,  // should source random funny names
-      name: '',
+      opponent: opponent, 
       timerTime: 0, 
       timerStart: 0,
       isBotTyping: false,
       currentBot: bots[0],
-      ...getStateAtStep(1, stateMap)
+      ...getStateAtStep(1, stateMap),
+      result: ''
   	};
   }
 
@@ -91,7 +91,6 @@ class App extends Component {
     }
     else {  // handle step 3 (player entering their name)
       this.shouldUpdate = true;
-      this.setState({name: text})
     }
   }
 
@@ -108,10 +107,6 @@ class App extends Component {
   };
 
   handleClick = (e) => {
-
-    this.setState({ timerStart: Date.now()});
-    this.shouldUpdate = true;
-
     /*
     * 
     * EDGE CASES
@@ -125,14 +120,18 @@ class App extends Component {
     let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
     
     // EDGE CASE 1
-    if (this.state.step === 7 && this.state.step === 13) this.shouldUpdate = false;
+    // if (this.state.step === 7 && this.state.step === 13) this.shouldUpdate = false;
 
     // EDGE CASE 2
-    if (this.state.step === 17 && target==='Bot 🤖') console.log('incorrect text should show up')
-    if (this.state.step === 17 && target==='Human 🤷‍♀️') console.log('correct text should show up')
+    if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are incorrect - this was a bot! '})
+    if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are correct - this was a bot! '})
 
     // EDGE CASE 3
     if (this.state.step === 20 && target==='Play again') this.setState({step: 3}) 
+
+
+    this.setState({ timerStart: Date.now()});
+    this.shouldUpdate = true;
   }
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -250,7 +249,7 @@ class App extends Component {
           {this.state.main === 'End' &&
             <End 
             dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
+            headline={this.state.result} 
             text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
