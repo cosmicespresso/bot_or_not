@@ -32,15 +32,16 @@ class MessageBar extends Component {
 			<div>
 				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
-						 type="search"
-						 name="inputText"
-						 placeholder={this.props.placeholder}
-						 value={this.state.value}
-						 ref={input => this._text = input}
-						 onChange={this.handleChange}
-						 autoComplete={'off'}
-						 required />
-					<button className="btn-send" type="submit" value="Send">
+						style={{fontSize: `${this.props.fontSize}rem`}}
+						type="search"
+						name="inputText"
+						placeholder={this.props.placeholder}
+						value={this.state.value}
+						ref={input => this._text = input}
+						onChange={this.handleChange}
+						autoComplete={'off'}
+						required />
+					<button className="btn-send" type="submit" value="Send" style={{fontSize: `${this.props.buttonSize}rem`}}>
 						<EntypoPaperPlane/>
 					</button>
 				</form>

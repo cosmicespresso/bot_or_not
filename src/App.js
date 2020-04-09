@@ -180,6 +180,7 @@ class App extends Component {
   }
 
   render() {
+
     /*
     * TIME
     */ 
@@ -217,83 +218,82 @@ class App extends Component {
         <div className="container">
           
           {/*-----------------------------TOP-----------------------------*/}     
-          
           <Header 
-          headerClass={headerClass}
-          title={title} 
-          color={headerColor} /> 
+            headerClass={headerClass}
+            fontSize={1.1}
+            title={title} 
+            color={headerColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
-          
           {this.state.main === 'Narrator'  && 
             <Narrator 
-            narratorClass={narratorClass}
-            fontSize={3.3}
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              narratorClass={narratorClass}
+              fontSize={3.3}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
           }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
-            fontSize={3.3}
-            narratorWaitClass={narratorWaitClass}
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.opponent+ ' ' +this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              fontSize={3.3}
+              narratorWaitClass={narratorWaitClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.opponent+ ' ' +this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
             <Chat 
-            chatClass={chatClass}
-            fontSize={1.3}
-            time={getSeconds(this.state.timerTime)}
-            messages={this.state.messages}
-            isBotTyping={this.state.isBotTyping}
-            dialogHeight={this.state.dialogHeight} />
+              chatClass={chatClass}
+              fontSize={1.3}
+              time={getSeconds(this.state.timerTime)}
+              messages={this.state.messages}
+              isBotTyping={this.state.isBotTyping}
+              dialogHeight={this.state.dialogHeight} />
           }            
           {this.state.main === 'End' &&
             <End 
-            endClass={endClass}
-            fontSizeTop={3.3}
-            fontSizeBottom={1.5}
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.result} 
-            text={this.state.fieldBottom}/>
+              endClass={endClass}
+              fontSizeTop={3.3}
+              fontSizeBottom={1.5}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.result} 
+              text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
             <About 
-            fontSize={1.3}
-            aboutClass={aboutClass}
-            dialogHeight={this.state.dialogHeight} />
+              fontSize={1.3}
+              aboutClass={aboutClass}
+              dialogHeight={this.state.dialogHeight} />
           }              
           {this.state.main === 'Credits'  && 
             <Credits 
-            fontSize={1.3}
-            creditsClass={creditsClass}
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              fontSize={1.3}
+              creditsClass={creditsClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
           }   
 
-
           {/*-----------------------------INPUT-----------------------------*/}     
-          
           {this.state.input === 'MessageBar' && 
             <MessageBar 
               messageBarClass={messageBarClass}
+              fontSize={1.3}
+              buttonSize={1.6}
               onSubmit={this.handleSubmitText} 
               placeholder={placeHolderText}/>
           }   
-
           {this.state.input === 'SingleButton' &&
             <SingleButton 
               singleButtonClass={singleButtonClass}
+              fontSize={1.3}
               click={this.state.main === 'NarratorWait' ? null : this.handleClick} 
               buttonText={this.state.singleButtonText} />
           }      
-
           {this.state.input === 'DoubleButton' &&
             <DoubleButton 
               doubleButtonClass={doubleButtonClass}
+              fontSize={1.3}
               click={this.handleClick} 
               button1={this.state.button1Text} 
               button2={this.state.button2Text} />
