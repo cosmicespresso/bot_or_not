@@ -42,7 +42,7 @@ class MessageBar extends Component {
 						autoComplete={'off'}
 						required />
 					<button className="btn-send" type="submit" value="Send" style={{fontSize: `${this.props.buttonSize}px`}}>
-						<EntypoPaperPlane/>
+						<EntypoPaperPlane style={{padding: '2px'}}/>
 					</button>
 				</form>
 	    </div>

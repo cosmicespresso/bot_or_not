@@ -190,9 +190,9 @@ class App extends Component {
     /*
     * FONT SIZES
     */     
-    let baseFontSize = this.state.dialogWidth/window.innerWidth*16;
-    let mediumFontSize = this.state.dialogWidth/window.innerWidth*24;
-    let largeFontSize = this.state.dialogWidth/window.innerWidth*48;
+    let baseFontSize = this.state.dialogHeight/window.innerHeight*16;
+    let mediumFontSize = this.state.dialogHeight/window.innerHeight*24;
+    let largeFontSize = this.state.dialogHeight/window.innerHeight*48;
 
     /*
     * TOP

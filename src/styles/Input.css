@@ -41,21 +41,17 @@ input {
   width: 100%;
 }
 
-
-
 /*
  * 
  * MESSAGE BAR ICON
  *
  */
-
-
 .btn-send {
   color: #00f;
   background: none;
   display: flex;
   font-family: 'Inter', sans-serif; 
-  border: 1px solid #00f;
+  border: 2px solid #00f;
   border-radius: 3px;
   margin: 4px;
 }
