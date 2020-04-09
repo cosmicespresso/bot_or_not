@@ -89,7 +89,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 7, 
-    timeLimit: getRandomInt(2,6),
+    timeLimit: getRandomInt(4,6),
     messages: [],
     main: 'NarratorWait',
     className: 'theme2',
@@ -97,7 +97,7 @@ export const stateMap = [
     fieldTop: 'is composing a challenge for you  💬',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Give them a sec',
+    singleButtonText: 'Give them a sec ✋',
     button1Text: '',
     button2Text: '',
   },{
@@ -167,7 +167,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 13, 
-    timeLimit: getRandomInt(2,6),
+    timeLimit: getRandomInt(4,6),
     messages: [],
     main: 'NarratorWait',
     className: 'theme2',
@@ -175,7 +175,7 @@ export const stateMap = [
     fieldTop: 'is composing the last challenge for you  💬',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Give them a sec',
+    singleButtonText: 'Give them a sec ✋',
     button1Text: '',
     button2Text: '',
   },{

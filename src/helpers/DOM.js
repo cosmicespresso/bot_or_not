@@ -17,3 +17,18 @@ export const handleResize = (e) => {
     let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
     return dialogHeight;
 }
+
+
+export const handleHeaderText = (main, opponent, headerText, timer) => {
+    let title 
+    if (main === 'Chat') { 
+      title = `Playing with ${opponent}       00:${timer}`
+    }
+    else if (main === 'Narrator' || main === 'NarratorWait') { 
+      title = `You are playing with ${opponent}`
+    }
+    else {
+      title = headerText
+    }
+    return title
+}

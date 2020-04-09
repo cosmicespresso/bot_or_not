@@ -18,7 +18,7 @@ import {opponent} from './helpers/opponentNames';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
-import { maxWindowHeight, handleResize } from './helpers/DOM'
+import { maxWindowHeight, handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
 import './styles/Top.css';
@@ -191,16 +191,9 @@ class App extends Component {
     
     const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
     const placeHolderText = this.state.step === 3 ? 'Enter your name' : 'Say something...'
-    let title;
-    if (this.state.main === 'Chat') { 
-      title = `Playing with ${this.state.opponent}       00:${timer}`
-    }
-    else if ((this.state.main === 'Narrator' || this.state.main === 'NarratorWait') && this.state.name !== '') { 
-      title = `You are playing with ${this.state.opponent}`
-    }
-    else {
-      title = this.state.headerText
-    }
+    const singleButtonClass = this.state.main === 'NarratorWait' ? 'single-button wait' : 'single-button'
+
+    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer);
 
     return (
       <div className='App'>
@@ -255,8 +248,10 @@ class App extends Component {
             <MessageBar onSubmit={this.handleSubmitText} placeholder={placeHolderText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton click={ this.state.main === 'NarratorWait' ? null : this.handleClick} 
-            buttonText={this.state.singleButtonText} />
+            <SingleButton 
+              singleButtonClass={singleButtonClass}
+              click={this.state.main === 'NarratorWait' ? null : this.handleClick} 
+              buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
             <DoubleButton click={this.handleClick} 
