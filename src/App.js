@@ -123,7 +123,9 @@ class App extends Component {
 
   componentDidMount() {
     let {dialogWidth, dialogHeight} = handleResize(window);
-    this.setState({dialogWidth: dialogWidth, dialogHeight: dialogHeight});
+    let desktopDetected = window.innerWidth >= 768; // randomly deciding that for the moment
+
+    this.setState({dialogWidth: dialogWidth, dialogHeight: desktopDetected ? dialogHeight * 0.9 : dialogHeight});
     window.addEventListener('resize', handleResize);
     this.startTimer();
   }
@@ -190,7 +192,7 @@ class App extends Component {
     /*
     * FONT SIZES
     */     
-    let baseFontSize = this.state.dialogHeight/window.innerHeight*16;
+    let baseFontSize = this.state.dialogHeight/window.innerHeight*18;
     let mediumFontSize = this.state.dialogHeight/window.innerHeight*24;
     let largeFontSize = this.state.dialogHeight/window.innerHeight*48;
 
