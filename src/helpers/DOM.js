@@ -22,7 +22,7 @@ export const handleResize = (e) => {
 export const handleHeaderText = (main, opponent, headerText, timer) => {
   let title 
   if (main === 'Chat') { 
-    title = `Playing with ${opponent}       00:${timer}`
+    title = `Playing with ${opponent}                00:${timer}`
   }
   else if (main === 'Narrator' || main === 'NarratorWait') { 
     title = `You are playing with ${opponent}`
