@@ -18,7 +18,7 @@ import {opponent} from './helpers/opponentNames';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
-import { maxWindowHeight, handleResize, handleHeaderText } from './helpers/DOM'
+import { handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
 import './styles/Top.css';
