@@ -1,8 +1,10 @@
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
  */
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export const stateMap = [
@@ -87,7 +89,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 7, 
-    timeLimit: getRandomArbitrary(2,6),
+    timeLimit: getRandomInt(2,6),
     messages: [],
     main: 'NarratorWait',
     className: 'theme2',
@@ -165,7 +167,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 13, 
-    timeLimit: getRandomArbitrary(2,6)*1000,
+    timeLimit: getRandomInt(2,6),
     messages: [],
     main: 'NarratorWait',
     className: 'theme2',
@@ -236,7 +238,7 @@ export const stateMap = [
     className: 'theme1',
     headerText: 'Thanks for playing!',
     fieldTop: '',
-    fieldBottom: 'Many chat bots today use cheap tactics to keep the conversation going, but rarely self-identify to you who they “actually” are. Good job.',
+    fieldBottom: 'Many chat bots today use cheap tactics to keep the conversation going, but rarely self-identify to you who they “actually” are.',
     input: 'SingleButton',
     singleButtonText: 'Find out more!',
     button1Text: '',

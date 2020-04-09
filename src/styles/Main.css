@@ -258,3 +258,11 @@
 .credits .text > a:visited {
   color: inherit;
 }
+.credits > .text > .share  > a {
+  text-decoration: none;
+  margin: 0 2px;
+}
+.credits > .text > .share  > a > img {
+  width: 20px;
+}
+

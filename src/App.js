@@ -255,7 +255,7 @@ class App extends Component {
             <MessageBar onSubmit={this.handleSubmitText} placeholder={placeHolderText}/>
           }          
           {this.state.input === 'SingleButton' &&
-            <SingleButton click={this.handleClick} 
+            <SingleButton click={ this.state.main === 'NarratorWait' ? null : this.handleClick} 
             buttonText={this.state.singleButtonText} />
           }          
           {this.state.input === 'DoubleButton' &&
