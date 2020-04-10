@@ -77,7 +77,7 @@ async function createContext(context, lifespan, bot) {
   })
 }
 
-function handleError() {
+export const handleError = () => {
   let generic = getResponse(genericResponse);
   return generic.response;
 }

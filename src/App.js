@@ -16,7 +16,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
+import { textProcessor, chooseTruth, handleError } from './helpers/textProcessing'
 import { maxWindowHeight, handleResize } from './helpers/DOM'
 
 import './styles/App.css';
@@ -70,7 +70,7 @@ class App extends Component {
         .map(str => str.trim());
     }
     else if (!text) {
-      text = 'huh??';
+      text = handleError();
     }
 
     this.botQueue = this.botQueue.concat(text);
