@@ -2,7 +2,17 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
-.App, .App-Gameover  {
+
+
+.theme1 {
+  background-color: #fff;
+}
+
+.theme2 {
+  background-color: #ccc;
+}
+
+.App {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -10,9 +20,7 @@
       -ms-flex-align: center;
           align-items: center;
   height: 100vh;
-  background: #fff;
 }
-
 
 .container * {
   -webkit-box-sizing: border-box;
@@ -28,7 +36,7 @@
   border: 2px solid #00f;
   border-radius: 3px;
   max-width: 414px;
-  background: #fff;
+  background-color: #fff;
 }
 
 .container {
