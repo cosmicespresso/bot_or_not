@@ -2,26 +2,36 @@ const natural = require('natural');
 const compendium = require('compendium-js');
 
 //text processing lib
-const truths = require('./lib/truths.json');
 const blacklist = require('./lib/blacklist.json');
-const wyrResponse = require('./lib/wyrResponse.json');
 const whats = require('./lib/whats.json');
-const questions = require('./lib/questions.json');
+
+//these aren't constant: entries get removed
+let truths = require('./lib/truths.json');
+let wyrResponse = require('./lib/wyrResponse.json');
+let questions = require('./lib/questions.json');
 let notQuestion = require('./lib/notQuestion.json');
+let genericResponse = require('./lib/genericResponse.json');
 
 //set up question answering for truth challenge
 let askedQuestion = false;
 
 export const runSample = async (sample, bot) => {
-  const response = await fetch(".netlify/functions/runSample", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ 
-      userString: sample,
-      bot: bot }),
-    })
+  let response;
+  try{
+    response = await fetch(".netlify/functions/runSample", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        userString: sample,
+        bot: bot }),
+      })
+  }
+  catch(e){
+    console.log(e)
+    response = handleError();
+  }
 
   return response.text();
 }
@@ -61,6 +71,11 @@ async function createContext(context, lifespan, bot) {
       lifespan: lifespan,
       bot: bot })
   })
+}
+
+function handleError() {
+  let generic = getResponse(genericResponse);
+  return generic.response;
 }
 
 export const chooseTruth = async (bot) => {

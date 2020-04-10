@@ -26,8 +26,8 @@ export let sessionClient = new dialogflow.SessionsClient({
 
 async function botRequest(request) {
 // change session client to be the correct project id (auth is the same across all projects)
-  sessionClient.projectId = request.bot.projectId;
-  const sessionPath = sessionClient.sessionPath(request.bot.projectId, request.bot.sessionId);
+  sessionClient.projectId = 'ooo'; //request.bot.projectId;
+  const sessionPath = sessionClient.sessionPath('ooo', 'ooo')//request.bot.projectId, request.bot.sessionId);
 
   const intentRequest = {
     session: sessionPath,
@@ -39,8 +39,27 @@ async function botRequest(request) {
     },
   };
 
-  const intentResponse = await sessionClient.detectIntent(intentRequest);
-  const intentResult = intentResponse[0].queryResult;
-  console.log(intentResult.intent.displayName);
-  return intentResult.fulfillmentText;
+  // let intentResponse = await sessionClient.detectIntent(intentRequest);
+  // intentResponse.on('error', function(err) {
+  //   console.log('an error')
+  //   intentResponse = 'errrrr'
+  // });
+
+  try {
+      let response =  await sessionClient.detectIntent(intentRequest);
+      let code = await response.getResponseCode();
+      console.log("response code is", code);
+
+    if(response.getResponseCode() === 200) {
+        const intentResponse = response;
+        const intentResult = await intentResponse[0].queryResult;
+        console.log(intentResult.intent.displayName);
+        return intentResult.fulfillmentText;
+      }
+    } 
+    catch (err) {
+        console.log("error is", err)
+        console.log('i got called u shits')
+        return 'err';
+    }
 }
