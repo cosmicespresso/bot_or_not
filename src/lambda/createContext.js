@@ -9,7 +9,7 @@ exports.handler = async (event) => {
   const contextSet = await createContext(request);
   return {
     statusCode: 200,
-    body: "set context", contextSet
+    body: contextSet
   }
 }
 
@@ -29,8 +29,6 @@ async function createContext(request) {
 
   const sessionPath = sessionClient.sessionPath(request.bot.projectId, request.bot.sessionId);
 
-  console.log('creating context', request)
-
   const contextPath = contextsClient.contextPath(
     request.bot.projectId,
     request.bot.sessionId,
@@ -47,6 +45,11 @@ async function createContext(request) {
   };
 
   //create a new context
-  const createdContext = await contextsClient.createContext(createContextRequest);
-  return createdContext;
+    try {
+      const createdContext = await contextsClient.createContext(createContextRequest);
+      return 'set context ' + createdContext;
+    }
+    catch(e){
+      return 'error creating context'
+    }
 }

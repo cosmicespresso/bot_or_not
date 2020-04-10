@@ -7,10 +7,10 @@ const botAuth = JSON.parse(process.env.master_bot);
 exports.handler = async (event) => {
 	// "event" has information about the path, body, headers, etc. of the request
 	const request = JSON.parse(event.body);
-	await deleteAllContexts(request);
+	const response = await deleteAllContexts(request);
 	return{
 		statusCode: 200,
-		body: "deleted all contexts"
+		body: response
 	}
 }
 
@@ -24,6 +24,11 @@ async function deleteAllContexts(request){
 	const deleteRequest = {
 	    parent: sessionPath,
 	  }
-
-	await contextsClient.deleteAllContexts(deleteRequest);
+	try {
+	  await contextsClient.deleteAllContexts(deleteRequest);
+      return 'deleted contexts'
+    }
+    catch(e){
+      return 'error deleting context'
+    }
 }
