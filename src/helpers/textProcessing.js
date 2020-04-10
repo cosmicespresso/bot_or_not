@@ -27,13 +27,17 @@ export const runSample = async (sample, bot) => {
         userString: sample,
         bot: bot }),
       })
+    if(response.getResponseCode === 200){
+        return response.text();
+    }
+    else{
+        return handleError();
+    }
   }
   catch(e){
-    console.log(e)
-    response = handleError();
+    console.log('caught an error', e)
+    return handleError();
   }
-
-  return response.text();
 }
 
 async function deleteAllContexts(bot) {
