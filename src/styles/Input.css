@@ -2,15 +2,19 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
+.theme1 {
+  background-color: #fff;
+}
+
+.theme2 {
+  background-color: rgba(0,0,0,0.2);
+}
+
 /*
  * 
  * MESSAGE BAR
  *
  */
-
-.messageBar {
-  border: 1px solid;
-}
 
 .text-form {
   border: 2px solid #00f;
@@ -20,6 +24,7 @@
   display: -ms-flexbox;
   display: flex;
   height: 40px;
+  background: #fff;
 }
 
 input::-webkit-input-placeholder {
@@ -48,13 +53,13 @@ input {
  */
 .btn-send {
   color: #00f;
-  background: none;
   display: flex;
   font-family: 'Inter', sans-serif; 
   border: 2px solid #00f;
   border-radius: 3px;
   margin: 4px;
 }
+
 
 /*
  * 
@@ -138,28 +143,5 @@ input {
 }
 
 .single-button:hover, .double-button > .singlebutton:hover {
-  cursor: pointer;
-}
-
-/*
- * 
- * SHARE ICONS
- *
- */
-
-.icons {
-  /*border: 1px solid;*/
-}
-
-.icons > img:first-child {
-  margin-left: 10px;
-}
-
-.icons > img {
-  margin: 0 5px;
-  vertical-align: middle;
-}
-
-.icons > img:hover {
   cursor: pointer;
 }

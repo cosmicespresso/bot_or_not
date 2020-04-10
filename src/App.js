@@ -15,6 +15,7 @@ import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
 import {opponent} from './helpers/opponentNames';
+import {classNames, fontSizes, fontColors} from './helpers/styles';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
@@ -188,71 +189,52 @@ class App extends Component {
     */ 
     let seconds = getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
-
     /*
-    * FONT SIZES
-    */     
-    let baseFontSize = this.state.dialogHeight/window.innerHeight*18;
-    let mediumFontSize = this.state.dialogHeight/window.innerHeight*24;
-    let largeFontSize = this.state.dialogHeight/window.innerHeight*48;
-
-    /*
-    * TOP
-    */      
+    * HEADER TEXT
+    */ 
     let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
-    const headerClass= 'header';
-    const headerColor= this.state.main === 'Chat'  ? '#FF2D55' : (headerClass === 'header theme2' ? '#fff' : '#00f');
-    
     /*
-    * MAIN
-    */     
-    const narratorClass = 'narrator'
-    const narratorWaitClass = 'narrator wait'
-    const chatClass = 'messages-wrapper'
-    const endClass = 'end'
-    const aboutClass = 'about'
-    const creditsClass = 'credits'
-
+    * FONT COLORS AND SIZES
+    */ 
+    const fontColorsConfig = fontColors(this.state.main)
+    const fontSizesConfig = fontSizes(this.state.dialogHeight)
     /*
-    * INPUT
-    */  
-    const placeHolderText = this.state.step === 3 ? 'Enter your name' : 'Say something...'
-    const singleButtonClass = this.state.main === 'NarratorWait' ? 'single-button wait' : 'single-button'
-    const doubleButtonClass = 'double-button'
-    const messageBarClass = 'text-form'
-
+    * CLASSES
+    */ 
+    const classesConfig = classNames(this.state.main, this.state.step)
 
     return (
-      <div className='App'>
+      <div className={classesConfig.appClass}>
         <div className="container">
           {/*-----------------------------TOP-----------------------------*/}     
           <Header 
-            fontSize={baseFontSize}
-            headerClass={headerClass}
+            fontSize={fontSizesConfig.baseFontSize}
+            headerClass={classesConfig.headerClass}
             title={title} 
-            color={headerColor} /> 
+            color={fontColorsConfig.headerColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
           {this.state.main === 'Narrator'  && 
             <Narrator 
-              fontSize={largeFontSize}
-              narratorClass={narratorClass}
+              fontSize={fontSizesConfig.largeFontSize}
+              narratorClass={classesConfig.narratorClass}
+              color={fontColorsConfig.narratorColor}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.fieldTop} 
               text={this.state.fieldBottom}/>
           }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
-              fontSize={largeFontSize}
-              narratorWaitClass={narratorWaitClass}
+              fontSize={fontSizesConfig.largeFontSize}
+              narratorWaitClass={classesConfig.narratorWaitClass}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.opponent+ ' ' +this.state.fieldTop} 
               text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
             <Chat 
-              fontSize={baseFontSize}
-              chatClass={chatClass}
+              fontSize={fontSizesConfig.baseFontSize}
+              chatClass={classesConfig.chatClass}
               time={getSeconds(this.state.timerTime)}
               messages={this.state.messages}
               isBotTyping={this.state.isBotTyping}
@@ -260,23 +242,23 @@ class App extends Component {
           }            
           {this.state.main === 'End' &&
             <End 
-              fontSizeTop={largeFontSize}
-              fontSizeBottom={mediumFontSize}
-              endClass={endClass}
+              fontSizeTop={fontSizesConfig.largeFontSize}
+              fontSizeBottom={fontSizesConfig.mediumFontSize}
+              endClass={classesConfig.endClass}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.result} 
               text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
             <About 
-              fontSize={baseFontSize}
-              aboutClass={aboutClass}
+              fontSize={fontSizesConfig.baseFontSize}
+              aboutClass={classesConfig.aboutClass}
               dialogHeight={this.state.dialogHeight} />
           }              
           {this.state.main === 'Credits'  && 
             <Credits 
-              fontSize={baseFontSize}
-              creditsClass={creditsClass}
+              fontSize={fontSizesConfig.baseFontSize}
+              creditsClass={classesConfig.creditsClass}
               dialogHeight={this.state.dialogHeight} 
               headline={this.state.fieldTop} 
               text={this.state.fieldBottom}/>
@@ -285,23 +267,23 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           {this.state.input === 'MessageBar' && 
             <MessageBar 
-              fontSize={baseFontSize}
-              buttonSize={mediumFontSize}
-              messageBarClass={messageBarClass}
+              fontSize={fontSizesConfig.baseFontSize}
+              buttonSize={fontSizesConfig.mediumFontSize}
+              messageBarClass={classesConfig.messageBarClass}
               onSubmit={this.handleSubmitText} 
-              placeholder={placeHolderText}/>
+              placeholder={classesConfig.placeHolderText}/>
           }   
           {this.state.input === 'SingleButton' &&
             <SingleButton 
-              fontSize={baseFontSize}
-              singleButtonClass={singleButtonClass}
+              fontSize={fontSizesConfig.baseFontSize}
+              singleButtonClass={classesConfig.singleButtonClass}
               click={this.state.main === 'NarratorWait' ? null : this.handleClick}  // disable this button for NarratorWait
               buttonText={this.state.singleButtonText} />
           }      
           {this.state.input === 'DoubleButton' &&
             <DoubleButton 
-              fontSize={baseFontSize}
-              doubleButtonClass={doubleButtonClass}
+              fontSize={fontSizesConfig.baseFontSize}
+              singleButtonClass={classesConfig.singleButtonClass}
               click={this.handleClick} 
               button1={this.state.button1Text} 
               button2={this.state.button2Text} />

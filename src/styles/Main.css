@@ -2,13 +2,23 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
+
+
+.theme1 {
+  background-color: #fff;
+}
+
+.theme2 {
+  background-color: rgba(0,0,0,0.2);
+}
+
+
 /*
  * 
  * NARRATOR
  *
  */
 .narrator, .round, .end, .about, .credits {
-  background: #fff;
   border:2px solid #00f;
   border-radius: 3px;
   margin: 10px;
@@ -30,19 +40,6 @@
   color: #00f;
   font-weight: 600;
   padding: 10px;
-}
-
-.theme2 {
-  background: rgba(0,0,0,0.2);
-}
-
-/*
- * 
- * NARRATOR theme2 theme
- *
- */
-.theme2 > .text {
-  color: #fff;
 }
 
 /*
@@ -72,7 +69,6 @@
  *
  */
 .messages-wrapper {
-  background:  #fff;
   border: 2px solid #00f;
   border-radius: 3px;
   margin: 10px;
@@ -199,16 +195,6 @@
           flex-grow: 0.3;
 }
 
-/*
- * 
- * END theme2 theme
- *
- */
-
-.end.theme2 .end-top , .theme2 .end-bottom {
-  color: #fff;
-}
-
 
 /*
  * 
@@ -235,19 +221,6 @@
 }
 .about .text > a:visited {
   color: inherit;
-}
-
-/*
- * 
- * ABOUT theme2 
- *
- */
-.about.theme2 .text > p {
-  color: #fff;
-}
-
-.about.theme2 .text > a {
-  color: #fff;
 }
 
 
@@ -287,23 +260,5 @@
 }
 .credits > .text > .share  > a > img {
   width: 20px;
-}
-
-
-/*
- * 
- * CREDITS theme2 theme
- *
- */
-.credits.theme2 > * {
-  color: #fff;
-}
-
-.credits.theme2 .text > a {
-  color: #fff;
-}
-
-.credits.theme2 > .text > .share  > a > img {
-  color: #fff;
 }
 
