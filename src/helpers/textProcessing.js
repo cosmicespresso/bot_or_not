@@ -2,26 +2,43 @@ const natural = require('natural');
 const compendium = require('compendium-js');
 
 //text processing lib
-const truths = require('./lib/truths.json');
 const blacklist = require('./lib/blacklist.json');
-const wyrResponse = require('./lib/wyrResponse.json');
+const whats = require('./lib/whats.json');
+
+//these aren't constant: entries get removed
+let truths = require('./lib/truths.json');
+let wyrResponse = require('./lib/wyrResponse.json');
+let questions = require('./lib/questions.json');
 let notQuestion = require('./lib/notQuestion.json');
+let genericResponse = require('./lib/genericResponse.json');
 
 //set up question answering for truth challenge
 let askedQuestion = false;
 
 export const runSample = async (sample, bot) => {
-  const response = await fetch(".netlify/functions/runSample", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ 
-      userString: sample,
-      bot: bot }),
-    })
+  let response;
+  try{
+    response = await fetch(".netlify/functions/runSample", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        userString: sample,
+        bot: bot }),
+      })
 
-  return response.text();
+    if(response.status === 200){
+        return response.text();
+    }
+    else{
+        return handleError();
+    }
+  }
+  catch(e){
+    console.log('caught an error', e)
+    return handleError();
+  }
 }
 
 async function deleteAllContexts(bot) {
@@ -61,14 +78,30 @@ async function createContext(context, lifespan, bot) {
   })
 }
 
+export const handleError = () => {
+  let generic = getResponse(genericResponse);
+  return generic.response;
+}
+
 export const chooseTruth = async (bot) => {
   deleteAllContexts(bot);
 
   let truth = getResponse(truths)
   await createContext(truth.context, 5, bot);
-  await listContexts(bot);
+  listContexts(bot);
 
   return truth.response;
+}
+
+//change the topic of conversation
+export const changeTopic = async (bot) => {
+  deleteAllContexts(bot);
+
+  let question = getResponse(questions)
+  await createContext(question.context, 5, bot);
+  listContexts(bot);
+
+  return question.response;
 }
 
 async function replacementGrammar(options, sentences){
@@ -146,7 +179,7 @@ async function parseTruthChallenge(sent, bot) {
 
 }
 
-export const textProcessor = async (sent, bot) => {
+async function genericParser(sent, bot) {
   let sentArr = sent.split(" ");
 
   //check against words blacklist
@@ -162,7 +195,16 @@ export const textProcessor = async (sent, bot) => {
     return output;
   }
 
-  let parsed;
+  //breaking the what loop
+  if(whats.includes(sent.replace(/\?/g, ''))) {
+    const output = await changeTopic(bot);
+    return output;
+  }
+}
+
+export const textProcessor = async (sent, bot, context) => {
+
+  let parsed = await genericParser(sent, bot)
 
   switch(bot.name){
     case "truth_bot_answering":

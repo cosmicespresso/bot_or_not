@@ -1,0 +1,21 @@
+[
+	{
+		"response": "where r u?",
+		"context": "where"
+	},
+
+	{
+		"response": "what's your name haha",
+		"context": "name"
+	},
+
+	{
+		"response": "do you watch bake off?",
+		"context": "bakeoff"
+	},
+
+	{
+		"response": "when was the last time u went outside?",
+		"context": "outside"
+	}
+]

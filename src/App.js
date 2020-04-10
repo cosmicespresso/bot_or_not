@@ -18,7 +18,7 @@ import {opponent} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { textProcessor, runSample, chooseTruth } from './helpers/textProcessing'
+import { textProcessor, chooseTruth, handleError } from './helpers/textProcessing'
 import { handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
@@ -72,7 +72,7 @@ class App extends Component {
         .map(str => str.trim());
     }
     else if (!text) {
-      text = 'huh??';
+      text = handleError();
     }
 
     this.botQueue = this.botQueue.concat(text);

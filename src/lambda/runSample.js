@@ -9,8 +9,8 @@ exports.handler = async (event) => {
 
   // The "callback" ends the execution of the function and returns a response back to the caller
   return {
-    statusCode: 200,
-    body: response
+    'statusCode': 200,
+    'body': response
   }
 }
 
@@ -39,8 +39,15 @@ async function botRequest(request) {
     },
   };
 
-  const intentResponse = await sessionClient.detectIntent(intentRequest);
-  const intentResult = intentResponse[0].queryResult;
-  console.log(intentResult.intent.displayName);
-  return intentResult.fulfillmentText;
+  try {
+      const intentResponse =  await sessionClient.detectIntent(intentRequest);
+      const intentResult = await intentResponse[0].queryResult;
+      console.log(intentResult.intent.displayName);
+      return intentResult.fulfillmentText
+    }
+
+    catch (err) {
+        console.log("caught", err)
+        return ''
+    }
 }
