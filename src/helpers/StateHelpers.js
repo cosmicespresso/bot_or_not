@@ -29,27 +29,20 @@ export const bots = [
     "name": "intro_bot",
     "sessionId": uuid.v4(),
     "projectId": "prolific-texter-uhpjbf",
-    "steps": [0, 1, 2, 3] 
+    "steps": [5] 
   },
 
   {
     "name": "truth_bot_asking",
     "sessionId": uuid.v4(),
     "projectId": "u170220-truth-bot-regenerat-hw",
-    "steps": [4, 5, 8, 9] 
+    "steps": [8, 14] 
   },
-
-  // {
-  //   "name": "dare_bot",
-  //   "sessionId": uuid.v4(),
-  //   "projectId": "g191120-truth-bot-hluhsq",
-  //   "steps": [8, 9] 
-  // },
 
   {
     "name": "truth_bot_answering",
     "sessionId": uuid.v4(),
     "projectId": "c200103-challenge-truth-bot-wc",
-    "steps": [6, 7, 10, 11, 12]
+    "steps": [11]
   }
 ];
