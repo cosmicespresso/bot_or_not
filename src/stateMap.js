@@ -1,8 +1,10 @@
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
  */
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export const stateMap = [
@@ -87,15 +89,15 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 7, 
-    timeLimit: getRandomArbitrary(2,6),
+    timeLimit: getRandomInt(4,6),
     messages: [],
     main: 'NarratorWait',
     className: 'theme2',
     headerText: '',
-    fieldTop: '[RANDO] is composing a challenge for you  💬',
+    fieldTop: 'is composing a challenge for you  💬',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Give them a sec',
+    singleButtonText: 'Give them a sec ✋',
     button1Text: '',
     button2Text: '',
   },{
@@ -165,15 +167,15 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 13, 
-    timeLimit: getRandomArbitrary(2,6)*1000,
+    timeLimit: getRandomInt(4,6),
     messages: [],
     main: 'NarratorWait',
     className: 'theme2',
     headerText: '',
-    fieldTop: '[RANDO] is composing the last challenge for you  💬',
+    fieldTop: 'is composing the last challenge for you  💬',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Give them a sec',
+    singleButtonText: 'Give them a sec ✋',
     button1Text: '',
     button2Text: '',
   },{
@@ -235,8 +237,8 @@ export const stateMap = [
     main: 'End',
     className: 'theme1',
     headerText: 'Thanks for playing!',
-    fieldTop: 'You’re correct - this was a bot! ',
-    fieldBottom: 'Many chat bots today use cheap tactics to keep the conversation going, but rarely self-identify to you who they “actually” are. Good job.',
+    fieldTop: '',
+    fieldBottom: 'Many chat bots today use cheap tactics to keep the conversation going, but rarely self-identify to you who they “actually” are.',
     input: 'SingleButton',
     singleButtonText: 'Find out more!',
     button1Text: '',

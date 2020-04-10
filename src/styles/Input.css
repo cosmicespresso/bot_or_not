@@ -7,6 +7,11 @@
  * MESSAGE BAR
  *
  */
+
+.messageBar {
+  border: 1px solid;
+}
+
 .text-form {
   border: 2px solid #00f;
   border-radius: 3px;
@@ -31,37 +36,25 @@ input {
   border-style: none;
   color: #00f;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.1rem;
   font-weight: 600;
   padding: 0 10px;
   width: 100%;
 }
 
-/*icons*/
+/*
+ * 
+ * MESSAGE BAR ICON
+ *
+ */
 .btn-send {
   color: #00f;
   background: none;
   display: flex;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.6rem;
-  border: 1px solid #00f;
+  border: 2px solid #00f;
   border-radius: 3px;
   margin: 4px;
 }
-
-/* -------------------------------------------------------------------------------- RESPONSIVE TEXT INPUT AND BTN*/
-
-/*@media screen and (max-width: 500px)  {
-
-  .text-input {
-    font-size: 1.1rem !important;
-  }
-
-  .btn-send {
-    font-size: 1.6rem !important;
-  }
-}*/
-
 
 /*
  * 
@@ -79,14 +72,35 @@ input {
   display: flex;
   height: 40px;
 }
+
 .single-button > p {
   color: #00f;
-  font-size: 1.3rem;
   font-weight: 700;
   text-transform: uppercase;
   margin: 0 auto;
   padding: 0;
   line-height: 35px;
+}
+
+
+/*
+ * 
+ * SINGLE BUTTON WAIT
+ *
+ */
+.single-button.wait > p {
+  animation: blink 3s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}
+@-webkit-keyframes blink {
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
 }
 
 /*
@@ -149,10 +163,3 @@ input {
 .icons > img:hover {
   cursor: pointer;
 }
-
-/* -------------------------------------------------------------------------------- RESPONSIVE BUTTONS*/
-/*@media screen and (max-width: 500px)  {
-  .single-button > p {
-    font-size: 1.3rem !important;
-  }
-}*/

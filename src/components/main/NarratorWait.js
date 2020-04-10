@@ -2,8 +2,8 @@ import React from 'react';
 
 function NarratorWait(props)  {
 	return (
-		<div className="narrator wait" style={{height: `${props.dialogHeight}px`}}>
-			<div className="field-top">{props.headline}</div>
+		<div className={props.narratorWaitClass} style={{height: `${props.dialogHeight}px`}}>
+			<div className="text" style={{fontSize: `${props.fontSize}px`}}>{props.headline}</div>
 		</div>
 	);
 }

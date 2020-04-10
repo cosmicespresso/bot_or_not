@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {EntypoPaperPlane} from 'react-entypo';
 
 class MessageBar extends Component {
+	
 	constructor(props) {
 		super(props);
 		this.state = {value: ''};
@@ -25,24 +26,26 @@ class MessageBar extends Component {
 		this._text.focus();
 	}
 
-	render() {
+	render(props) {
+		
 		return (
 			<div>
-				<form className="text-form" onSubmit={this.handleSubmit}>
+				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
-								 type="search"
-								 name="inputText"
-								 placeholder={this.props.placeholder}
-								 value={this.state.value}
-								 ref={input => this._text = input}
-								 onChange={this.handleChange}
-								 autoComplete={'off'}
-								 required />
-					<button className="btn-send" type="submit" value="Send">
-						<EntypoPaperPlane/>
+						style={{fontSize: `${this.props.fontSize}px`}}
+						type="search"
+						name="inputText"
+						placeholder={this.props.placeholder}
+						value={this.state.value}
+						ref={input => this._text = input}
+						onChange={this.handleChange}
+						autoComplete={'off'}
+						required />
+					<button className="btn-send" type="submit" value="Send" style={{fontSize: `${this.props.buttonSize}px`}}>
+						<EntypoPaperPlane style={{padding: '2px'}}/>
 					</button>
 				</form>
-	      	</div>
+	    </div>
 		);
 	}
 }

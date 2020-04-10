@@ -2,8 +2,8 @@ import React from 'react';
 
 function SingleButton(props) {
 	return(
-		<div onClick={props.click} className='single-button'>
-			<p>{props.buttonText}</p>
+		<div onClick={props.click} className={props.singleButtonClass}>
+			<p style={{fontSize: `${props.fontSize}px`}}> {props.buttonText}</p>
 		</div>
 	);
 }

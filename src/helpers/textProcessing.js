@@ -180,7 +180,7 @@ async function parseTruthChallenge(sent, bot) {
 }
 
 async function genericParser(sent, bot) {
-    let sentArr = sent.split(" ");
+  let sentArr = sent.split(" ");
 
   //check against words blacklist
   let matched = sentArr.filter(word => blacklist.includes(word))
@@ -206,8 +206,8 @@ export const textProcessor = async (sent, bot, context) => {
 
   let parsed = await genericParser(sent, bot)
 
-  switch(context){
-    case "truthChallenge":
+  switch(bot.name){
+    case "truth_bot_answering":
       if(!askedQuestion){
         parsed = await parseTruthChallenge(sent, bot);
       }

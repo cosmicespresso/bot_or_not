@@ -14,10 +14,11 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
+import {opponent} from './helpers/opponentNames';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, chooseTruth, handleError } from './helpers/textProcessing'
-import { maxWindowHeight, handleResize } from './helpers/DOM'
+import { handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
 import './styles/Top.css';
@@ -33,13 +34,14 @@ class App extends Component {
     this.shouldUpdate = false;
 
     this.state = {  
-      opponent: 'RANDO',  // should source random funny names
+      opponent: opponent, 
       name: '',
       timerTime: 0, 
       timerStart: 0,
       isBotTyping: false,
       currentBot: bots[0],
-      ...getStateAtStep(1, stateMap)
+      ...getStateAtStep(1, stateMap),
+      result: ''
   	};
   }
 
@@ -51,7 +53,6 @@ class App extends Component {
 
   processBotQueue = (isQuick = false) => {
     if (!this.isProcessingQueue && this.botQueue.length) {
-      console.log(this.botQueue)
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
       setTimeout(() => {
@@ -80,18 +81,16 @@ class App extends Component {
   }
 
   handleSubmitText = async (text) => {
-    if (this.state.step !== 3) { // message bar function except for step 3 
+    this.setState({name: text})
+    /*
+    *EDGE CASE
+    */
+    if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
       this.appendMessage(text, true);
-
-      let context = this.state.currentBot.name === "truth_bot_answering" ? "truthChallenge" : "other" //hacky line for now, need to add to state helpers
-      const response = await textProcessor(text, this.state.currentBot, context);
+      const response = await textProcessor(text, this.state.currentBot);
       this.processResponse(response);
-
     }
-    else {  // handle step 3 (player entering their name)
-      this.shouldUpdate = true;
-      this.setState({name: text})
-    }
+    else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
   }
 
   startTimer = () => {
@@ -107,15 +106,15 @@ class App extends Component {
   };
 
   handleClick = (e) => {
+    /*
+    * EDGE CASE
+    */
+    let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
+    if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
+    if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
+
     this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;
-
-    let target = e.target.firstElementChild !== null ? 
-                  e.target.firstElementChild.textContent 
-                  : e.target.textContent;
-
-    // if we are on End and clicked on Chat, we should see Chat component but with modified timeLimit
-    if (this.state.main === 'End' && target==='Chat') this.setState({step: target}) 
   }
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -123,8 +122,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let dialogHeight = handleResize(window);
-    this.setState({dialogHeight});
+    let {dialogWidth, dialogHeight} = handleResize(window);
+    let desktopDetected = window.innerWidth >= 768; // randomly deciding that for the moment
+
+    this.setState({dialogWidth: dialogWidth, dialogHeight: desktopDetected ? dialogHeight * 0.9 : dialogHeight});
     window.addEventListener('resize', handleResize);
     this.startTimer();
   }
@@ -165,99 +166,145 @@ class App extends Component {
     }
   }
 
-  configureState = (props, state) => {
+  configureState = (props, state) => { // advancing and updating state happens here 
+    
     // check if a component has timed out 
     this.checkTimeout('Chat');
+    this.checkTimeout('NarratorWait');
 
-    // advancing and updating state happens here 
+    
     if (this.shouldUpdate) { 
       this.shouldUpdate = false;
-      // get next state
-      let nextStep =  advanceStep(this.state.step, stateMap);
-      // update bots
-      this.configureBots();
-      // update state
-      this.setState({...getStateAtStep(nextStep, stateMap)})
+      
+      let nextStep =  advanceStep(this.state.step, stateMap); // get next state
+      this.configureBots(); // update bots
+      this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
   }
 
   render() {
+    /*
+    * TIME
+    */ 
     let seconds = getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
+
+    /*
+    * FONT SIZES
+    */     
+    let baseFontSize = this.state.dialogHeight/window.innerHeight*18;
+    let mediumFontSize = this.state.dialogHeight/window.innerHeight*24;
+    let largeFontSize = this.state.dialogHeight/window.innerHeight*48;
+
+    /*
+    * TOP
+    */      
+    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
+    const headerClass= 'header';
+    const headerColor= this.state.main === 'Chat'  ? '#FF2D55' : (headerClass === 'header theme2' ? '#fff' : '#00f');
     
-    const HeaderColor= this.state.main === 'Chat'  ? '#FF2D55' : '#00f';
+    /*
+    * MAIN
+    */     
+    const narratorClass = 'narrator'
+    const narratorWaitClass = 'narrator wait'
+    const chatClass = 'messages-wrapper'
+    const endClass = 'end'
+    const aboutClass = 'about'
+    const creditsClass = 'credits'
+
+    /*
+    * INPUT
+    */  
     const placeHolderText = this.state.step === 3 ? 'Enter your name' : 'Say something...'
-    let title;
-    if (this.state.main === 'Chat') { 
-      title = `Playing with ${this.state.opponent}       00:${timer}`
-    }
-    else if ((this.state.main === 'Narrator' || this.state.main === 'NarratorWait') && this.state.name !== '') { 
-      title = `You are playing with ${this.state.opponent}`
-    }
-    else {
-      title = this.state.headerText
-    }
+    const singleButtonClass = this.state.main === 'NarratorWait' ? 'single-button wait' : 'single-button'
+    const doubleButtonClass = 'double-button'
+    const messageBarClass = 'text-form'
+
 
     return (
       <div className='App'>
         <div className="container">
-          
           {/*-----------------------------TOP-----------------------------*/}     
-          
           <Header 
-          title={title} 
-          color={HeaderColor} /> 
+            fontSize={baseFontSize}
+            headerClass={headerClass}
+            title={title} 
+            color={headerColor} /> 
 
           {/*-----------------------------MAIN-----------------------------*/}   
-          
           {this.state.main === 'Narrator'  && 
             <Narrator 
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              fontSize={largeFontSize}
+              narratorClass={narratorClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
           }                     
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              fontSize={largeFontSize}
+              narratorWaitClass={narratorWaitClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.opponent+ ' ' +this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'Chat' &&
             <Chat 
-            time={getSeconds(this.state.timerTime)}
-            messages={this.state.messages}
-            isBotTyping={this.state.isBotTyping}
-            dialogHeight={this.state.dialogHeight} />
+              fontSize={baseFontSize}
+              chatClass={chatClass}
+              time={getSeconds(this.state.timerTime)}
+              messages={this.state.messages}
+              isBotTyping={this.state.isBotTyping}
+              dialogHeight={this.state.dialogHeight} />
           }            
           {this.state.main === 'End' &&
             <End 
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              fontSizeTop={largeFontSize}
+              fontSizeBottom={mediumFontSize}
+              endClass={endClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.result} 
+              text={this.state.fieldBottom}/>
           }            
           {this.state.main === 'About' &&
             <About 
-            dialogHeight={this.state.dialogHeight} />
+              fontSize={baseFontSize}
+              aboutClass={aboutClass}
+              dialogHeight={this.state.dialogHeight} />
           }              
           {this.state.main === 'Credits'  && 
             <Credits 
-            dialogHeight={this.state.dialogHeight} 
-            headline={this.state.fieldTop} 
-            text={this.state.fieldBottom}/>
+              fontSize={baseFontSize}
+              creditsClass={creditsClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
           }   
+
           {/*-----------------------------INPUT-----------------------------*/}     
-          
           {this.state.input === 'MessageBar' && 
-            <MessageBar onSubmit={this.handleSubmitText} placeholder={placeHolderText}/>
-          }          
+            <MessageBar 
+              fontSize={baseFontSize}
+              buttonSize={mediumFontSize}
+              messageBarClass={messageBarClass}
+              onSubmit={this.handleSubmitText} 
+              placeholder={placeHolderText}/>
+          }   
           {this.state.input === 'SingleButton' &&
-            <SingleButton click={this.handleClick} 
-            buttonText={this.state.singleButtonText} />
-          }          
+            <SingleButton 
+              fontSize={baseFontSize}
+              singleButtonClass={singleButtonClass}
+              click={this.state.main === 'NarratorWait' ? null : this.handleClick}  // disable this button for NarratorWait
+              buttonText={this.state.singleButtonText} />
+          }      
           {this.state.input === 'DoubleButton' &&
-            <DoubleButton click={this.handleClick} 
-            button1={this.state.button1Text} 
-            button2={this.state.button2Text} />
+            <DoubleButton 
+              fontSize={baseFontSize}
+              doubleButtonClass={doubleButtonClass}
+              click={this.handleClick} 
+              button1={this.state.button1Text} 
+              button2={this.state.button2Text} />
           }
         </div>
       </div>

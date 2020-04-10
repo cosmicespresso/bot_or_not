@@ -2,17 +2,17 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
-
 /*
  * 
  * NARRATOR
  *
  */
-.narrator, .round, .end, .about {
+.narrator, .round, .end, .about, .credits {
   background: #fff;
   border:2px solid #00f;
   border-radius: 3px;
   margin: 10px;
+  text-align: center;
   line-height: 1.2;
   position: relative;
   display: -webkit-box;
@@ -25,102 +25,44 @@
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
-.narrator .field-top {
+.narrator .text {
   font-family:'Inter', sans-serif; 
   color: #00f;
-  font-size: 4rem;
   font-weight: 600;
   padding: 10px;
 }
-.narrator .field-bottom {
-  font-family: 'Inter', sans-serif; 
-  color:#00f;
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding: 10px;
-  -webkit-box-flex: 0.3;
-      -ms-flex-positive: 0.3;
-          flex-grow: 0.3;
+
+.theme2 {
+  background: rgba(0,0,0,0.2);
 }
 
 /*
  * 
- * Round
+ * NARRATOR theme2 theme
  *
  */
-.round .round-top {
-  font-family:'Inter', sans-serif; 
-  color: #00f;
-  font-size: 4rem;
-  font-weight: 600;
-  padding: 10px;
-  max-height: 50vh;
-  text-align: center;
+.theme2 > .text {
+  color: #fff;
 }
 
-.round .round-bottom {
-  font-family: 'Inter', sans-serif; 
-  color:#00f;
-  font-size: 15rem;
-  font-weight: 600;
-  text-align: center;
-  -webkit-box-flex: 0.3;
-      -ms-flex-positive: 0.3;
-          flex-grow: 0.3;
-}
 /*
  * 
- * End
+ * NARRATOR WAIT
  *
  */
-.end .end-top {
-  font-family:'Inter', sans-serif; 
-  color: #00f;
-  font-size: 4rem;
-  font-weight: 600;
-  padding: 10px;
-  max-height: 50vh;
-  text-align: center;
+.narrator.wait  .text {
+  animation: blink 3s ease-in-out infinite;
 }
 
-.end .end-bottom {
-  font-family: 'Inter', sans-serif; 
-  color:#00f;
-  font-size: 1.5rem;
-  padding: 10px;
-  font-weight: 600;
-  text-align: left;
-  -webkit-box-flex: 0.3;
-      -ms-flex-positive: 0.3;
-          flex-grow: 0.3;
+@keyframes blink {
+  0% {opacity: 0.3;}
+  50% {opacity: 1;}
+  100% {opacity: 0.3;}
 }
-/*
- * 
- * About
- *
- */
-
-.about .text {
-  overflow-y: scroll;
-}
-
-.about > * {
-  font-family: 'Inter', sans-serif; 
-  color: #00f;
-  font-size: 1.3rem;
-  padding: 10px;
-  font-weight: 600;
-  text-align: left;
-  -webkit-box-flex: 0.3;
-      -ms-flex-positive: 0.3;
-          flex-grow: 0.3;
-}
-
-.about .text > a {
-  color: inherit;
-}
-.about .text > a:visited {
-  color: inherit;
+@-webkit-keyframes blink {
+  0% {opacity: 0.3;}
+  50% {opacity: 1;}
+  100% {opacity: 0.3;}
 }
 
 
@@ -174,21 +116,22 @@
 }
 .message p {
   font-family: 'Inter', sans-serif; 
-  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.2;
   overflow-wrap: break-word;
 }
 
-
-/*animation*/
+/*
+ * 
+ * CHAT dots
+ *
+ */
 #wave {
   position: relative;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
-
 #wave .dot {
   display: inline-block;
   width: 6px;
@@ -203,12 +146,10 @@
   -webkit-animation-delay: -1.1s;
           animation-delay: -1.1s;
 }
-
 #wave .dot:nth-child(3) {
   -webkit-animation-delay: -0.9s;
           animation-delay: -0.9s;
 }
-
 @-webkit-keyframes wave {
   0%, 60%, 100% {
     -webkit-transform: initial;
@@ -220,7 +161,6 @@
             transform: translateY(-6px);
   }
 }
-
 @keyframes wave {
   0%, 60%, 100% {
     -webkit-transform: initial;
@@ -232,3 +172,138 @@
             transform: translateY(-6px);
   }
 }
+
+
+/*
+ * 
+ * END
+ *
+ */
+.end .end-top {
+  font-family:'Inter', sans-serif; 
+  color: #00f;
+  font-weight: 600;
+  padding: 10px;
+  max-height: 50vh;
+  text-align: center;
+}
+
+.end .end-bottom {
+  font-family: 'Inter', sans-serif; 
+  color:#00f;
+  padding: 10px;
+  font-weight: 600;
+  text-align: left;
+  -webkit-box-flex: 0.3;
+      -ms-flex-positive: 0.3;
+          flex-grow: 0.3;
+}
+
+/*
+ * 
+ * END theme2 theme
+ *
+ */
+
+.end.theme2 .end-top , .theme2 .end-bottom {
+  color: #fff;
+}
+
+
+/*
+ * 
+ * ABOUT
+ *
+ */
+.about .text {
+  overflow-y: scroll;
+}
+
+.about > * {
+  font-family: 'Inter', sans-serif; 
+  color: #00f;
+  padding: 10px;
+  font-weight: 600;
+  text-align: left;
+  -webkit-box-flex: 0.3;
+      -ms-flex-positive: 0.3;
+          flex-grow: 0.3;
+}
+
+.about .text > a {
+  color: inherit;
+}
+.about .text > a:visited {
+  color: inherit;
+}
+
+/*
+ * 
+ * ABOUT theme2 
+ *
+ */
+.about.theme2 .text > p {
+  color: #fff;
+}
+
+.about.theme2 .text > a {
+  color: #fff;
+}
+
+
+/*
+ * 
+ * CREDITS
+ *
+ */
+.credits .text {
+  overflow-y: scroll;
+}
+
+.credits > * {
+  font-family: 'Inter', sans-serif; 
+  color: #00f;
+  padding: 10px;
+  font-weight: 600;
+  text-align: left;
+  -webkit-box-flex: 0.3;
+      -ms-flex-positive: 0.3;
+          flex-grow: 0.3;
+}
+
+.credits > h4 {
+  color: #FF2D55;
+}
+
+.credits .text > a {
+  color: inherit;
+}
+.credits .text > a:visited {
+  color: inherit;
+}
+.credits > .text > .share  > a {
+  text-decoration: none;
+  margin: 0 2px;
+}
+.credits > .text > .share  > a > img {
+  width: 20px;
+}
+
+
+/*
+ * 
+ * CREDITS theme2 theme
+ *
+ */
+.credits.theme2 > * {
+  color: #fff;
+}
+
+.credits.theme2 .text > a {
+  color: #fff;
+}
+
+.credits.theme2 > .text > .share  > a > img {
+  color: #fff;
+}
+

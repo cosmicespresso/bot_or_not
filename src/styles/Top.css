@@ -7,7 +7,7 @@
  * HEADER
  *
  */
-.container header {
+header.header {
   background: #fff;
   border:  2px solid #00f;
   border-radius:3px;
@@ -16,13 +16,11 @@
   line-height: 40px;
   color:#00f;
   font-family: 'Inter', sans-serif; 
-  font-size: 1.2rem;
-  font-weight: 700;
-  vertical-align: middle;
+  font-weight: 600;
   text-align: center;
   text-transform: uppercase;
 }
 
-.container div {
-   transition: all 0.4s ease-in-out; 
+header.header.theme2 {
+  background: rgba(0,0,0,0.2);
 }

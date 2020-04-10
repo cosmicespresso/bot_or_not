@@ -38,11 +38,11 @@ class Chat extends Component {
 		}
 
 		return (
-			<div style={{height: `${this.props.dialogHeight}px`}} 
-				className="messages-wrapper" >
+			<div className={this.props.chatClass} 
+				style={{height: `${this.props.dialogHeight}px`}} >
 				<div className="messages">
 					{groups.map((group, i) =>
-						<Exchange key={i} group={group}/>
+						<Exchange fontSize={this.props.fontSize} key={i} group={group}/>
 					)}
 						<div style={{ float: "left", clear: "both" }} ref={el => this.scrollTarget = el} > </div>
 				</div>

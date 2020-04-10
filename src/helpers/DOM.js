@@ -1,19 +1,26 @@
-export const maxWindowHeight = 700;
-export const maxAppHeight = 680;
-
 export const handleResize = (e) => {
-    const window = e.target || e;
-    
-    const y = window.innerHeight > maxWindowHeight 
-              ? maxAppHeight 
-              : window.innerHeight; 
-    
-    const header = document.querySelector('.container header');
-    
-    const input = document.querySelector('.container .text-form') 
-                || document.querySelector('.container .single-button') 
-                || document.querySelector('.container .double-button');
-    
-    let dialogHeight = y - 2*header.offsetHeight - input.offsetHeight - 5; /*ULTRA HACKY*/
-    return dialogHeight;
+  const window = e.target || e;
+  const header = document.querySelector('.container header');
+  const input = document.querySelector('.container .text-form') 
+              || document.querySelector('.container .single-button') 
+              || document.querySelector('.container .double-button');
+  // the last calculation is the 10px margin for the header and the input as well as the 2px border on very top and bottom
+  let dialogWidth = header.offsetWidth;
+  let dialogHeight = window.innerHeight - header.offsetHeight - input.offsetHeight - 4*10 - 2*2; 
+  
+  return {dialogWidth, dialogHeight};
+}
+
+export const handleHeaderText = (main, opponent, headerText, timer, name) => {
+  let title 
+  if (main === 'Chat') { 
+    title = `Playing with ${opponent}                00:${timer}`
+  }
+  else if ((main === 'Narrator' || main === 'NarratorWait') && name !== ''){ 
+    title = `You are playing with ${opponent}`
+  }
+  else {
+    title = headerText
+  }
+  return title
 }
