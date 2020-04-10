@@ -26,10 +26,15 @@ async function listContexts(request){
 	    parent: sessionPath,
 	  }
 
-	const [contextResponse] = await contextsClient.listContexts(contextRequest);
-		if(contextResponse !== undefined && contextResponse.length !== 0){
-		// var name = contextResponse[0].name.split("/").slice(-1)[0];
-		console.log('context set is', contextResponse)
+	try {
+		const [contextResponse] = await contextsClient.listContexts(contextRequest);
+			if(contextResponse !== undefined && contextResponse.length !== 0){
+			// var name = contextResponse[0].name.split("/").slice(-1)[0];
+			console.log('context set is', contextResponse)
+		}
+		return "context set successfully";
 	}
-	return "contextResponse";
+    catch (err) {
+        return 'error setting context'
+    }
 }
