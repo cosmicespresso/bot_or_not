@@ -8,7 +8,6 @@
  *
  */
 header.header {
-  background: #fff;
   border:  2px solid #00f;
   border-radius:3px;
   margin: 10px;
@@ -19,8 +18,4 @@ header.header {
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-}
-
-header.header.theme2 {
-  background: rgba(0,0,0,0.2);
 }
