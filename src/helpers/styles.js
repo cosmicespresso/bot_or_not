@@ -21,7 +21,7 @@ export const fontColors = (main) => {
 
 export const classNames = (main, step) => {
 
-    const activeTheme = 'theme2'
+    const activeTheme = 'theme1'
     /*
     * TOP
     */      
