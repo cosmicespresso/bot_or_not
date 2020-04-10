@@ -27,7 +27,8 @@ export const runSample = async (sample, bot) => {
         userString: sample,
         bot: bot }),
       })
-    if(response.getResponseCode === 200){
+
+    if(response.status === 200){
         return response.text();
     }
     else{

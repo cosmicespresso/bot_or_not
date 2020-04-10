@@ -26,8 +26,8 @@ export let sessionClient = new dialogflow.SessionsClient({
 
 async function botRequest(request) {
 // change session client to be the correct project id (auth is the same across all projects)
-  sessionClient.projectId = 'ooo'; //request.bot.projectId;
-  const sessionPath = sessionClient.sessionPath('ooo', 'ooo')//request.bot.projectId, request.bot.sessionId);
+  sessionClient.projectId = request.bot.projectId;
+  const sessionPath = sessionClient.sessionPath(request.bot.projectId, request.bot.sessionId);
 
   const intentRequest = {
     session: sessionPath,
@@ -40,18 +40,14 @@ async function botRequest(request) {
   };
 
   try {
-      let response =  await sessionClient.detectIntent(intentRequest);
-
-      if(response.getResponseCode() === 200) {
-          const intentResponse = response;
-          const intentResult = await intentResponse[0].queryResult;
-          console.log(intentResult.intent.displayName);
-          return intentResult.fulfillmentText
-        }
-      }
+      const intentResponse =  await sessionClient.detectIntent(intentRequest);
+      const intentResult = await intentResponse[0].queryResult;
+      console.log(intentResult.intent.displayName);
+      return intentResult.fulfillmentText
+    }
 
     catch (err) {
         console.log("caught", err)
-        return 'err'
+        return ''
     }
 }
