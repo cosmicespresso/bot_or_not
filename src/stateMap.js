@@ -83,7 +83,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 7, 
-    timeLimit: getRandomInt(4,6),
+    timeLimit: getRandomInt(4,6) * 10000,
     messages: [],
     main: 'NarratorWait',
     headerText: '',

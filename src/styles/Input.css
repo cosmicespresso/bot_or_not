@@ -89,14 +89,26 @@ input {
 }
 
 @keyframes blink {
-  0% {opacity: 0;}
-  50% {opacity: 1;}
-  100% {opacity: 0;}
+  0% {
+    filter: drop-shadow(0 0 0 #FF2D55);
+  }
+  50% {
+    filter: drop-shadow(4px 4px 16px #FF2D55);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 #FF2D55);
+  }
 }
 @-webkit-keyframes blink {
-  0% {opacity: 0;}
-  50% {opacity: 1;}
-  100% {opacity: 0;}
+  0% {
+    filter: drop-shadow(0 0 0 #FF2D55);
+  }
+  50% {
+    filter: drop-shadow(4px 4px 16px #FF2D55);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 #FF2D55)
+  }
 }
 
 /*
