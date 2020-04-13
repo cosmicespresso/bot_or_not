@@ -97,7 +97,8 @@ class App extends Component {
   }
 
   handleMobileKeyboard = (height) => {
-    console.log(this.state.dialogHeight, height)
+    // console.log(this.state.dialogHeight, height)
+    if (!this.desktopDetected) console.log('handle keyboard resizing event here?')
   }
 
   startTimer = () => {
@@ -199,7 +200,7 @@ class App extends Component {
     /*
     * HEADER TEXT
     */ 
-    let title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
+    const title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
     /*
     * FONT COLORS AND SIZES
     */ 
@@ -212,7 +213,7 @@ class App extends Component {
 
     return (
       <div className={classesConfig.appClass}>
-        <div className="container">
+        <div className={classesConfig.containerClass}>
           {/*-----------------------------TOP-----------------------------*/}     
           <Header 
             fontSize={fontSizesConfig.baseFontSize}

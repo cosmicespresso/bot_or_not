@@ -2,11 +2,15 @@
 
 
 .theme1 {
-  background-color: #fff;
+  background-color: #aaa;
 }
 
 .theme2 {
-  background-color: #ccc;
+  background-color: #ddd;
+}
+
+.theme3 {
+  background-color: #fff;
 }
 
 .App {
@@ -33,7 +37,6 @@
   border: 2px solid #00f;
   border-radius: 3px;
   max-width: 414px;
-  background-color: #fff;
 }
 
 .container {

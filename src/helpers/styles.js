@@ -23,28 +23,32 @@ export const classNames = (main, step) => {
     /*
     * OUR THEME
     */  
-    const activeTheme = 'theme1'
+    const appTheme = 'theme2'
+    const containerTheme = 'theme1'
+    const componentTheme = 'theme2'
+    const chatTheme = 'theme3'
     /*
     * TOP
     */      
-    const appClass = `App ${activeTheme}`;
-    const headerClass= `header ${activeTheme}`;
+    const appClass = `App ${appTheme}`;
+    const containerClass = `container ${containerTheme}`;
+    const headerClass = main !== 'Chat' ?  `header ${componentTheme}` : `header ${chatTheme}`; // handling Header consistency with Chat
     /*
     * MAIN
     */     
-    const narratorClass = `narrator ${activeTheme}`;
-    const narratorWaitClass = `narrator ${activeTheme} wait`;
-    const chatClass = `messages-wrapper ${activeTheme}`;
-    const endClass = `end ${activeTheme}`;
-    const aboutClass = `about ${activeTheme}`;
-    const creditsClass = `credits ${activeTheme}`;
+    const narratorClass = `narrator ${componentTheme}`;
+    const narratorWaitClass = `narrator ${componentTheme} wait`;
+    const chatClass = `messages-wrapper ${chatTheme}`;
+    const endClass = `end ${componentTheme}`;
+    const aboutClass = `about ${componentTheme}`;
+    const creditsClass = `credits ${componentTheme}`;
     /*
     * INPUT
     */  
     const placeHolderText = step === 3 ? 'Enter your name' : 'Say something...'
-    const singleButtonClass = main === 'NarratorWait' ? `single-button ${activeTheme} wait` : `single-button ${activeTheme}`
-    const doubleButtonClass = `double-button ${activeTheme}`
-    const messageBarClass = `text-form ${activeTheme}`
+    const singleButtonClass = main === 'NarratorWait' ? `single-button ${componentTheme} wait` : `single-button ${componentTheme}`
+    const doubleButtonClass = `double-button ${componentTheme}`
+    const messageBarClass = `text-form ${componentTheme}`
 
-    return {appClass, headerClass, narratorClass, narratorWaitClass, chatClass, endClass, aboutClass, creditsClass, placeHolderText, singleButtonClass, doubleButtonClass, messageBarClass}
+    return {appClass, containerClass, headerClass, narratorClass, narratorWaitClass, chatClass, endClass, aboutClass, creditsClass, placeHolderText, singleButtonClass, doubleButtonClass, messageBarClass}
 }
