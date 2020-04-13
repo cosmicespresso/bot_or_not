@@ -129,6 +129,7 @@ class App extends Component {
     this.setState({dialogWidth: dialogWidth, dialogHeight: desktopDetected ? dialogHeight * 0.9 : dialogHeight});
     window.addEventListener('resize', handleResize);
     this.startTimer();
+
   }
 
   componentWillUnmount() {
@@ -267,6 +268,7 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           {this.state.input === 'MessageBar' && 
             <MessageBar 
+              dialogHeight={this.state.dialogHeight}
               fontSize={fontSizesConfig.baseFontSize}
               buttonSize={fontSizesConfig.mediumFontSize}
               messageBarClass={classesConfig.messageBarClass}

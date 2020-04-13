@@ -9,6 +9,8 @@ class MessageBar extends Component {
 	}
 
 	handleChange = (e) => {
+		e.preventDefault();
+		console.log('innerHeight', window.innerHeight, 'dialogHeight', this.props.dialogHeight)
 		const value = e.target.value;
 		if (value.length >= 256) {
 			alert('You have reached 256 character limit!');
@@ -30,6 +32,7 @@ class MessageBar extends Component {
 		
 		return (
 			<div>
+				<div style={{float: 'left'}}>{this.props.dialogHeight}, {window.innerHeight} </div>
 				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
 						style={{fontSize: `${this.props.fontSize}px`}}

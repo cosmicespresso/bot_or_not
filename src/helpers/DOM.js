@@ -8,6 +8,7 @@ export const handleResize = (e) => {
   let dialogWidth = header.offsetWidth;
   let dialogHeight = window.innerHeight - header.offsetHeight - input.offsetHeight - 4*10 - 2*2; 
   
+
   return {dialogWidth, dialogHeight};
 }
 
