@@ -10,7 +10,6 @@ class MessageBar extends Component {
 
 	handleChange = (e) => {
 		e.preventDefault();
-		console.log('innerHeight', window.innerHeight, 'dialogHeight', this.props.dialogHeight)
 		const value = e.target.value;
 		if (value.length >= 256) {
 			alert('You have reached 256 character limit!');
@@ -24,12 +23,7 @@ class MessageBar extends Component {
 		this.setState({value: ''});
 	}
 
-	componentDidMount() {
-		this._text.focus();
-	}
-
 	render(props) {
-		
 		return (
 			<div>
 				<div style={{float: 'left'}}>{this.props.dialogHeight}, {window.innerHeight} </div>
@@ -40,7 +34,6 @@ class MessageBar extends Component {
 						name="inputText"
 						placeholder={this.props.placeholder}
 						value={this.state.value}
-						ref={input => this._text = input}
 						onChange={this.handleChange}
 						autoComplete={'off'}
 						required />
