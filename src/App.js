@@ -96,7 +96,7 @@ class App extends Component {
 
   handleMobileKeyboard = (height) => {
     console.log(this.state.dialogHeight, height)
-    if (!this.desktopDetected) this.setState({dialogHeight: 0.81*height})
+    // if (!this.desktopDetected) this.setState({dialogHeight: 0.81*height})
   }
 
   startTimer = () => {
