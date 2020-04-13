@@ -15,6 +15,8 @@ class MessageBar extends Component {
 			alert('You have reached 256 character limit!');
 		}
 		this.setState({value});
+
+		this.props.onInputFocus(window.innerHeight)
 	}
 
 	handleSubmit = (e) =>{
@@ -26,7 +28,6 @@ class MessageBar extends Component {
 	render(props) {
 		return (
 			<div>
-				<div style={{float: 'left'}}>{this.props.dialogHeight}, {window.innerHeight} </div>
 				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
 						style={{fontSize: `${this.props.fontSize}px`}}

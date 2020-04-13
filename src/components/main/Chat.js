@@ -38,7 +38,8 @@ class Chat extends Component {
 		}
 
 		return (
-			<div className={this.props.chatClass} 
+			<div 
+				className={this.props.chatClass} 
 				style={{height: `${this.props.dialogHeight}px`}} >
 				<div className="messages">
 					{groups.map((group, i) =>

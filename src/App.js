@@ -33,7 +33,7 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
-
+    this.desktopDetected = window.innerWidth >= 768; // randomly deciding that for the moment
     this.state = {  
       opponent: opponent, 
       name: '',
@@ -94,6 +94,11 @@ class App extends Component {
     else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
   }
 
+  handleMobileKeyboard = (height) => {
+    console.log(this.state.dialogHeight, height)
+    if (!this.desktopDetected) this.setState({dialogHeight: 0.81*height})
+  }
+
   startTimer = () => {
     this.setState({
       timerTime: Date.now(),
@@ -124,16 +129,16 @@ class App extends Component {
 
   componentDidMount() {
     let {dialogWidth, dialogHeight} = handleResize(window);
-    let desktopDetected = window.innerWidth >= 768; // randomly deciding that for the moment
 
-    this.setState({dialogWidth: dialogWidth, dialogHeight: desktopDetected ? dialogHeight * 0.9 : dialogHeight});
+    this.setState({dialogWidth: dialogWidth, dialogHeight: this.desktopDetected ? dialogHeight * 0.9 : dialogHeight});
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mobileKeyboard', this.handleMobileKeyboard);
     this.startTimer();
-
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', handleResize);
+    window.removeEventListener('mobileKeyboard', this.handleMobileKeyboard);
     clearInterval(this.timer);
   }
 
@@ -268,7 +273,7 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           {this.state.input === 'MessageBar' && 
             <MessageBar 
-              dialogHeight={this.state.dialogHeight}
+              onInputFocus={this.handleMobileKeyboard}
               fontSize={fontSizesConfig.baseFontSize}
               buttonSize={fontSizesConfig.mediumFontSize}
               messageBarClass={classesConfig.messageBarClass}
