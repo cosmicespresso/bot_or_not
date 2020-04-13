@@ -1,15 +1,23 @@
 @import url('https://rsms.me/inter/inter.css');
 
+/*  appTheme = 'theme1'
+    containerTheme = 'theme2'
+    componentTheme = 'theme3'
+    chatTheme = 'theme4'*/
 
 .theme1 {
-  background-color: #aaa;
+  background-color: #fce1d9;
 }
 
 .theme2 {
-  background-color: #ddd;
+  background-color: #fff;
 }
 
 .theme3 {
+  background-color: #eae8f4;
+}
+
+.theme4 {
   background-color: #fff;
 }
 

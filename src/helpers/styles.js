@@ -23,10 +23,10 @@ export const classNames = (main, step) => {
     /*
     * OUR THEME
     */  
-    const appTheme = 'theme2'
-    const containerTheme = 'theme1'
-    const componentTheme = 'theme2'
-    const chatTheme = 'theme3'
+    const appTheme = 'theme1'
+    const containerTheme = 'theme2'
+    const componentTheme = 'theme3'
+    const chatTheme = 'theme4'
     /*
     * TOP
     */      
