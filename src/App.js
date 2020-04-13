@@ -33,7 +33,9 @@ class App extends Component {
     this.botQueue = [];
     this.isProcessingQueue = false;
     this.shouldUpdate = false;
-    this.desktopDetected = window.innerWidth >= 768; // randomly deciding that for the moment
+    this.innerWidth = window.innerWidth;
+    this.innerHeight = window.innerHeight;
+    this.desktopDetected = this.innerWidth >= 768; // randomly deciding that for the moment
     this.state = {  
       opponent: opponent, 
       name: '',
@@ -96,7 +98,6 @@ class App extends Component {
 
   handleMobileKeyboard = (height) => {
     console.log(this.state.dialogHeight, height)
-    // if (!this.desktopDetected) this.setState({dialogHeight: 0.81*height})
   }
 
   startTimer = () => {
@@ -128,7 +129,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let {dialogWidth, dialogHeight} = handleResize(window);
+    let {dialogWidth, dialogHeight} = handleResize(window,this.innerHeight);
 
     this.setState({dialogWidth: dialogWidth, dialogHeight: this.desktopDetected ? dialogHeight * 0.9 : dialogHeight});
     window.addEventListener('resize', handleResize);
@@ -203,7 +204,7 @@ class App extends Component {
     * FONT COLORS AND SIZES
     */ 
     const fontColorsConfig = fontColors(this.state.main)
-    const fontSizesConfig = fontSizes(this.state.dialogHeight)
+    const fontSizesConfig = fontSizes(this.state.dialogHeight, this.innerHeight)
     /*
     * CLASSES
     */ 

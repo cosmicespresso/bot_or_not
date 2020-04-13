@@ -1,10 +1,10 @@
-export const fontSizes = (height) => {
+export const fontSizes = (height, innerHeight) => {
     /*
     * FONT SIZES
     */     
-    const baseFontSize = height/window.innerHeight*18;
-    const mediumFontSize = height/window.innerHeight*24;
-    const largeFontSize = height/window.innerHeight*48;
+    const baseFontSize = height/innerHeight*18;
+    const mediumFontSize = height/innerHeight*24;
+    const largeFontSize = height/innerHeight*48;
 
     return {baseFontSize, mediumFontSize, largeFontSize}
 }
