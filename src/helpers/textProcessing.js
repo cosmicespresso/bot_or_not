@@ -4,11 +4,13 @@ const compendium = require('compendium-js');
 //text processing lib
 const blacklist = require('./lib/blacklist.json');
 const whats = require('./lib/whats.json');
+const awkwards = require('./lib/awkwards.json');
 
 //these aren't constant: entries get removed
 let truths = require('./lib/truths.json');
 let wyrResponse = require('./lib/wyrResponse.json');
 let questions = require('./lib/questions.json');
+let awkwardQuestions = require('./lib/awkwardQuestions.json');
 let notQuestion = require('./lib/notQuestion.json');
 let genericResponse = require('./lib/genericResponse.json');
 
@@ -79,29 +81,22 @@ async function createContext(context, lifespan, bot) {
 }
 
 export const handleError = () => {
-  let generic = getResponse(genericResponse);
-  return generic.response;
+  let response = genericResponse[Math.floor(Math.random()*genericResponse.length)];
+
+  //remove the element so not repeating ourselves
+  const index = genericResponse.indexOf(response);
+  if (index > 0) {
+    genericResponse.splice(index, 1);
+  }
+
+  return response;
 }
 
 export const chooseTruth = async (bot) => {
-  deleteAllContexts(bot);
-
-  let truth = getResponse(truths)
-  await createContext(truth.context, 5, bot);
-  listContexts(bot);
+  await deleteAllContexts(bot);
+  let truth = await getResponse(truths, bot)
 
   return truth.response;
-}
-
-//change the topic of conversation
-export const changeTopic = async (bot) => {
-  deleteAllContexts(bot);
-
-  let question = getResponse(questions)
-  await createContext(question.context, 5, bot);
-  listContexts(bot);
-
-  return question.response;
 }
 
 async function replacementGrammar(options, sentences){
@@ -123,13 +118,18 @@ function toFirstPerson(sent) {
   return sent;
 }
 
-function getResponse(responseArr) {
+//this function gets a hard-coded response then sets a context associated with it
+async function getResponse(responseArr, bot) {
   let response = responseArr[Math.floor(Math.random()*responseArr.length)];
 
   //remove the element so not repeating ourselves
   const index = responseArr.indexOf(response);
   if (index > 0) {
     responseArr.splice(index, 1);
+  }
+
+  if(response.context){
+    createContext(response.context, 5, bot);
   }
 
   return response;
@@ -172,8 +172,7 @@ async function parseTruthChallenge(sent, bot) {
   }
 
   else{
-    const noQuestionResponse = getResponse(notQuestion)
-    createContext(noQuestionResponse.context, 5, bot);
+    const noQuestionResponse = await getResponse(notQuestion, bot)
     return noQuestionResponse.response;
   }
 
@@ -192,14 +191,21 @@ async function genericParser(sent, bot) {
 
   if(sent === 'truth') {
     const output = await chooseTruth(bot);
-    return output;
+    return output.response;
   }
 
   //breaking the what loop
   if(whats.includes(sent.replace(/\?/g, ''))) {
-    const output = await changeTopic(bot);
-    return output;
+    const output = await getResponse(questions, bot);
+    return output.response;
   }
+
+  //breaking the what loop
+  if(awkwards.includes(sent.replace(/\[r, m]/g, ''))) {
+    const output = await getResponse(awkwardQuestions, bot);
+    return output.response;
+  }
+
 }
 
 export const textProcessor = async (sent, bot, context) => {
