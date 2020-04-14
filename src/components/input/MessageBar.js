@@ -15,8 +15,6 @@ class MessageBar extends Component {
 			alert('You have reached 256 character limit!');
 		}
 		this.setState({value});
-
-		this.props.onInputFocus(window.innerHeight)
 	}
 
 	handleSubmit = (e) =>{
@@ -25,10 +23,15 @@ class MessageBar extends Component {
 		this.setState({value: ''});
 	}
 
+	checkFocus = (e) => {
+		e.preventDefault();
+		this.props.onInputFocus(window.innerHeight);
+	}
+
 	render(props) {
 		return (
 			<div>
-				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
+				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit} onFocus={this.checkFocus}>
 					<input className="text-input"
 						style={{fontSize: `${this.props.fontSize}px`}}
 						type="search"

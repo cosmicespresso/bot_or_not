@@ -96,9 +96,14 @@ class App extends Component {
     else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
   }
 
-  handleMobileKeyboard = (height) => {
-    // console.log(this.state.dialogHeight, height)
-    if (!this.desktopDetected) console.log('handle keyboard resizing event here?')
+  handleMobileKeyboard = (currentInnerHeight) => {
+    if (currentInnerHeight !== this.innerHeight) {
+      // keyboard is up
+      this.setState({dialogHeight: currentInnerHeight})
+    }
+    else {
+      this.setState({dialogHeight: this.innerHeight})
+    }
   }
 
   startTimer = () => {
@@ -168,7 +173,7 @@ class App extends Component {
   checkTimeout = (Component) => {
     if (this.state.main === Component && 
         !this.shouldUpdate &&
-        this.state.timeLimit === getSeconds(this.state.timerTime))
+        this.state.timeLimit <= getSeconds(this.state.timerTime))
     {
       this.setState({ timerStart: Date.now()});
       this.shouldUpdate = true;
@@ -243,7 +248,6 @@ class App extends Component {
             <Chat 
               fontSize={fontSizesConfig.baseFontSize}
               chatClass={classesConfig.chatClass}
-              time={getSeconds(this.state.timerTime)}
               messages={this.state.messages}
               isBotTyping={this.state.isBotTyping}
               dialogHeight={this.state.dialogHeight} />
