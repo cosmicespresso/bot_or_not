@@ -1,12 +1,16 @@
 /**
- * Returns a random number between min (inclusive) and max (exclusive)
- */
+* Returns a random number between min (inclusive) and max (exclusive)
+*/
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/**
+* An array of objects which define the different views of the game.
+* Each object contains the text as well as which components will be rendered.
+*/
 export const stateMap = [
   {
     step: 1, 
@@ -36,7 +40,6 @@ export const stateMap = [
     step: 3, 
     timeLimit: 1000,
     messages: [],
-    headerText: 'Bot or Not',
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
     fieldTop: 'To play, enter your name below👇',

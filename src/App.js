@@ -35,26 +35,33 @@ class App extends Component {
     this.shouldUpdate = false;
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
-    this.desktopDetected = this.innerWidth >= 768; // randomly deciding that for the moment
-    this.digitalKeyboardDetected = false;
+    this.desktopDetected = this.innerWidth >= 768; // it misses landscape mode for mobile 
+    // this.digitalKeyboardDetected = false; 
     this.state = {  
-      opponent: opponent, 
-      name: '',
+      opponent: opponent, // name of the opponent, initialized from an external array
+      name: '', // name of the player
       timerTime: 0, 
       timerStart: 0,
       isBotTyping: false,
-      currentBot: bots[0],
-      ...getStateAtStep(1, stateMap),
-      result: ''
+      currentBot: bots[0], // initialize bots
+      ...getStateAtStep(1, stateMap), // Importing game states from stateMap object and initializing to step = 1
+      result: '' // Defines which text ('correct' or 'incorrect') will be rendered in the End view
   	};
   }
 
+  /**
+  * A function that appends what the user just typed to the array of messages to be rendered.
+  */
   appendMessage = (text, isUser = false, next = () => {}) => {
     let messages = this.state.messages.slice();
     messages.push({isUser, text});
     this.setState({messages, isBotTyping: this.botQueue.length > 0}, next);
   }
 
+  /**
+  * A function that goes through the bot's incoming responses from Dialogflow 
+  * and directs them to frontend.
+  */
   processBotQueue = (isQuick = false) => {
     if (!this.isProcessingQueue && this.botQueue.length) {
       this.isProcessingQueue = true;
@@ -66,6 +73,9 @@ class App extends Component {
     }
   }
 
+  /**
+  * A function that sanitizes typed messages before they are appended to the bot queue.
+  */
   processResponse = (text) => {
     //check if message pure punctuation, let it pass if so
     if (text.match(/[a-zA-Z]/g)){
@@ -84,41 +94,44 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-
+  /**
+  * A function that initializes and maintains a timer that runs throughout the game.
+  */
   startTimer = () => {
     this.setState({
       timerTime: Date.now(),
       timerStart: Date.now()
     });
     this.timer = setInterval(() => {
-      this.listenForInnerHeightChange();
+      // this.listenForInnerHeightChange();
       this.setState({
         timerTime: Date.now() - this.state.timerStart
       });
     }, 10);
   };
 
-  listenForInnerHeightChange = () => {
-    let screenSizes = {};
-    if (this.digitalKeyboardDetected) { 
-      screenSizes = handleResize(window,this.newInnerHeight)
-    }
-    else {
-      screenSizes = handleResize(window,this.innerHeight)
-    }
-    this.setState({dialogHeight: screenSizes.dialogHeight})
-  }
+  // listenForInnerHeightChange = () => {
+  //   let screenSizes = {};
+  //   if (this.digitalKeyboardDetected) { 
+  //     screenSizes = handleResize(window,this.newInnerHeight)
+  //   }
+  //   else {
+  //     screenSizes = handleResize(window,this.innerHeight)
+  //   }
+  //   this.setState({dialogHeight: screenSizes.dialogHeight})
+  // }
 
-  handleMobileKeyboard = (newInnerHeight) => {
-    this.digitalKeyboardDetected = window.innerHeight !== this.innerHeight ? true : false;
-    this.newInnerHeight = newInnerHeight;
-  }
+  // handleMobileKeyboard = (newInnerHeight) => {
+  //   this.digitalKeyboardDetected = window.innerHeight !== this.innerHeight ? true : false;
+  //   this.newInnerHeight = newInnerHeight;
+  // }
 
+  /**
+  * A function that handles all form submission (via messageBar component).
+  * It also accounts for edge cases like step 3.
+  */
   handleSubmitText = async (text) => {
     this.setState({name: text})
-    /*
-    *EDGE CASE
-    */
     if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
       this.appendMessage(text, true);
       const response = await textProcessor(text, this.state.currentBot);
@@ -127,10 +140,13 @@ class App extends Component {
     else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
   }
 
+  /**
+  * A function that handles all button presses. 
+  * It resets the timer for every component run.
+  * It prepares the transition to the next view (this.shouldUpdate = true).
+  * It also accounts for edge cases like step 17.
+  */
   handleClick = (e) => {
-    /*
-    * EDGE CASE
-    */
     let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
     if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
     if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
@@ -143,6 +159,9 @@ class App extends Component {
     this.configureState(nextProps, nextState);
   }
 
+  /**
+  * Initializes event listeners, the timer, and resizing for the component.
+  */
   componentDidMount() {
     let screenSizes = handleResize(window,this.innerHeight);
     this.setState({dialogWidth: screenSizes.dialogWidth, dialogHeight: this.desktopDetected ? screenSizes.dialogHeight * 0.9 : screenSizes.dialogHeight});
@@ -150,11 +169,17 @@ class App extends Component {
     this.startTimer();
   }
 
+  /**
+  * Removes event listener for resizing and clears timer for the component.
+  */
   componentWillUnmount() {
     window.removeEventListener('resize', handleResize);
     clearInterval(this.timer);
   }
 
+  /**
+  * A function that determines which bot we should be invoking at the current view.
+  */
   configureBots = () => {
     // which bot are we on
     const bot = bots.filter(function (key, val){
@@ -176,6 +201,11 @@ class App extends Component {
       }
   }
 
+  /**
+  * A function that checks whether a component has timed out.
+  * It resets the timer if so.
+  * It marks the component for update.
+  */
   checkTimeout = (Component) => {
     if (this.state.main === Component && 
         !this.shouldUpdate &&
@@ -186,12 +216,17 @@ class App extends Component {
     }
   }
 
+  /**
+  * A function that takes care of progressing through the game.
+  * It takes care of components which time out. 
+  * It calculates the next step and updates the state.
+  * It updates the bots.
+  */
   configureState = (props, state) => { // advancing and updating state happens here 
     
     // check if a component has timed out 
     this.checkTimeout('Chat');
     this.checkTimeout('NarratorWait');
-
     
     if (this.shouldUpdate) { 
       this.shouldUpdate = false;
