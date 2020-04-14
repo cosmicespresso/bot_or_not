@@ -91,24 +91,27 @@ class App extends Component {
       timerStart: Date.now()
     });
     this.timer = setInterval(() => {
+      this.listenForInnerHeightChange();
       this.setState({
         timerTime: Date.now() - this.state.timerStart
       });
     }, 10);
   };
 
-  listenForInnerHeight = () => {
-    this.digitalKeyboardDetected = window.innerHeight < this.innerHeight ? true : false;
-  }
-
-  handleMobileKeyboard = (currentInnerHeight) => {
-    // we have a focus event, how do I listen to changes in height?
+  listenForInnerHeightChange = () => {
+    let screenSizes = {};
     if (this.digitalKeyboardDetected) { 
-      this.setState({dialogHeight: currentInnerHeight - 300});
+      screenSizes = handleResize(window,this.newInnerHeight)
     }
     else {
-      this.setState({dialogHeight: this.innerHeight})
+      screenSizes = handleResize(window,this.innerHeight)
     }
+    this.setState({dialogHeight: screenSizes.dialogHeight})
+  }
+
+  handleMobileKeyboard = (newInnerHeight) => {
+    this.digitalKeyboardDetected = window.innerHeight !== this.innerHeight ? true : false;
+    this.newInnerHeight = newInnerHeight;
   }
 
   handleSubmitText = async (text) => {
@@ -141,18 +144,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let {dialogWidth, dialogHeight} = handleResize(window,this.innerHeight);
-
-    this.setState({dialogWidth: dialogWidth, dialogHeight: this.desktopDetected ? dialogHeight * 0.9 : dialogHeight});
+    let screenSizes = handleResize(window,this.innerHeight);
+    this.setState({dialogWidth: screenSizes.dialogWidth, dialogHeight: this.desktopDetected ? screenSizes.dialogHeight * 0.9 : screenSizes.dialogHeight});
     window.addEventListener('resize', handleResize);
     this.startTimer();
-    this.innerHeightTimer = setInterval( this.listenForInnerHeight, 200);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', handleResize);
     clearInterval(this.timer);
-    clearInterval(this.innerHeightTimer);
   }
 
   configureBots = () => {

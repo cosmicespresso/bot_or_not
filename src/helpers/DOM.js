@@ -6,8 +6,6 @@ export const handleResize = (window, innerHeight) => {
   // the last calculation is the 10px margin for the header and the input as well as the 2px border on very top and bottom
   let dialogWidth = header.offsetWidth;
   let dialogHeight = innerHeight - header.offsetHeight - input.offsetHeight - 4*10 - 2*2; 
-  
-
   return {dialogWidth, dialogHeight};
 }
 
