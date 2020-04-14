@@ -36,6 +36,7 @@ class App extends Component {
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
     this.desktopDetected = this.innerWidth >= 768; // randomly deciding that for the moment
+    this.digitalKeyboardDetected = false;
     this.state = {  
       opponent: opponent, 
       name: '',
@@ -83,22 +84,6 @@ class App extends Component {
     this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
   }
 
-  handleSubmitText = async (text) => {
-    this.setState({name: text})
-    /*
-    *EDGE CASE
-    */
-    if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
-      this.appendMessage(text, true);
-      const response = await textProcessor(text, this.state.currentBot);
-      this.processResponse(response);
-    }
-    else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
-  }
-
-  handleMobileKeyboard = (currentInnerHeight) => {
-    // we have a focus event, how do I listen to changes in height?
-  }
 
   startTimer = () => {
     this.setState({
@@ -111,6 +96,33 @@ class App extends Component {
       });
     }, 10);
   };
+
+  listenForInnerHeight = () => {
+    this.digitalKeyboardDetected = window.innerHeight < this.innerHeight ? true : false;
+  }
+
+  handleMobileKeyboard = (currentInnerHeight) => {
+    // we have a focus event, how do I listen to changes in height?
+    if (this.digitalKeyboardDetected) { 
+      this.setState({dialogHeight: currentInnerHeight - 300});
+    }
+    else {
+      this.setState({dialogHeight: this.innerHeight})
+    }
+  }
+
+  handleSubmitText = async (text) => {
+    this.setState({name: text})
+    /*
+    *EDGE CASE
+    */
+    if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
+      this.appendMessage(text, true);
+      const response = await textProcessor(text, this.state.currentBot);
+      this.processResponse(response);
+    }
+    else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
+  }
 
   handleClick = (e) => {
     /*
@@ -133,14 +145,14 @@ class App extends Component {
 
     this.setState({dialogWidth: dialogWidth, dialogHeight: this.desktopDetected ? dialogHeight * 0.9 : dialogHeight});
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mobileKeyboard', this.handleMobileKeyboard);
     this.startTimer();
+    this.innerHeightTimer = setInterval( this.listenForInnerHeight, 200);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', handleResize);
-    window.removeEventListener('mobileKeyboard', this.handleMobileKeyboard);
     clearInterval(this.timer);
+    clearInterval(this.innerHeightTimer);
   }
 
   configureBots = () => {
