@@ -99,7 +99,7 @@ class App extends Component {
   handleMobileKeyboard = (currentInnerHeight) => {
     if (currentInnerHeight !== this.innerHeight) {
       // keyboard is up
-      this.setState({dialogHeight: currentInnerHeight})
+      this.setState({dialogHeight: currentInnerHeight-214})
     }
     else {
       this.setState({dialogHeight: this.innerHeight})
