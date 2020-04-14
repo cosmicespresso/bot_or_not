@@ -97,13 +97,7 @@ class App extends Component {
   }
 
   handleMobileKeyboard = (currentInnerHeight) => {
-    if (currentInnerHeight !== this.innerHeight) {
-      // keyboard is up
-      this.setState({dialogHeight: currentInnerHeight-214})
-    }
-    else {
-      this.setState({dialogHeight: this.innerHeight})
-    }
+    // we have a focus event, how do I listen to changes in height?
   }
 
   startTimer = () => {
