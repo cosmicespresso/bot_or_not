@@ -1,3 +1,7 @@
+
+/**
+* ???????? 
+*/
 export const handleResize = (window, innerHeight) => {
   const header = document.querySelector('.container header');
   const input = document.querySelector('.container .text-form') 
@@ -9,6 +13,10 @@ export const handleResize = (window, innerHeight) => {
   return {dialogWidth, dialogHeight};
 }
 
+
+/**
+* ???????? 
+*/
 export const handleHeaderText = (main, opponent, headerText, timer, name) => {
   let title 
   if (main === 'Chat') { 

@@ -1,3 +1,7 @@
+
+/**
+* A hard coded array of names. Will update.
+*/
 let names = [
   {
       "color": "A Touch of Tan",
@@ -621,12 +625,14 @@ let names = [
   }
 ]
 
+/**
+* A function that receives a min and max and returns a random Int between them.
+*/
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 
 export const opponent = names[getRandomInt(0,names.length-1)].color
 

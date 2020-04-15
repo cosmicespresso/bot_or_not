@@ -4,6 +4,9 @@ import Exchange from './Exchange';
 
 class Chat extends Component {
 
+	/**
+	* A function that takes care of automatically scrolling to the most recent text exchange.
+	*/
 	scrollToBottom = () => {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
 		// end.scrollIntoView({ behavior: 'smooth', block: 'nearest'})
@@ -17,6 +20,10 @@ class Chat extends Component {
 	render(props) {
 		let groups = [];
 		let group, lastMsgIsUser;
+
+		/**
+		* A loop that builds the messages array which will be passed onto the Exchange child.
+		*/
 		for (let msg of this.props.messages) {
 			// next group
 			if (lastMsgIsUser !== msg.isUser) {
@@ -27,7 +34,9 @@ class Chat extends Component {
 			group.messages.push(msg.text);
 		}
 
-		// bot is typing
+		/**
+		* ???????? 
+		*/
 		if (this.props && this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
 			if (groups !== undefined && groups[endIndex].isUser) {
