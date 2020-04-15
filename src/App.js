@@ -110,11 +110,10 @@ class App extends Component {
     }, 10);
   }
 
-  awaitUserInput = () => {
-    console.log('called function')
+  awaitUserInput = (response, timeout) => {
       setTimeout(function() {
-        if(this.state.messages.length === 0) this.appendMessage('hey'); 
-      }.bind(this), 5000)
+        if(this.state.messages.length === 0) this.appendMessage(response); 
+      }.bind(this), timeout)
   }
 
   // listenForInnerHeightChange = () => {
@@ -207,9 +206,12 @@ class App extends Component {
     }
   }
 
+    // A function that determines whether to add a 
+    // timeout to the chat window, based on who is meant
+    // to respond first
     configureChat = () => {
-        // is this chat a special case?
-        if(this.state.step === 4) this.awaitUserInput();
+        if(this.state.step === 4) this.awaitUserInput('hey', 5000);
+        if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 5000);
     }
     
     
