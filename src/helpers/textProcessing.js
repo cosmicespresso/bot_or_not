@@ -18,7 +18,8 @@ let genericResponse = require('./lib/genericResponse.json');
 let askedQuestion = false;
 
 /**
-* A function that .......
+* A function that sends a processed string to the bot
+* and returns a response
 */
 export const runSample = async (sample, bot) => {
   let response;
@@ -47,7 +48,8 @@ export const runSample = async (sample, bot) => {
 }
 
 /**
-* A function that .......
+* A function that wipes current contexts,
+* used to help the bot change the topic
 */
 async function deleteAllContexts(bot) {
   const response = await fetch(".netlify/functions/deleteAllContexts", {
@@ -61,7 +63,9 @@ async function deleteAllContexts(bot) {
 }
 
 /**
-* A function that .......
+* A function that lists the current contexts
+* to better diagnose bot snafus.
+* used in debugging, not in production
 */
 async function listContexts(bot) {
   const response = await fetch(".netlify/functions/listContexts", {
@@ -77,7 +81,11 @@ async function listContexts(bot) {
 }
 
 /**
-* A function that .......
+* A function that creates a new context from the bot end.
+* we use this when the bot starts a new conversation from the
+* server side, rather than dialogflow: it allows us to pick
+* responses at random then define what the conversation is
+* going to be about
 */
 async function createContext(context, lifespan, bot) {
   const response = await fetch(".netlify/functions/createContext", {
@@ -93,7 +101,9 @@ async function createContext(context, lifespan, bot) {
 }
 
 /**
-* A function that .......
+* A function that handles server errors and sends a generic response
+* this can be invoked in a bunch of different places, but normally runs
+* when dialogflow doesn't respond, or we get a blank messahge
 */
 export const handleError = () => {
   let response = genericResponse[Math.floor(Math.random()*genericResponse.length)];
@@ -108,7 +118,7 @@ export const handleError = () => {
 }
 
 /**
-* A function that .......
+* A function that chooses a truth challenge for the player
 */
 export const chooseTruth = async (bot) => {
   await deleteAllContexts(bot);
@@ -118,7 +128,9 @@ export const chooseTruth = async (bot) => {
 }
 
 /**
-* A function that .......
+* A function that replaces words in a sentence with random selection from
+* an array of options. Kind of abstract in itself, used for responses with a
+* particularly structured syntax
 */
 async function replacementGrammar(options, sentences){
   var sentence = sentences[Math.floor(Math.random()*sentences.length)];
@@ -132,7 +144,7 @@ async function replacementGrammar(options, sentences){
 }
 
 /**
-* A function that .......
+* A function that turns a 'you' phrase into an 'I' phrase
 */
 function toFirstPerson(sent) {
   sent = sent.replace("your", "my");
@@ -143,7 +155,8 @@ function toFirstPerson(sent) {
 }
 
 /**
-* A function that .......
+* A function that gets a response from an array of responses, and sets
+* an associated context
 */
 function getResponse(responseArr) {
   let response = responseArr[Math.floor(Math.random()*responseArr.length)];
@@ -162,7 +175,7 @@ function getResponse(responseArr) {
 }
 
 /**
-* A function that ........
+* A fuzzy-matching function to detect variants of the same phrase
 */
 function levenshteinVariants(sent, variants) {
   let subSent;
@@ -177,7 +190,7 @@ function levenshteinVariants(sent, variants) {
 }
 
 /**
-* A function that .......
+* A parser specific to 'truth challenges' from the user
 */
 async function parseTruthChallenge(sent, bot) {
   //parse out obvious would you rathers
@@ -212,7 +225,9 @@ async function parseTruthChallenge(sent, bot) {
 
 
 /**
-* A function that .......
+* A parser that gets applied to all sentences that the user submits,
+* checking for things which are easier to handle in middleware before
+* deciding whether to pass to dialogflow
 */
 async function genericParser(sent, bot) {
   let sentArr = sent.split(" ");
@@ -245,7 +260,8 @@ async function genericParser(sent, bot) {
 }
 
 /**
-* A function that .......
+* This structures the order in which user inputs are processed, and
+* decides whether to send to bot
 */
 export const textProcessor = async (sent, bot, context) => {
 
