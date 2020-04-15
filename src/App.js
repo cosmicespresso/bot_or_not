@@ -109,6 +109,9 @@ class App extends Component {
     }, 10);
   }
 
+  /**
+  * A function that times out and adds a message if the user hasn't said anything
+  */
   awaitUserInput = (response, timeout) => {
       setTimeout(() => {
         if(this.state.messages.length === 0) this.appendMessage(response); 
@@ -205,13 +208,14 @@ class App extends Component {
     }
   }
 
-    // A function that determines whether to add a 
-    // timeout to the chat window, based on who is meant
-    // to respond first
-    configureChat = () => {
-        if(this.state.step === 4) this.awaitUserInput('hey', 5000);
-        if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 5000);
-    }
+  /**
+  * A function that determines whether to add a timeout to the chat window
+  * to engage the user if they've not said anything
+  */
+  configureChat = () => {
+      if(this.state.step === 4) this.awaitUserInput('hey', 5000); //intro
+      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 5000); //user truth challenge
+  }
     
     
   /**
