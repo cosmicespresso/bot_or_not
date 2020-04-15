@@ -1,4 +1,3 @@
-
 /**
 * A function that returns a random integer between min and max.
 */
