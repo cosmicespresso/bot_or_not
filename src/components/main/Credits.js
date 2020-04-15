@@ -14,9 +14,9 @@ function Credits(props)  {
 				
 				<h4>Share </h4>
 				<span className='share'>
-					<a href="" target="_blank" > <img src={twitter} alt='twitter share' /> </a>
-					<a href="" target="_blank" ><img src={instagram} alt='instagram share' /> </a>
-					<a href="" target="_blank" > <img src={email} alt='email' /> </a>
+					<a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" > <img src={twitter} alt='twitter share' /> </a>
+					<a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" ><img src={instagram} alt='instagram share' /> </a>
+					<a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" > <img src={email} alt='email' /> </a>
 				</span>
 			</div>
 		</div>

@@ -1,16 +1,22 @@
-export const handleResize = (e) => {
-  const window = e.target || e;
+
+/**
+* ???????? 
+*/
+export const handleResize = (window, innerHeight) => {
   const header = document.querySelector('.container header');
   const input = document.querySelector('.container .text-form') 
               || document.querySelector('.container .single-button') 
               || document.querySelector('.container .double-button');
   // the last calculation is the 10px margin for the header and the input as well as the 2px border on very top and bottom
   let dialogWidth = header.offsetWidth;
-  let dialogHeight = window.innerHeight - header.offsetHeight - input.offsetHeight - 4*10 - 2*2; 
-  
+  let dialogHeight = innerHeight - header.offsetHeight - input.offsetHeight - 4*10 - 2*2; 
   return {dialogWidth, dialogHeight};
 }
 
+
+/**
+* ???????? 
+*/
 export const handleHeaderText = (main, opponent, headerText, timer, name) => {
   let title 
   if (main === 'Chat') { 

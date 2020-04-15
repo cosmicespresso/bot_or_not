@@ -1,5 +1,3 @@
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.26, autoprefixer: v9.7.3) */
-
 @import url('https://rsms.me/inter/inter.css');
 
 
@@ -38,18 +36,30 @@
  *
  */
 .narrator.wait  .text {
-  animation: blink 3s ease-in-out infinite;
+  animation: blink 4s linear infinite alternate;
 }
 
 @keyframes blink {
-  0% {opacity: 0.3;}
-  50% {opacity: 1;}
-  100% {opacity: 0.3;}
+  0% {
+    filter: drop-shadow(0 0 0 #FF2D55);
+  }
+  50% {
+    filter: drop-shadow(4px 4px 16px #FF2D55);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 #FF2D55);
+  }
 }
 @-webkit-keyframes blink {
-  0% {opacity: 0.3;}
-  50% {opacity: 1;}
-  100% {opacity: 0.3;}
+  0% {
+    filter: drop-shadow(0 0 0 #FF2D55);
+  }
+  50% {
+    filter: drop-shadow(4px 4px 16px #FF2D55);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 #FF2D55)
+  }
 }
 
 

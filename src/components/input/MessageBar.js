@@ -9,6 +9,7 @@ class MessageBar extends Component {
 	}
 
 	handleChange = (e) => {
+		e.preventDefault();
 		const value = e.target.value;
 		if (value.length >= 256) {
 			alert('You have reached 256 character limit!');
@@ -22,22 +23,26 @@ class MessageBar extends Component {
 		this.setState({value: ''});
 	}
 
-	componentDidMount() {
-		this._text.focus();
+	/**
+  * A function that bubbles the onFocus event of the form back to App.js.
+  * Meant to be used for dealing with the digital keyboard issue. 
+  * Not being currently used.
+  */
+	checkFocus = (e) => {
+		e.preventDefault();
+		// this.props.onInputFocus(window.innerHeight);
 	}
 
 	render(props) {
-		
 		return (
 			<div>
-				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
+				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit} onFocus={this.checkFocus}>
 					<input className="text-input"
 						style={{fontSize: `${this.props.fontSize}px`}}
 						type="search"
 						name="inputText"
 						placeholder={this.props.placeholder}
 						value={this.state.value}
-						ref={input => this._text = input}
 						onChange={this.handleChange}
 						autoComplete={'off'}
 						required />

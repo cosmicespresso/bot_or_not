@@ -1,10 +1,10 @@
-export const fontSizes = (height) => {
+export const fontSizes = (height, innerHeight) => {
     /*
     * FONT SIZES
     */     
-    const baseFontSize = height/window.innerHeight*18;
-    const mediumFontSize = height/window.innerHeight*24;
-    const largeFontSize = height/window.innerHeight*48;
+    const baseFontSize = height/innerHeight*18;
+    const mediumFontSize = height/innerHeight*24;
+    const largeFontSize = height/innerHeight*48;
 
     return {baseFontSize, mediumFontSize, largeFontSize}
 }
@@ -20,29 +20,35 @@ export const fontColors = (main) => {
 }
 
 export const classNames = (main, step) => {
-
-    const activeTheme = 'theme1'
+    /*
+    * OUR THEME
+    */  
+    const appTheme = 'theme1'
+    const containerTheme = 'theme2'
+    const componentTheme = 'theme3'
+    const chatTheme = 'theme4'
     /*
     * TOP
     */      
-    const appClass = `App ${activeTheme}`;
-    const headerClass= `header ${activeTheme}`;
+    const appClass = `App ${appTheme}`;
+    const containerClass = `container ${containerTheme}`;
+    const headerClass = main !== 'Chat' ?  `header ${componentTheme}` : `header ${chatTheme}`; // handling Header consistency with Chat
     /*
     * MAIN
     */     
-    const narratorClass = `narrator ${activeTheme}`;
-    const narratorWaitClass = `narrator ${activeTheme} wait`;
-    const chatClass = `messages-wrapper ${activeTheme}`;
-    const endClass = `end ${activeTheme}`;
-    const aboutClass = `about ${activeTheme}`;
-    const creditsClass = `credits ${activeTheme}`;
+    const narratorClass = `narrator ${componentTheme}`;
+    const narratorWaitClass = `narrator ${componentTheme} wait`;
+    const chatClass = `messages-wrapper ${chatTheme}`;
+    const endClass = `end ${componentTheme}`;
+    const aboutClass = `about ${componentTheme}`;
+    const creditsClass = `credits ${componentTheme}`;
     /*
     * INPUT
     */  
     const placeHolderText = step === 3 ? 'Enter your name' : 'Say something...'
-    const singleButtonClass = main === 'NarratorWait' ? `single-button ${activeTheme} wait` : `single-button ${activeTheme}`
-    const doubleButtonClass = `double-button ${activeTheme}`
-    const messageBarClass = `text-form ${activeTheme}`
+    const singleButtonClass = main === 'NarratorWait' ? `single-button ${componentTheme} wait` : `single-button ${componentTheme}`
+    const doubleButtonClass = `double-button ${componentTheme}`
+    const messageBarClass = `text-form ${componentTheme}`
 
-    return {appClass, headerClass, narratorClass, narratorWaitClass, chatClass, endClass, aboutClass, creditsClass, placeHolderText, singleButtonClass, doubleButtonClass, messageBarClass}
+    return {appClass, containerClass, headerClass, narratorClass, narratorWaitClass, chatClass, endClass, aboutClass, creditsClass, placeHolderText, singleButtonClass, doubleButtonClass, messageBarClass}
 }

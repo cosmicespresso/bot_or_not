@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+/**
+* A functional component that renders each player's message.
+*/
 function Message(props) {
 	return (
 		<div className="message" style={{fontSize: `${props.fontSize}px`}}>
@@ -8,6 +11,9 @@ function Message(props) {
 	)
 };
 
+/**
+* A functional component that renders the typing animation if the bot is typing.
+*/
 function TypingAnimation(props) {
 	return (
 		<div id="wave">
@@ -18,7 +24,13 @@ function TypingAnimation(props) {
 	)
 };
 
+
+/**
+* A class component which receives a grouped messages array and decouples it between the user and the bot.
+* A child of the Chat component.
+*/
 class Exchange extends Component {
+	
 	render(props) {
 		const messages = this.props.group.messages.map((text, i) => (
 			<Message
