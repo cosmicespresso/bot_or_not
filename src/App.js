@@ -14,7 +14,7 @@ import SingleButton from './components/input/SingleButton';
 import DoubleButton from './components/input/DoubleButton';
 
 import {stateMap} from './stateMap';
-import {opponent} from './helpers/opponentNames';
+import {getOpponentName} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
 import {getBotDelay, getSeconds} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
@@ -38,7 +38,7 @@ class App extends Component {
     this.desktopDetected = this.innerWidth >= 768; // it misses landscape mode for mobile 
     // this.digitalKeyboardDetected = false; 
     this.state = {  
-      opponent: opponent, // name of the opponent, initialized from an external array
+      opponent: '', // name of the opponent, initialized from an external array
       name: '', // name of the player
       timerTime: 0, 
       timerStart: 0,
@@ -48,6 +48,7 @@ class App extends Component {
       result: '' // Defines which text ('correct' or 'incorrect') will be rendered in the End view
   	};
   }
+
 
   /**
   * A function that appends what the user just typed to the array of messages to be rendered.
@@ -166,6 +167,7 @@ class App extends Component {
     this.setState({dialogWidth: screenSizes.dialogWidth, dialogHeight: this.desktopDetected ? screenSizes.dialogHeight * 0.9 : screenSizes.dialogHeight});
     window.addEventListener('resize', handleResize);
     this.startTimer();
+    getOpponentName().then( (opponent) => this.setState({opponent: opponent}))
   }
 
   /**
