@@ -111,9 +111,9 @@ class App extends Component {
   }
 
   awaitUserInput = (response, timeout) => {
-      setTimeout(function() {
+      setTimeout(() => {
         if(this.state.messages.length === 0) this.appendMessage(response); 
-      }.bind(this), timeout)
+      }, timeout)
   }
 
   // listenForInnerHeightChange = () => {
