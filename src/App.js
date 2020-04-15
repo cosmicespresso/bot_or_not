@@ -62,14 +62,14 @@ class App extends Component {
   * A function that goes through the bot's incoming responses from Dialogflow 
   * and directs them to frontend.
   */
-  processBotQueue = (isQuick = false) => {
+  processBotQueue = () => {
     if (!this.isProcessingQueue && this.botQueue.length) {
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
       setTimeout(() => {
         this.isProcessingQueue = false;
         this.appendMessage(nextMsg, false, this.processBotQueue);
-      }, getBotDelay(nextMsg, isQuick));
+      }, getBotDelay(nextMsg));
     }
   }
 
@@ -90,8 +90,7 @@ class App extends Component {
 
     this.botQueue = this.botQueue.concat(text);
     // start processing bot queue
-    const isQuick = !this.state.isBotTyping;
-    this.setState({isBotTyping: true}, () => this.processBotQueue(isQuick));
+    this.setState({isBotTyping: true}, () => this.processBotQueue());
   }
 
   /**

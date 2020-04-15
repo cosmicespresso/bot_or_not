@@ -11,9 +11,10 @@ function getRandomInt(min, max) {
 /**
 * A function that calculates and returns the botDelay in ms
 */
-export const getBotDelay = (msg, isQuick = false) => {
+export const getBotDelay = (msg) => {
   const BOT_DELAY = 5000;
   const BOT_MAX_CHARS = 350;
+  
   // const BOT_SPEED = getRandomInt(10,50);
   // let delay = isQuick ? BOT_DELAY / 2 : BOT_DELAY;
   // let speed = isQuick ? BOT_SPEED * 2 : BOT_SPEED;
