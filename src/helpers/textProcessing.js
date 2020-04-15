@@ -158,7 +158,7 @@ function toFirstPerson(sent) {
 * A function that gets a response from an array of responses, and sets
 * an associated context
 */
-function getResponse(responseArr) {
+function getResponse(responseArr, bot) {
   let response = responseArr[Math.floor(Math.random()*responseArr.length)];
 
   //remove the element so not repeating ourselves
@@ -223,13 +223,23 @@ async function parseTruthChallenge(sent, bot) {
 
 }
 
+/**
+* This function checks either user's or bot messages for
+* repeats, according to a buffer
+*/
+export const checkPreviousMessages = (sent, messages, isUser, buffer) => {
+  let msgFilter = isUser ? messages.filter(msg => msg.isUser) : messages.filter(msg => !msg.isUser)
+  msgFilter = msgFilter.slice(Math.max(msgFilter.length - buffer, 0))
+  const matches = msgFilter.filter(msg => msg.text === sent).length;
+  return matches;
+}
 
 /**
 * A parser that gets applied to all sentences that the user submits,
 * checking for things which are easier to handle in middleware before
 * deciding whether to pass to dialogflow
 */
-async function genericParser(sent, bot) {
+async function genericParser(sent, bot, messages) {
   let sentArr = sent.split(" ");
 
   //check against words blacklist
@@ -257,15 +267,17 @@ async function genericParser(sent, bot) {
     return output.response;
   }
 
+  if(checkPreviousMessages(sent, messages, true, 2) > 0) return 'are you a bot'
+
 }
 
 /**
 * This structures the order in which user inputs are processed, and
 * decides whether to send to bot
 */
-export const textProcessor = async (sent, bot, context) => {
+export const textProcessor = async (sent, bot, messages) => {
 
-  let parsed = await genericParser(sent, bot)
+  let parsed = await genericParser(sent, bot, messages)
 
   switch(bot.name){
     case "truth_bot_answering":

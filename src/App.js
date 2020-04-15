@@ -142,7 +142,7 @@ class App extends Component {
     this.setState({name: text})
     if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
       this.appendMessage(text, true);
-      const response = await textProcessor(text, this.state.currentBot);
+      const response = await textProcessor(text, this.state.currentBot, this.state.messages);
       this.processResponse(response);
     }
     else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
