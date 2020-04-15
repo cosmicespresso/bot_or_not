@@ -15,6 +15,9 @@ let genericResponse = require('./lib/genericResponse.json');
 //set up question answering for truth challenge
 let askedQuestion = false;
 
+/**
+* A function that .......
+*/
 export const runSample = async (sample, bot) => {
   let response;
   try{
@@ -41,6 +44,9 @@ export const runSample = async (sample, bot) => {
   }
 }
 
+/**
+* A function that .......
+*/
 async function deleteAllContexts(bot) {
   const response = await fetch(".netlify/functions/deleteAllContexts", {
     method: 'POST',
@@ -52,6 +58,9 @@ async function deleteAllContexts(bot) {
   })
 }
 
+/**
+* A function that .......
+*/
 async function listContexts(bot) {
   const response = await fetch(".netlify/functions/listContexts", {
     method: 'POST',
@@ -65,6 +74,9 @@ async function listContexts(bot) {
   console.log(response);
 }
 
+/**
+* A function that .......
+*/
 async function createContext(context, lifespan, bot) {
   const response = await fetch(".netlify/functions/createContext", {
     method: 'POST',
@@ -78,11 +90,17 @@ async function createContext(context, lifespan, bot) {
   })
 }
 
+/**
+* A function that .......
+*/
 export const handleError = () => {
   let generic = getResponse(genericResponse);
   return generic.response;
 }
 
+/**
+* A function that .......
+*/
 export const chooseTruth = async (bot) => {
   deleteAllContexts(bot);
 
@@ -93,7 +111,9 @@ export const chooseTruth = async (bot) => {
   return truth.response;
 }
 
-//change the topic of conversation
+/**
+* A function that .......
+*/
 export const changeTopic = async (bot) => {
   deleteAllContexts(bot);
 
@@ -104,6 +124,9 @@ export const changeTopic = async (bot) => {
   return question.response;
 }
 
+/**
+* A function that .......
+*/
 async function replacementGrammar(options, sentences){
   var sentence = sentences[Math.floor(Math.random()*sentences.length)];
   var matches = (sentence.match(/\$/g) || []).length;
@@ -115,6 +138,9 @@ async function replacementGrammar(options, sentences){
   return sentence;
 }
 
+/**
+* A function that .......
+*/
 function toFirstPerson(sent) {
   sent = sent.replace("your", "my");
   sent = sent.replace("you", "I");
@@ -123,6 +149,9 @@ function toFirstPerson(sent) {
   return sent;
 }
 
+/**
+* A function that .......
+*/
 function getResponse(responseArr) {
   let response = responseArr[Math.floor(Math.random()*responseArr.length)];
 
@@ -135,6 +164,9 @@ function getResponse(responseArr) {
   return response;
 }
 
+/**
+* A function that ........
+*/
 function levenshteinVariants(sent, variants) {
   let subSent;
 
@@ -147,6 +179,9 @@ function levenshteinVariants(sent, variants) {
   return subSent;
 }
 
+/**
+* A function that .......
+*/
 async function parseTruthChallenge(sent, bot) {
   //parse out obvious would you rathers
   const wyrVariants = ["Would you rather", "would u rather", "wd u rather"]
@@ -179,6 +214,10 @@ async function parseTruthChallenge(sent, bot) {
 
 }
 
+
+/**
+* A function that .......
+*/
 async function genericParser(sent, bot) {
   let sentArr = sent.split(" ");
 
@@ -202,6 +241,9 @@ async function genericParser(sent, bot) {
   }
 }
 
+/**
+* A function that .......
+*/
 export const textProcessor = async (sent, bot, context) => {
 
   let parsed = await genericParser(sent, bot)
