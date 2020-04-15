@@ -104,7 +104,14 @@ class App extends Component {
         timerTime: Date.now() - this.state.timerStart
       });
     }, 10);
-  };
+  }
+
+  awaitUserInput = () => {
+    console.log('called function')
+      setTimeout(function() {
+        if(this.state.messages.length === 0) this.appendMessage('hey'); 
+      }.bind(this), 5000)
+  }
 
   handleClick = (e) => {
     /*
@@ -153,9 +160,14 @@ class App extends Component {
             this.appendMessage(botResponse); 
           })
         }
-
-      }
+    }
   }
+
+  configureChat = () => {
+    // is this chat a special case?
+    if(this.state.step === 4) this.awaitUserInput();
+}
+
 
   checkTimeout = (Component) => {
     if (this.state.main === Component && 
@@ -174,11 +186,12 @@ class App extends Component {
     this.checkTimeout('NarratorWait');
 
     
-    if (this.shouldUpdate) { 
+    if (this.shouldUpdate) {
       this.shouldUpdate = false;
       
       let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureBots(); // update bots
+      this.configureChat(); // configure the chat start state
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
   }
