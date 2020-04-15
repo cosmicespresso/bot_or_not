@@ -1,6 +1,7 @@
 
 /**
-* ???????? 
+* A function that receives the current window and state.innerHeight and calculates the dialogWidth and dialogHeight.
+* It accounts for the height of the Header and Input elements as well as their margins. 
 */
 export const handleResize = (window, innerHeight) => {
   const header = document.querySelector('.container header');
@@ -15,7 +16,7 @@ export const handleResize = (window, innerHeight) => {
 
 
 /**
-* ???????? 
+* A function that handles updating the Header text according to which step of the game we are at.
 */
 export const handleHeaderText = (main, opponent, headerText, timer, name) => {
   let title 

@@ -2,7 +2,8 @@ import uuid from 'uuid';
 
 
 /**
-* ???????? 
+* A function that receives the current step and returns the object at that step from stateMap array.
+* Essential in progressing through the game.
 */
 export const getStateAtStep = (step, stateMap) => {
   for (var i = 0; i < stateMap.length; i++) {
@@ -12,6 +13,10 @@ export const getStateAtStep = (step, stateMap) => {
   }
 }
 
+/**
+* A function that receives the current step and returns the next step. 
+* Essential in progressing through the game.
+*/
 export const advanceStep = (currentStep, stateMap) => {
   let nextStep=currentStep;
   if (currentStep < stateMap.length) {
@@ -20,6 +25,11 @@ export const advanceStep = (currentStep, stateMap) => {
   return nextStep
 }
 
+
+/**
+* An array that holds the different bots invoked throughout the game.
+* It also provides the steps for which they are active.
+*/
 export const bots = [
   {
     "name": "intro_bot",

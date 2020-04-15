@@ -1,3 +1,8 @@
+
+/**
+* A function that receives the window and current dialog height and calculates the font sizes.
+* There are three sizes (base, medium, large) each using a base unit of 18, 24, 48 pixels.
+*/
 export const fontSizes = (height, innerHeight) => {
     /*
     * FONT SIZES
@@ -9,6 +14,9 @@ export const fontSizes = (height, innerHeight) => {
     return {baseFontSize, mediumFontSize, largeFontSize}
 }
 
+/**
+* A function that sets the font colors for the elements.
+*/
 export const fontColors = (main) => {
     const headerColor = main === 'Chat'  ? '#FF2D55' : '#00f';
     const narratorColor = "#00f";
@@ -19,6 +27,11 @@ export const fontColors = (main) => {
     return {headerColor, narratorColor, endColor, aboutColor, creditsColor}
 }
 
+/**
+* A function that returns all the componenents' classes.
+* It also accounts for two edge cases: handling the Header element to be consistent with the Chat
+* It also handles changes to the placeholder text for the message bar.
+*/
 export const classNames = (main, step) => {
     /*
     * OUR THEME
