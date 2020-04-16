@@ -16,7 +16,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getOpponentName} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
-import {getBotDelay, getSeconds} from './helpers/Utils';
+import {getBotDelay, getSeconds, getBrowserName} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, chooseTruth, handleError } from './helpers/textProcessing'
 import { handleResize, handleHeaderText } from './helpers/DOM'
@@ -163,11 +163,21 @@ class App extends Component {
   * Initializes event listeners, the timer, and resizing for the component.
   */
   componentDidMount() {
+    // detect and initialize screen sizes
     let screenSizes = handleResize(window,this.innerHeight);
     this.setState({dialogWidth: screenSizes.dialogWidth, dialogHeight: this.desktopDetected ? screenSizes.dialogHeight * 0.9 : screenSizes.dialogHeight});
+    
+    // add resizing listener
     window.addEventListener('resize', handleResize);
+    
+    // start timer
     this.startTimer();
+
+    // initialize opponent name via getOpponentName() function
     getOpponentName().then( (opponent) => this.setState({opponent: opponent}))
+    
+    // log the browser type for debugging help
+    console.log('Browser type:', getBrowserName(), 'Platform:', window.navigator.platform);
   }
 
   /**
