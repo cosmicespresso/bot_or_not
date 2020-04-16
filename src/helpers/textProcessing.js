@@ -107,15 +107,15 @@ async function createContext(context, lifespan, bot) {
 * when dialogflow doesn't respond, or we get a blank messahge
 */
 export const handleError = () => {
-  let response = genericResponse[Math.floor(Math.random()*genericResponse.length)];
+  let output = genericResponse[Math.floor(Math.random()*genericResponse.length)];
 
   //remove the element so not repeating ourselves
-  const index = genericResponse.indexOf(response);
+  const index = genericResponse.indexOf(output);
   if (index > 0) {
     genericResponse.splice(index, 1);
   }
 
-  return response;
+  return output.response;
 }
 
 /**
@@ -272,7 +272,6 @@ async function genericParser(sent, bot, messages) {
   if(checkPreviousMessages(sent, messages, true, 2) > 0){
     const output = await getResponse(repetition, bot);
     return output.response;
-    // return 'hey'
   }
 }
 
@@ -298,8 +297,8 @@ export const textProcessor = async (sent, bot, messages) => {
   }
 
   //check if the user is repeating themselves
-  if(checkPreviousMessages(botResponse, messages, false, 3) > 0){
-    console.log('bot is repeating itself :/')
+  if(checkPreviousMessages(botResponse, messages, false, 4) > 0){
+    botResponse = await handleError();
   }
 
   return botResponse;

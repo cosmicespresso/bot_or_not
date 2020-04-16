@@ -77,6 +77,7 @@ class App extends Component {
   * A function that sanitizes typed messages before they are appended to the bot queue.
   */
   processResponse = (text) => {
+    console.log('text is', text)
     //check if message pure punctuation, let it pass if so
     if (text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
