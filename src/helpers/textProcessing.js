@@ -4,19 +4,23 @@ const compendium = require('compendium-js');
 //text processing lib
 const blacklist = require('./lib/blacklist.json');
 const whats = require('./lib/whats.json');
+const awkwards = require('./lib/awkwards.json');
 
 //these aren't constant: entries get removed
 let truths = require('./lib/truths.json');
 let wyrResponse = require('./lib/wyrResponse.json');
 let questions = require('./lib/questions.json');
+let awkwardQuestions = require('./lib/awkwardQuestions.json');
 let notQuestion = require('./lib/notQuestion.json');
 let genericResponse = require('./lib/genericResponse.json');
+let repetition = require('./lib/repetition.json');
 
 //set up question answering for truth challenge
 let askedQuestion = false;
 
 /**
-* A function that .......
+* A function that sends a processed string to the bot
+* and returns a response
 */
 export const runSample = async (sample, bot) => {
   let response;
@@ -45,7 +49,8 @@ export const runSample = async (sample, bot) => {
 }
 
 /**
-* A function that .......
+* A function that wipes current contexts,
+* used to help the bot change the topic
 */
 async function deleteAllContexts(bot) {
   const response = await fetch(".netlify/functions/deleteAllContexts", {
@@ -59,7 +64,9 @@ async function deleteAllContexts(bot) {
 }
 
 /**
-* A function that .......
+* A function that lists the current contexts
+* to better diagnose bot snafus.
+* used in debugging, not in production
 */
 async function listContexts(bot) {
   const response = await fetch(".netlify/functions/listContexts", {
@@ -75,7 +82,11 @@ async function listContexts(bot) {
 }
 
 /**
-* A function that .......
+* A function that creates a new context from the bot end.
+* we use this when the bot starts a new conversation from the
+* server side, rather than dialogflow: it allows us to pick
+* responses at random then define what the conversation is
+* going to be about
 */
 async function createContext(context, lifespan, bot) {
   const response = await fetch(".netlify/functions/createContext", {
@@ -91,41 +102,36 @@ async function createContext(context, lifespan, bot) {
 }
 
 /**
-* A function that .......
+* A function that handles server errors and sends a generic response
+* this can be invoked in a bunch of different places, but normally runs
+* when dialogflow doesn't respond, or we get a blank messahge
 */
 export const handleError = () => {
-  let generic = getResponse(genericResponse);
-  return generic.response;
+  let output = genericResponse[Math.floor(Math.random()*genericResponse.length)];
+
+  //remove the element so not repeating ourselves
+  const index = genericResponse.indexOf(output);
+  if (index > 0) {
+    genericResponse.splice(index, 1);
+  }
+
+  return output.response;
 }
 
 /**
-* A function that .......
+* A function that chooses a truth challenge for the player
 */
 export const chooseTruth = async (bot) => {
-  deleteAllContexts(bot);
-
-  let truth = getResponse(truths)
-  await createContext(truth.context, 5, bot);
-  listContexts(bot);
+  await deleteAllContexts(bot);
+  let truth = await getResponse(truths, bot)
 
   return truth.response;
 }
 
 /**
-* A function that .......
-*/
-export const changeTopic = async (bot) => {
-  deleteAllContexts(bot);
-
-  let question = getResponse(questions)
-  await createContext(question.context, 5, bot);
-  listContexts(bot);
-
-  return question.response;
-}
-
-/**
-* A function that .......
+* A function that replaces words in a sentence with random selection from
+* an array of options. Kind of abstract in itself, used for responses with a
+* particularly structured syntax
 */
 async function replacementGrammar(options, sentences){
   var sentence = sentences[Math.floor(Math.random()*sentences.length)];
@@ -139,7 +145,7 @@ async function replacementGrammar(options, sentences){
 }
 
 /**
-* A function that .......
+* A function that turns a 'you' phrase into an 'I' phrase
 */
 function toFirstPerson(sent) {
   sent = sent.replace("your", "my");
@@ -150,9 +156,10 @@ function toFirstPerson(sent) {
 }
 
 /**
-* A function that .......
+* A function that gets a response from an array of responses, and sets
+* an associated context
 */
-function getResponse(responseArr) {
+function getResponse(responseArr, bot) {
   let response = responseArr[Math.floor(Math.random()*responseArr.length)];
 
   //remove the element so not repeating ourselves
@@ -161,11 +168,15 @@ function getResponse(responseArr) {
     responseArr.splice(index, 1);
   }
 
+  if(response.context){
+    createContext(response.context, 5, bot);
+  }
+
   return response;
 }
 
 /**
-* A function that ........
+* A fuzzy-matching function to detect variants of the same phrase
 */
 function levenshteinVariants(sent, variants) {
   let subSent;
@@ -180,7 +191,7 @@ function levenshteinVariants(sent, variants) {
 }
 
 /**
-* A function that .......
+* A parser specific to 'truth challenges' from the user
 */
 async function parseTruthChallenge(sent, bot) {
   //parse out obvious would you rathers
@@ -207,18 +218,29 @@ async function parseTruthChallenge(sent, bot) {
   }
 
   else{
-    const noQuestionResponse = getResponse(notQuestion)
-    createContext(noQuestionResponse.context, 5, bot);
+    const noQuestionResponse = await getResponse(notQuestion, bot)
     return noQuestionResponse.response;
   }
 
 }
 
+/**
+* This function checks either user's or bot messages for
+* repeats, according to a buffer
+*/
+export const checkPreviousMessages = (sent, messages, isUser, buffer) => {
+  let msgFilter = isUser ? messages.filter(msg => msg.isUser) : messages.filter(msg => !msg.isUser)
+  msgFilter = msgFilter.slice(Math.max(msgFilter.length - buffer, 0))
+  const matches = msgFilter.filter(msg => msg.text === sent).length;
+  return matches;
+}
 
 /**
-* A function that .......
+* A parser that gets applied to all sentences that the user submits,
+* checking for things which are easier to handle in middleware before
+* deciding whether to pass to dialogflow
 */
-async function genericParser(sent, bot) {
+async function genericParser(sent, bot, messages) {
   let sentArr = sent.split(" ");
 
   //check against words blacklist
@@ -231,40 +253,53 @@ async function genericParser(sent, bot) {
 
   if(sent === 'truth') {
     const output = await chooseTruth(bot);
-    return output;
+    return output.response;
   }
 
   //breaking the what loop
   if(whats.includes(sent.replace(/\?/g, ''))) {
-    const output = await changeTopic(bot);
-    return output;
+    const output = await getResponse(questions, bot);
+    return output.response;
+  }
+
+  //breaking the what loop
+  if(awkwards.includes(sent.replace(/\[r, m]/g, ''))) {
+    const output = await getResponse(awkwardQuestions, bot);
+    return output.response;
+  }
+
+  //check if the user is repeating themselves
+  if(checkPreviousMessages(sent, messages, true, 2) > 0){
+    const output = await getResponse(repetition, bot);
+    return output.response;
   }
 }
 
 /**
-* A function that .......
+* This structures the order in which user inputs are processed, and
+* decides whether to send to bot
 */
-export const textProcessor = async (sent, bot, context) => {
+export const textProcessor = async (sent, bot, messages) => {
 
-  let parsed = await genericParser(sent, bot)
+  let botResponse = await genericParser(sent, bot, messages)
 
   switch(bot.name){
     case "truth_bot_answering":
       if(!askedQuestion){
-        parsed = await parseTruthChallenge(sent, bot);
+        botResponse = await parseTruthChallenge(sent, bot);
       }
       break;
   }
 
-  //if something came out the parsing step
-  if(parsed !== undefined){
-    console.log('parsed', parsed)
-    return parsed;
+  //if nothing send the bot
+  if(botResponse === undefined){
+    botResponse = await runSample(sent, bot);
   }
 
-  //if nothing send the bot
-  else {
-    const botResponse = await runSample(sent, bot);
-    return botResponse;
+  //check if the user is repeating themselves
+  if(checkPreviousMessages(botResponse, messages, false, 4) > 0){
+    botResponse = await handleError();
   }
+
+  return botResponse;
 }

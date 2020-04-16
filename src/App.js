@@ -78,6 +78,7 @@ class App extends Component {
   * A function that sanitizes typed messages before they are appended to the bot queue.
   */
   processResponse = (text) => {
+    console.log('text is', text)
     //check if message pure punctuation, let it pass if so
     if (text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
@@ -108,7 +109,16 @@ class App extends Component {
         timerTime: Date.now() - this.state.timerStart
       });
     }, 10);
-  };
+  }
+
+  /**
+  * A function that times out and adds a message if the user hasn't said anything
+  */
+  awaitUserInput = (response, timeout) => {
+      setTimeout(() => {
+        if(this.state.messages.length === 0) this.appendMessage(response); 
+      }, timeout)
+  }
 
   // listenForInnerHeightChange = () => {
   //   let screenSizes = {};
@@ -134,7 +144,7 @@ class App extends Component {
     this.setState({name: text})
     if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
       this.appendMessage(text, true);
-      const response = await textProcessor(text, this.state.currentBot);
+      const response = await textProcessor(text, this.state.currentBot, this.state.messages);
       this.processResponse(response);
     }
     else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
@@ -208,10 +218,19 @@ class App extends Component {
             this.appendMessage(botResponse); 
           })
         }
-
-      }
+    }
   }
 
+  /**
+  * A function that determines whether to add a timeout to the chat window
+  * to engage the user if they've not said anything
+  */
+  configureChat = () => {
+      if(this.state.step === 4) this.awaitUserInput('hey', 5000); //intro
+      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 5000); //user truth challenge
+  }
+    
+    
   /**
   * A function that checks whether a component has timed out.
   * It resets the timer if so.
@@ -239,11 +258,12 @@ class App extends Component {
     this.checkTimeout('Chat');
     this.checkTimeout('NarratorWait');
     
-    if (this.shouldUpdate) { 
+    if (this.shouldUpdate) {
       this.shouldUpdate = false;
       
       let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureBots(); // update bots
+      this.configureChat(); // configure the chat start state
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
   }
