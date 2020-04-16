@@ -30,6 +30,10 @@ function TypingAnimation(props) {
 * A child of the Chat component.
 */
 class Exchange extends Component {
+
+	constructor(props) {
+		super(props);
+	}
 	
 	render(props) {
 		const messages = this.props.group.messages.map((text, i) => (
