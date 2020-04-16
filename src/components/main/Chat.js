@@ -4,6 +4,10 @@ import Exchange from './Exchange';
 
 class Chat extends Component {
 
+	constructor(props) {
+		super(props);
+	}
+
 	/**
 	* A function that takes care of automatically scrolling to the most recent text exchange.
 	*/
@@ -39,7 +43,8 @@ class Chat extends Component {
 		*/
 		if (this.props && this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
-			if (groups !== undefined && groups[endIndex].isUser) {
+			console.log(groups.length)
+			if (endIndex > 0 && groups[endIndex].isUser) {
 				groups.push({isUser: false, messages: [null]});
 			} else {
 				groups[endIndex].messages.push(null);
