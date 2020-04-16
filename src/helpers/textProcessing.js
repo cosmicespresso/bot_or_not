@@ -13,6 +13,7 @@ let questions = require('./lib/questions.json');
 let awkwardQuestions = require('./lib/awkwardQuestions.json');
 let notQuestion = require('./lib/notQuestion.json');
 let genericResponse = require('./lib/genericResponse.json');
+let repetition = require('./lib/repetition.json');
 
 //set up question answering for truth challenge
 let askedQuestion = false;
@@ -267,8 +268,12 @@ async function genericParser(sent, bot, messages) {
     return output.response;
   }
 
-  if(checkPreviousMessages(sent, messages, true, 2) > 0) return 'are you a bot'
-
+  //check if the user is repeating themselves
+  if(checkPreviousMessages(sent, messages, true, 2) > 0){
+    const output = await getResponse(repetition, bot);
+    return output.response;
+    // return 'hey'
+  }
 }
 
 /**
@@ -277,25 +282,25 @@ async function genericParser(sent, bot, messages) {
 */
 export const textProcessor = async (sent, bot, messages) => {
 
-  let parsed = await genericParser(sent, bot, messages)
+  let botResponse = await genericParser(sent, bot, messages)
 
   switch(bot.name){
     case "truth_bot_answering":
       if(!askedQuestion){
-        parsed = await parseTruthChallenge(sent, bot);
+        botResponse = await parseTruthChallenge(sent, bot);
       }
       break;
   }
 
-  //if something came out the parsing step
-  if(parsed !== undefined){
-    console.log('parsed', parsed)
-    return parsed;
+  //if nothing send the bot
+  if(botResponse === undefined){
+    botResponse = await runSample(sent, bot);
   }
 
-  //if nothing send the bot
-  else {
-    const botResponse = await runSample(sent, bot);
-    return botResponse;
+  //check if the user is repeating themselves
+  if(checkPreviousMessages(botResponse, messages, false, 3) > 0){
+    console.log('bot is repeating itself :/')
   }
+
+  return botResponse;
 }
