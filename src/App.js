@@ -78,6 +78,7 @@ class App extends Component {
   * A function that sanitizes typed messages before they are appended to the bot queue.
   */
   processResponse = (text) => {
+    console.log('text is', text)
     //check if message pure punctuation, let it pass if so
     if (text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
@@ -143,7 +144,7 @@ class App extends Component {
     this.setState({name: text})
     if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
       this.appendMessage(text, true);
-      const response = await textProcessor(text, this.state.currentBot);
+      const response = await textProcessor(text, this.state.currentBot, this.state.messages);
       this.processResponse(response);
     }
     else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
