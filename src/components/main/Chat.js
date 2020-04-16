@@ -43,8 +43,8 @@ class Chat extends Component {
 		*/
 		if (this.props && this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
-			console.log(groups.length)
-			if (endIndex > 0 && groups[endIndex].isUser) {
+
+			if (groups[endIndex].isUser) {
 				groups.push({isUser: false, messages: [null]});
 			} else {
 				groups[endIndex].messages.push(null);
