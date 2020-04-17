@@ -62,11 +62,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 5, 
-<<<<<<< HEAD
-    timeLimit: 30,
-=======
     timeLimit: 59,
->>>>>>> f04453ebbee023351975d81feaea852f0b5c2c47
     messages: [],
     headerText: 'Practice round',
     main: 'Chat',
@@ -114,11 +110,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 9, 
-<<<<<<< HEAD
-    timeLimit: 30,
-=======
     timeLimit: 59,
->>>>>>> f04453ebbee023351975d81feaea852f0b5c2c47
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -154,12 +146,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 12, 
-<<<<<<< HEAD
-    timeLimit: 30,
-=======
     timeLimit: 59,
->>>>>>> f04453ebbee023351975d81feaea852f0b5c2c47
-    messages: [],
     headerText: '',
     main: 'Chat',
     fieldTop: '',
@@ -194,12 +181,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 15, 
-<<<<<<< HEAD
-    timeLimit: 30,
-=======
     timeLimit: 59,
->>>>>>> f04453ebbee023351975d81feaea852f0b5c2c47
-    messages: [],
     headerText: '',
     main: 'Chat',
     fieldTop: '',
