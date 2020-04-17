@@ -232,6 +232,7 @@ export const checkPreviousMessages = (sent, messages, isUser, buffer) => {
   let msgFilter = isUser ? messages.filter(msg => msg.isUser) : messages.filter(msg => !msg.isUser)
   msgFilter = msgFilter.slice(Math.max(msgFilter.length - buffer, 0))
   const matches = msgFilter.filter(msg => msg.text === sent).length;
+  console.log('in checkpreviousmessages', sent, msgFilter)
   return matches;
 }
 
