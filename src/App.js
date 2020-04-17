@@ -227,7 +227,7 @@ class App extends Component {
   */
   configureChat = () => {
       if(this.state.step === 4) this.awaitUserInput('hey', 5000); //intro
-      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 5000); //user truth challenge
+      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 10000); //user truth challenge
   }
     
     
