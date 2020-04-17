@@ -209,7 +209,7 @@ export const stateMap = [
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
-    fieldTop: 'Were you chatting with a 🤷‍♀️ or a 🤖?',
+    fieldTop: 'Do you think you were chatting with a 🤷‍♀️ or a 🤖?',
     fieldBottom: '',
     input: 'DoubleButton',
     singleButtonText: '',
