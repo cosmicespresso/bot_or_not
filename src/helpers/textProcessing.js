@@ -296,9 +296,9 @@ export const textProcessor = async (sent, bot, messages) => {
     botResponse = await runSample(sent, bot);
   }
 
-  //check if the user is repeating themselves
+  //check if the bot is repeating itself
   if(checkPreviousMessages(botResponse, messages, false, 4) > 0){
-    botResponse = await handleError();
+    botResponse = handleError();
   }
 
   return botResponse;
