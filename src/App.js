@@ -314,7 +314,7 @@ class App extends Component {
               fontSize={fontSizesConfig.largeFontSize}
               narratorWaitClass={classesConfig.narratorWaitClass}
               dialogHeight={this.state.dialogHeight} 
-              headline={'hi ' + this.state.name+ ', ' +this.state.fieldTop} 
+              headline={'Hi ' + this.state.name+ ', ' +this.state.fieldTop} 
               text={this.state.fieldBottom}/>
           }   
           {this.state.main === 'NarratorWait'  && 
