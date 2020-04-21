@@ -209,7 +209,7 @@
   font-family: 'Inter', sans-serif; 
   color: #00f;
   padding: 10px;
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
   -webkit-box-flex: 0.3;
       -ms-flex-positive: 0.3;
@@ -237,19 +237,21 @@
   font-family: 'Inter', sans-serif; 
   color: #00f;
   padding: 10px;
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
   -webkit-box-flex: 0.3;
       -ms-flex-positive: 0.3;
           flex-grow: 0.3;
 }
 
-.credits > h4 {
+.credits > .text > h4 {
   color: #FF2D55;
 }
 
-.credits .text > a {
+.credits .text > p > a {
   color: inherit;
+  font-weight: 600;
+  text-decoration: none;
 }
 .credits .text > a:visited {
   color: inherit;
