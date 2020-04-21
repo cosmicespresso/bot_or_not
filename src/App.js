@@ -214,7 +214,7 @@ class App extends Component {
         chooseTruth(bot[0]).then( 
           botResponse => { 
             console.log(botResponse);
-            this.appendMessage(botResponse); 
+            this.processResponse(botResponse);
           })
         }
     }
