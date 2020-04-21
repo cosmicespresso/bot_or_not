@@ -19,7 +19,7 @@ export const getBotDelay = (msg) => {
   // let speed = isQuick ? BOT_SPEED * 2 : BOT_SPEED;
   // let botDelay = msg.length > BOT_MAX_CHARS ? delay : Math.floor(msg.length / speed);
 
-  let botDelay = BOT_DELAY * msg.length/BOT_MAX_CHARS * getRandomInt(10,20);
+  let botDelay = BOT_DELAY * msg.length/BOT_MAX_CHARS * getRandomInt(10,25) + getRandomInt(0, 2500);
   
   if (botDelay > 6500) botDelay = 6500; //upper limit for reply wait
 
