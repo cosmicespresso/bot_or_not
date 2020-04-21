@@ -50,18 +50,30 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 4, 
+    timeLimit: getRandomInt(6,12),
+    messages: [],
+    main: 'MatchingScreen',
+    headerText: '',
+    fieldTop: 'waiting to match you with another player...',
+    fieldBottom: '',
+    input: 'SingleButton',
+    singleButtonText: 'hold on a sec ✋',
+    button1Text: '',
+    button2Text: '',
+  },{
+    step: 5, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
-    fieldTop: 'Now, introduce yourselves 🤝',
+    fieldTop: 'Found a player! Now, introduce yourselves 🤝',
     fieldBottom: '',
     input: 'SingleButton',
     singleButtonText: 'Chat',
     button1Text: '',
     button2Text: '',
   },{
-    step: 5, 
+    step: 6, 
     timeLimit: 45,
     messages: [],
     headerText: 'Practice round',
@@ -73,7 +85,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 6, 
+    step: 7, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -85,7 +97,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 7, 
+    step: 8, 
     timeLimit: getRandomInt(4,6),
     messages: [],
     main: 'NarratorWait',
@@ -97,7 +109,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 8, 
+    step: 9, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -109,7 +121,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 9, 
+    step: 10, 
     timeLimit: 45,
     messages: [],
     headerText: '',
@@ -121,7 +133,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 10, 
+    step: 11, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -133,7 +145,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 11, 
+    step: 12, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -145,7 +157,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 12, 
+    step: 13, 
     timeLimit: 45,
     messages: [],
     main: 'Chat',
@@ -157,7 +169,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 13, 
+    step: 14, 
     timeLimit: getRandomInt(4,6),
     messages: [],
     main: 'NarratorWait',
@@ -169,7 +181,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 14, 
+    step: 15, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -181,7 +193,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 15, 
+    step: 16, 
     timeLimit: 45,
     headerText: '',
     main: 'Chat',
@@ -192,7 +204,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 16, 
+    step: 17, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -204,7 +216,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 17, 
+    step: 18, 
     timeLimit: 1000,
     messages: [],
     main: 'Narrator',
@@ -216,7 +228,7 @@ export const stateMap = [
     button1Text: 'Bot 🤖',
     button2Text: 'Human 🤷‍♀️',
   },{
-    step: 18, 
+    step: 19, 
     timeLimit: 1000,
     messages: [],
     main: 'End',
@@ -228,7 +240,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 19, 
+    step: 20, 
     timeLimit: 1000,
     messages: [],
     main: 'About',
@@ -240,7 +252,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 20, 
+    step: 21, 
     timeLimit: 1000,
     messages: [],
     main: 'Credits',
@@ -252,7 +264,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 21, 
+    step: 22, 
     timeLimit: 10000,
     messages: [],
     headerText: 'Free chat zone',

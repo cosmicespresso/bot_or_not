@@ -59,7 +59,7 @@ export const classNames = (main, step) => {
     * INPUT
     */  
     const placeHolderText = step === 3 ? 'Enter your name' : 'Say something...'
-    const singleButtonClass = main === 'NarratorWait' ? `single-button ${componentTheme} wait` : `single-button ${componentTheme}`
+    const singleButtonClass = main === 'NarratorWait' ||  main === 'MatchingScreen' ? `single-button ${componentTheme} wait` : `single-button ${componentTheme}`
     const doubleButtonClass = `double-button ${componentTheme}`
     const messageBarClass = `text-form ${componentTheme}`
 
