@@ -273,7 +273,7 @@ class App extends Component {
     /*
     * TIME
     */ 
-    let seconds = getSeconds(this.state.timerTime);
+    let seconds = this.state.timeLimit - getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
     /*
     * HEADER TEXT
