@@ -1,3 +1,4 @@
+export const notQuestion = 
 [
 	{
 		"response": "lol idk ask a question??",

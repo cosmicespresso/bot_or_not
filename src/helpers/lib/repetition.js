@@ -1,4 +1,4 @@
-[
+export const repetition = [
 	{
 		"response": "u just said that lol",
 		"context": "repetition"

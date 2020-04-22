@@ -1,4 +1,4 @@
-[
+export const truths = [
 	{
 		"response": "what is your worst habit?",
 		"context": "habit"
