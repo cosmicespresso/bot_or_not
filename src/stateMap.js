@@ -74,7 +74,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 6, 
-    timeLimit: 5,
+    timeLimit: 45,
     messages: [],
     headerText: 'Practice round',
     main: 'Chat',
@@ -122,7 +122,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 10, 
-    timeLimit: 5,
+    timeLimit: 45,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -194,7 +194,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 16, 
-    timeLimit: 5,
+    timeLimit: 45,
     headerText: '',
     main: 'Chat',
     fieldTop: '',
