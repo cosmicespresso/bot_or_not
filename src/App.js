@@ -273,7 +273,7 @@ class App extends Component {
     const classesConfig = classNames(this.state.main, this.state.step)
 
     return (
-      <div className={classesConfig.appClass}>
+      <div id='App' className={classesConfig.appClass}>
         <div className={classesConfig.containerClass}>
           {/*-----------------------------TOP-----------------------------*/}     
           <Header 
