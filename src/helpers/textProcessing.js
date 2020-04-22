@@ -1,19 +1,14 @@
-const natural = require('natural');
-const compendium = require('compendium-js');
+import natural from 'natural';
+import compendium from 'compendium-js';
 
-//text processing lib
-const blacklist = require('./lib/blacklist.json');
-const whats = require('./lib/whats.json');
-const awkwards = require('./lib/awkwards.json');
+import { genericParser } from './lib/genericParser.js';
+import { truthChallengeParser } from './lib/truthChallengeParser.js';
 
-//these aren't constant: entries get removed
-let truths = require('./lib/truths.json');
-let wyrResponse = require('./lib/wyrResponse.json');
-let questions = require('./lib/questions.json');
-let awkwardQuestions = require('./lib/awkwardQuestions.json');
-let notQuestion = require('./lib/notQuestion.json');
-let genericResponse = require('./lib/genericResponse.json');
-let repetition = require('./lib/repetition.json');
+//context specific libs
+import { truths } from './lib/truths.js';
+import { notQuestion } from './lib/notQuestion.js';
+import { repetition } from './lib/repetition.js';
+import { genericResponse } from './lib/genericResponse.js';
 
 //set up question answering for truth challenge
 let askedQuestion = false;
@@ -124,7 +119,7 @@ export const handleError = () => {
 */
 export const chooseTruth = async (bot) => {
   await deleteAllContexts(bot);
-  let truth = await getResponse(truths, bot)
+  let truth = getResponse(truths, bot)
 
   return truth.response;
 }
@@ -195,20 +190,21 @@ function levenshteinVariants(sent, variants) {
 * A parser specific to 'truth challenges' from the user
 */
 async function parseTruthChallenge(sent, bot) {
-  //parse out obvious would you rathers
-  const wyrVariants = ["Would you rather", "would u rather", "wd u rather"]
-  let subSent = levenshteinVariants(sent, wyrVariants)
+  //parse out obvious challenge syntax
+  truthChallengeParser.forEach( type => {
+    let subSent = levenshteinVariants(sent, type.usertext)
 
-  if(subSent) {
-    var options = subSent.split(' or ');
-    options = options.map(function(str) {return str = toFirstPerson(str.replace(/\?+/g, ""));});
+    if(subSent) {
+      var options = subSent.split(' or ');
+      options = options.map(function(str) {return str = toFirstPerson(str.replace(/\?+/g, ""));});
 
-    if(options.length > 1){
-      const response = replacementGrammar(options, wyrResponse);
-      askedQuestion = true;
-      return response;
+      if(options.length > 1){
+        const response = replacementGrammar(options, type.responses);
+        askedQuestion = true;
+        return response;
+      }
     }
-  }
+  })
 
   //check it's a question
   //recompose into full sentence
@@ -219,7 +215,7 @@ async function parseTruthChallenge(sent, bot) {
   }
 
   else{
-    const noQuestionResponse = await getResponse(notQuestion, bot)
+    const noQuestionResponse = getResponse(notQuestion, bot)
     return noQuestionResponse.response;
   }
 
@@ -233,7 +229,6 @@ function checkPreviousMessages (sent, messages, isUser, buffer) {
   let msgFilter = isUser ? messages.filter(msg => msg.isUser) : messages.filter(msg => !msg.isUser)
   msgFilter = msgFilter.slice(Math.max(msgFilter.length - buffer, 0))
   const matches = msgFilter.filter(msg => msg.text === sent).length;
-  console.log('in checkpreviousmessages', sent, msgFilter, matches)
   return matches;
 }
 
@@ -242,37 +237,27 @@ function checkPreviousMessages (sent, messages, isUser, buffer) {
 * checking for things which are easier to handle in middleware before
 * deciding whether to pass to dialogflow
 */
-async function genericParser(sent, bot, messages) {
+async function parseGeneric(sent, bot, messages) {
   let sentArr = sent.split(" ");
-
-  //check against words blacklist
-  let matched = sentArr.filter(word => blacklist.includes(word))
-  
-  if(matched.length !== 0){
-    createContext('blacklist', 5, bot);
-    return "hey, not cool";
-  }
 
   if(sent === 'truth') {
     const output = await chooseTruth(bot);
     return output.response;
   }
 
-  //breaking the what loop
-  if(whats.includes(sent.replace(/\?/g, ''))) {
-    const output = await getResponse(questions, bot);
-    return output.response;
+  //checks against common forms of response
+  //e.g. what?????, banned words etc
+  for (const type of genericParser) {
+    const regex = new RegExp(type.regex, 'i');
+    if(type.usertext.includes(sent.replace(regex, ''))) {
+      const output = getResponse(type.responses, bot);
+      return output.response;
+    }
   }
 
-  //breaking the what loop
-  if(awkwards.includes(sent.replace(/\[r, m]/g, ''))) {
-    const output = await getResponse(awkwardQuestions, bot);
-    return output.response;
-  }
-
-  //check if the user is repeating themselves
+    //check if the user is repeating themselves
   if(checkPreviousMessages(sent, messages, true, 2) > 0){
-    const output = await getResponse(repetition, bot);
+    const output = getResponse(repetition, bot);
     return output.response;
   }
 }
@@ -283,7 +268,7 @@ async function genericParser(sent, bot, messages) {
 */
 export const textProcessor = async (sent, bot, messages) => {
 
-  let botResponse = await genericParser(sent, bot, messages)
+  let botResponse = await parseGeneric(sent, bot, messages)
 
   switch(bot.name){
     case "truth_bot_answering":
@@ -294,7 +279,7 @@ export const textProcessor = async (sent, bot, messages) => {
   }
 
   //if nothing send the bot
-  if(botResponse === undefined){
+  if(botResponse === undefined || botResponse === ''){
     botResponse = await runSample(sent, bot);
   }
 

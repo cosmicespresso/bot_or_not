@@ -1,3 +1,4 @@
+export const genericResponse = 
 [
 	{
 		"response": "haha",
@@ -10,7 +11,7 @@
 	},
 
 	{
-		"response": "err",
+		"response": "👀",
 		"context": ""
 	},
 
