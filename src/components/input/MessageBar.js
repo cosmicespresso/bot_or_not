@@ -23,20 +23,10 @@ class MessageBar extends Component {
 		this.setState({value: ''});
 	}
 
-	/**
-  * A function that bubbles the onFocus event of the form back to App.js.
-  * Meant to be used for dealing with the digital keyboard issue. 
-  * Not being currently used.
-  */
-	checkFocus = (e) => {
-		e.preventDefault();
-		// this.props.onInputFocus(window.innerHeight);
-	}
-
 	render(props) {
 		return (
 			<div>
-				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit} onFocus={this.checkFocus}>
+				<form className={this.props.messageBarClass} onSubmit={this.handleSubmit}>
 					<input className="text-input"
 						style={{fontSize: `${this.props.fontSize}px`}}
 						type="search"

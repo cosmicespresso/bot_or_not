@@ -37,7 +37,6 @@ class App extends Component {
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
     this.desktopDetected = this.innerWidth >= 768; // it misses landscape mode for mobile 
-    // this.digitalKeyboardDetected = false; 
     this.state = {  
       opponent: '', // name of the opponent, initialized from an external array
       name: '', // name of the player
@@ -119,21 +118,6 @@ class App extends Component {
       }, timeout)
   }
 
-  // listenForInnerHeightChange = () => {
-  //   let screenSizes = {};
-  //   if (this.digitalKeyboardDetected) { 
-  //     screenSizes = handleResize(window,this.newInnerHeight)
-  //   }
-  //   else {
-  //     screenSizes = handleResize(window,this.innerHeight)
-  //   }
-  //   this.setState({dialogHeight: screenSizes.dialogHeight})
-  // }
-
-  // handleMobileKeyboard = (newInnerHeight) => {
-  //   this.digitalKeyboardDetected = window.innerHeight !== this.innerHeight ? true : false;
-  //   this.newInnerHeight = newInnerHeight;
-  // }
 
   /**
   * A function that handles all form submission (via messageBar component).
@@ -359,7 +343,6 @@ class App extends Component {
           {/*-----------------------------INPUT-----------------------------*/}     
           {this.state.input === 'MessageBar' && 
             <MessageBar 
-              onInputFocus={this.handleMobileKeyboard}
               fontSize={fontSizesConfig.baseFontSize}
               buttonSize={fontSizesConfig.mediumFontSize}
               messageBarClass={classesConfig.messageBarClass}
