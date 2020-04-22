@@ -14,7 +14,7 @@ function getRandomInt(min, max) {
 export const stateMap = [
   {
     step: 1, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -26,7 +26,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 2, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -38,7 +38,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 3, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -50,23 +50,23 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 4, 
-    timeLimit: getRandomInt(6,12),
+    timeLimit: getRandomInt(6,12)*1000,
     messages: [],
     main: 'MatchingScreen',
     headerText: '',
-    fieldTop: 'waiting to match you with another player...',
+    fieldTop: 'you are currently being matched with another player...',
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'hold on a sec ✋',
+    singleButtonText: 'Hold on a sec ✋',
     button1Text: '',
     button2Text: '',
   },{
     step: 5, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
-    fieldTop: 'Found a player! Now, introduce yourselves 🤝',
+    fieldTop: 'You were matched! Now, introduce yourselves 🤝',
     fieldBottom: '',
     input: 'SingleButton',
     singleButtonText: 'Chat',
@@ -74,7 +74,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 6, 
-    timeLimit: 45,
+    timeLimit: 45*1000,
     messages: [],
     headerText: 'Practice round',
     main: 'Chat',
@@ -86,7 +86,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 7, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
@@ -98,7 +98,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 8, 
-    timeLimit: getRandomInt(4,6),
+    timeLimit: getRandomInt(4,6)*1000,
     messages: [],
     main: 'NarratorWait',
     headerText: '',
@@ -110,7 +110,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 9, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
@@ -122,7 +122,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 10, 
-    timeLimit: 45,
+    timeLimit: 45*1000,
     messages: [],
     headerText: '',
     main: 'Chat',
@@ -134,7 +134,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 11, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
@@ -146,7 +146,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 12, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
@@ -158,7 +158,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 13, 
-    timeLimit: 45,
+    timeLimit: 45*1000,
     messages: [],
     main: 'Chat',
     headerText: '',
@@ -170,7 +170,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 14, 
-    timeLimit: getRandomInt(4,6),
+    timeLimit: getRandomInt(4,6)*1000,
     messages: [],
     main: 'NarratorWait',
     headerText: '',
@@ -182,7 +182,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 15, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: '',
@@ -194,7 +194,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 16, 
-    timeLimit: 45,
+    timeLimit: 45*1000,
     headerText: '',
     main: 'Chat',
     fieldTop: '',
@@ -205,7 +205,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 17, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -217,7 +217,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 18, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -229,7 +229,7 @@ export const stateMap = [
     button2Text: 'Human 🤷‍♀️',
   },{
     step: 19, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'End',
     headerText: 'Thanks for playing!',
@@ -241,7 +241,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 20, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'About',
     headerText: 'What is the deal with chatbots?',
@@ -253,7 +253,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 21, 
-    timeLimit: 1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Credits',
     headerText: 'About',
@@ -265,7 +265,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 22, 
-    timeLimit: 10000,
+    timeLimit: 10000*1000,
     messages: [],
     headerText: 'Free chat zone',
     main: 'Chat',

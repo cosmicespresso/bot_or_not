@@ -100,7 +100,6 @@ class App extends Component {
   */
   startTimer = () => {
     this.setState({
-      timerTime: Date.now(),
       timerStart: Date.now()
     });
     this.timer = setInterval(() => {
@@ -108,7 +107,7 @@ class App extends Component {
       this.setState({
         timerTime: Date.now() - this.state.timerStart
       });
-    }, 10);
+    });
   }
 
   /**
@@ -239,7 +238,7 @@ class App extends Component {
   checkTimeout = (Component) => {
     if (this.state.main === Component && 
         !this.shouldUpdate &&
-        this.state.timeLimit <= getSeconds(this.state.timerTime))
+        this.state.timeLimit <= this.state.timerTime)
     {
       this.setState({ timerStart: Date.now()});
       this.shouldUpdate = true;
@@ -273,7 +272,7 @@ class App extends Component {
     /*
     * TIME
     */ 
-    let seconds = this.state.timeLimit - getSeconds(this.state.timerTime);
+    let seconds = getSeconds(this.state.timeLimit- this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
     /*
     * HEADER TEXT
