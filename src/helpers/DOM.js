@@ -18,10 +18,10 @@ export const handleResize = (window, innerHeight) => {
 /**
 * A function that handles updating the Header text according to which step of the game we are at.
 */
-export const handleHeaderText = (main, opponent, headerText, timer, name) => {
+export const handleHeaderText = (step, main, opponent, headerText, timer, name) => {
   let title 
   if (main === 'Chat') { 
-    title = `Playing with ${opponent}                00:${timer}`
+    step !== 22 ? title = `Playing with ${opponent}                00:${timer}` : title='Free Chat Zone'
   }
   else if ((main === 'Narrator' || main === 'NarratorWait') && name !== ''){ 
     title = `You are playing with ${opponent}`

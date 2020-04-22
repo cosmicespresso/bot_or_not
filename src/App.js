@@ -277,7 +277,7 @@ class App extends Component {
     /*
     * HEADER TEXT
     */ 
-    const title = handleHeaderText(this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
+    const title = handleHeaderText(this.state.step, this.state.main, this.state.opponent, this.state.headerText, timer, this.state.name);
     /*
     * FONT COLORS AND SIZES
     */ 
