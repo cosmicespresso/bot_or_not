@@ -117,6 +117,13 @@
   overflow-wrap: break-word;
 }
 
+.group-user .message p {
+  text-align: right;
+}
+.group-bot .message p {
+  text-align: left;
+}
+
 /*
  * 
  * CHAT dots
