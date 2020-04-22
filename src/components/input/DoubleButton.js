@@ -3,10 +3,10 @@ import React from 'react';
 function DoubleButton(props) {
 	return(
 		<div className='double-button'>
-			<div onClick={props.click}  className={props.singleButtonClass}>
+			<div id={props.step === 18 ? 'bot-tag' : null} onClick={props.click}  className={props.singleButtonClass}>
 				<p style={{fontSize: `${props.fontSize}px`}}>{props.button1}</p>
 			</div>
-			<div onClick={props.click}  className={props.singleButtonClass}>
+			<div id={props.step === 18 ? 'human-tag' : null} onClick={props.click}  className={props.singleButtonClass}>
 				<p style={{fontSize: `${props.fontSize}px`}}>{props.button2}</p>
 			</div>
 		</div>

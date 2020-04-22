@@ -353,8 +353,8 @@ class App extends Component {
             <SingleButton 
               fontSize={fontSizesConfig.baseFontSize}
               singleButtonClass={classesConfig.singleButtonClass}
-              // disable this button for NarratorWait and MatchingScreen
               click={this.state.main === 'NarratorWait' || this.state.main === 'MatchingScreen' ? null : this.handleClick}  
+              step={this.state.step}
               buttonText={this.state.singleButtonText} />
           }      
           {this.state.input === 'DoubleButton' &&
@@ -362,6 +362,7 @@ class App extends Component {
               fontSize={fontSizesConfig.baseFontSize}
               singleButtonClass={classesConfig.singleButtonClass}
               click={this.handleClick} 
+              step={this.state.step}
               button1={this.state.button1Text} 
               button2={this.state.button2Text} />
           }
