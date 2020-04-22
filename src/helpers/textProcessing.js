@@ -130,10 +130,10 @@ export const chooseTruth = async (bot) => {
 * particularly structured syntax
 */
 async function replacementGrammar(options, sentences){
-  var sentence = sentences[Math.floor(Math.random()*sentences.length)];
-  var matches = (sentence.match(/\$/g) || []).length;
+  let sentence = sentences[Math.floor(Math.random()*sentences.length)].response;
+  const matches = (sentence.match(/\$/g) || []).length;
   for(let i=0; i<matches; i++) {
-    let optIndex = Math.floor(Math.random()*options.length);
+    const optIndex = Math.floor(Math.random()*options.length);
     sentence = sentence.replace(/\$/, options[optIndex]);
     options.splice(optIndex, 1);
   }
@@ -191,7 +191,7 @@ function levenshteinVariants(sent, variants) {
 */
 async function parseTruthChallenge(sent, bot) {
   //parse out obvious challenge syntax
-  truthChallengeParser.forEach( type => {
+  for ( const type of truthChallengeParser ) {
     let subSent = levenshteinVariants(sent, type.usertext)
 
     if(subSent) {
@@ -204,7 +204,7 @@ async function parseTruthChallenge(sent, bot) {
         return response;
       }
     }
-  })
+  }
 
   //check it's a question
   //recompose into full sentence
