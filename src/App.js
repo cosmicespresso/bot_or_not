@@ -5,6 +5,7 @@ import Header from './components/top/Header';
 import Chat from './components/main/Chat';
 import Narrator from './components/main/Narrator';
 import NarratorWait from './components/main/NarratorWait';
+import MatchingScreen from './components/main/MatchingScreen';
 import Credits from './components/main/Credits';
 import End from './components/main/End';
 import About from './components/main/About';
@@ -214,7 +215,7 @@ class App extends Component {
         chooseTruth(bot[0]).then( 
           botResponse => { 
             console.log(botResponse);
-            this.appendMessage(botResponse); 
+            this.processResponse(botResponse);
           })
         }
     }
@@ -256,6 +257,7 @@ class App extends Component {
     // check if a component has timed out 
     this.checkTimeout('Chat');
     this.checkTimeout('NarratorWait');
+    this.checkTimeout('MatchingScreen');
     
     if (this.shouldUpdate) {
       this.shouldUpdate = false;
@@ -271,7 +273,7 @@ class App extends Component {
     /*
     * TIME
     */ 
-    let seconds = getSeconds(this.state.timerTime);
+    let seconds = this.state.timeLimit - getSeconds(this.state.timerTime);
     let timer = seconds < 10  ? `0${seconds}` : seconds;
     /*
     * HEADER TEXT
@@ -307,6 +309,14 @@ class App extends Component {
               headline={this.state.fieldTop} 
               text={this.state.fieldBottom}/>
           }                     
+          {this.state.main === 'MatchingScreen'  && 
+            <MatchingScreen 
+              fontSize={fontSizesConfig.largeFontSize}
+              narratorWaitClass={classesConfig.narratorWaitClass}
+              dialogHeight={this.state.dialogHeight} 
+              headline={'Hi ' + this.state.name+ ', ' +this.state.fieldTop} 
+              text={this.state.fieldBottom}/>
+          }   
           {this.state.main === 'NarratorWait'  && 
             <NarratorWait 
               fontSize={fontSizesConfig.largeFontSize}
@@ -361,7 +371,8 @@ class App extends Component {
             <SingleButton 
               fontSize={fontSizesConfig.baseFontSize}
               singleButtonClass={classesConfig.singleButtonClass}
-              click={this.state.main === 'NarratorWait' ? null : this.handleClick}  // disable this button for NarratorWait
+              // disable this button for NarratorWait and MatchingScreen
+              click={this.state.main === 'NarratorWait' || this.state.main === 'MatchingScreen' ? null : this.handleClick}  
               buttonText={this.state.singleButtonText} />
           }      
           {this.state.input === 'DoubleButton' &&

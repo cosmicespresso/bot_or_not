@@ -43,11 +43,12 @@ class Chat extends Component {
 		*/
 		if (this.props && this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
-
-			if (groups[endIndex].isUser) {
-				groups.push({isUser: false, messages: [null]});
-			} else {
-				groups[endIndex].messages.push(null);
+			if(groups[endIndex]){
+				if (groups[endIndex].isUser) {
+					groups.push({isUser: false, messages: [null]});
+				} else {
+					groups[endIndex].messages.push(null);
+				}
 			}
 		}
 

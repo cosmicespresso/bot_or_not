@@ -17,6 +17,7 @@ let repetition = require('./lib/repetition.json');
 
 //set up question answering for truth challenge
 let askedQuestion = false;
+let botBuffer = [];
 
 /**
 * A function that sends a processed string to the bot
@@ -228,11 +229,11 @@ async function parseTruthChallenge(sent, bot) {
 * This function checks either user's or bot messages for
 * repeats, according to a buffer
 */
-export const checkPreviousMessages = (sent, messages, isUser, buffer) => {
+function checkPreviousMessages (sent, messages, isUser, buffer) {
   let msgFilter = isUser ? messages.filter(msg => msg.isUser) : messages.filter(msg => !msg.isUser)
   msgFilter = msgFilter.slice(Math.max(msgFilter.length - buffer, 0))
   const matches = msgFilter.filter(msg => msg.text === sent).length;
-  console.log('in checkpreviousmessages', sent, msgFilter)
+  console.log('in checkpreviousmessages', sent, msgFilter, matches)
   return matches;
 }
 
@@ -298,9 +299,13 @@ export const textProcessor = async (sent, bot, messages) => {
   }
 
   //check if the bot is repeating itself
-  if(checkPreviousMessages(botResponse, messages, false, 4) > 0){
+  if(checkPreviousMessages(botResponse, botBuffer, false, 8) > 0){
     botResponse = handleError();
   }
+
+  //this is necessary as bot responses split between queue
+  //and messages arrays
+  botBuffer.push({ 'text': botResponse, 'isUser': false})
 
   return botResponse;
 }

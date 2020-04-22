@@ -26,6 +26,9 @@ export const handleHeaderText = (main, opponent, headerText, timer, name) => {
   else if ((main === 'Narrator' || main === 'NarratorWait') && name !== ''){ 
     title = `You are playing with ${opponent}`
   }
+  else if ((main === 'MatchingScreen') && name !== ''){ 
+    title = `Waiting to find opponent`
+  }
   else {
     title = headerText
   }
