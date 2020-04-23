@@ -12,9 +12,9 @@ function Credits(props)  {
 				<p>This project as conceived and executed by <a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" >FOREIGN OBJECTS</a>, is a design and research studio exploring the internet through the production of cultural artifacts. We build environments, tools and discourses that imagine new ways of living with the web.</p> 
 				<h4>SHARE </h4>
 				<div className='share'>
-					<a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" > <img src={twitter} alt='twitter share' /> </a>
-					<a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" ><img src={instagram} alt='instagram share' /> </a>
-					<a href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" > <img src={email} alt='email' /> </a>
+					<a id="twitter" href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" > <img src={twitter} alt='twitter share' /> </a>
+					<a id="instagram" href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" ><img src={instagram} alt='instagram share' /> </a>
+					<a id="email" href="https://www.foreignobjects.net/" rel="noopener noreferrer" target="_blank" > <img src={email} alt='email' /> </a>
 				</div>
 			</div>
 		</div>

@@ -141,8 +141,8 @@ class App extends Component {
   */
   handleClick = (e) => {
     let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
-    if (this.state.step === 17 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
-    if (this.state.step === 17 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
+    if (this.state.step === 18 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
+    if (this.state.step === 18 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
 
     this.setState({ timerStart: Date.now()});
     this.shouldUpdate = true;
@@ -212,7 +212,6 @@ class App extends Component {
       if(this.state.step === 4) this.awaitUserInput('hey', 5000); //intro
       if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 10000); //user truth challenge
   }
-    
     
   /**
   * A function that checks whether a component has timed out.
