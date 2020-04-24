@@ -85,7 +85,7 @@ input {
  *
  */
 .single-button.wait  {
-  animation: buttonAnimation 1.5s ease-in-out infinite;
+  animation: buttonAnimation 0.5s linear infinite alternate;
 }
 
 @keyframes buttonAnimation {
@@ -94,9 +94,8 @@ input {
   }
 
   30% {
-    transform: translateY(-10px);
     transform: scale(1.02);
-  }
+  }  
 }
 
 /*

@@ -36,7 +36,7 @@
  *
  */
 .narrator.wait {
-  animation: frameAnimation 1.5s ease-in-out infinite;
+  animation: frameAnimation 0.5s linear infinite alternate;
 }
 
 @keyframes frameAnimation {
@@ -45,9 +45,8 @@
   }
 
   30% {
-    transform: translateY(-10px);
     transform: scale(1.02);
-  }
+  }  
 }
 
 /*
