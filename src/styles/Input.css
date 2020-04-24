@@ -84,30 +84,18 @@ input {
  * SINGLE BUTTON WAIT
  *
  */
-.single-button.wait > p {
-  animation: blink 3s ease-in-out infinite;
+.single-button.wait  {
+  animation: buttonAnimation 1.5s ease-in-out infinite;
 }
 
-@keyframes blink {
-  0% {
-    filter: drop-shadow(0 0 0 #FF2D55);
+@keyframes buttonAnimation {
+  0%, 60%, 100% {
+    transform: initial;
   }
-  50% {
-    filter: drop-shadow(4px 4px 16px #FF2D55);
-  }
-  100% {
-    filter: drop-shadow(0 0 0 #FF2D55);
-  }
-}
-@-webkit-keyframes blink {
-  0% {
-    filter: drop-shadow(0 0 0 #FF2D55);
-  }
-  50% {
-    filter: drop-shadow(4px 4px 16px #FF2D55);
-  }
-  100% {
-    filter: drop-shadow(0 0 0 #FF2D55)
+
+  30% {
+    transform: translateY(-10px);
+    transform: scale(1.02);
   }
 }
 

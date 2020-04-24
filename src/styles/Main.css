@@ -35,33 +35,20 @@
  * NARRATOR WAIT
  *
  */
-.narrator.wait  .text {
-  animation: blink 4s linear infinite alternate;
+.narrator.wait {
+  animation: frameAnimation 1.5s ease-in-out infinite;
 }
 
-@keyframes blink {
-  0% {
-    filter: drop-shadow(0 0 0 #FF2D55);
+@keyframes frameAnimation {
+  0%, 60%, 100% {
+    transform: initial;
   }
-  50% {
-    filter: drop-shadow(4px 4px 16px #FF2D55);
-  }
-  100% {
-    filter: drop-shadow(0 0 0 #FF2D55);
-  }
-}
-@-webkit-keyframes blink {
-  0% {
-    filter: drop-shadow(0 0 0 #FF2D55);
-  }
-  50% {
-    filter: drop-shadow(4px 4px 16px #FF2D55);
-  }
-  100% {
-    filter: drop-shadow(0 0 0 #FF2D55)
-  }
-}
 
+  30% {
+    transform: translateY(-10px);
+    transform: scale(1.02);
+  }
+}
 
 /*
  * 
@@ -152,6 +139,7 @@
   -webkit-animation-delay: -0.9s;
           animation-delay: -0.9s;
 }
+
 @-webkit-keyframes wave {
   0%, 60%, 100% {
     -webkit-transform: initial;
