@@ -237,6 +237,13 @@
           flex-grow: 0.3;
 }
 
+
+/*
+ * 
+ * SHARE
+ *
+ */
+
 .credits > .text > h4 {
   color: #FF2D55;
 }
@@ -246,14 +253,15 @@
   font-weight: 600;
   text-decoration: none;
 }
-.credits .text > a:visited {
+a#twitter, a#instagram, a#email {
+  text-decoration: none;
+  margin: 0 1px;
+}
+.credits .text >  .share > a:visited {
   color: inherit;
 }
-.credits > .text > .share  > a {
-  text-decoration: none;
-  margin: 0 2px;
-}
-.credits > .text > .share  > a > img {
+a#twitter > img, a#instagram > img, a#email > img {
   width: 20px;
+  height: 20px;
 }
 
