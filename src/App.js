@@ -114,8 +114,12 @@ class App extends Component {
   */
   awaitUserInput = (response, timeout) => {
       setTimeout(() => {
-        if(this.state.messages.length === 0) this.appendMessage(response); 
-      }, timeout)
+        if(this.state.messages.length === 0) {
+          //adds a blank message to kickstart the 'bot dots'
+          this.appendMessage('');
+          this.processResponse(response); 
+          }
+        }, timeout)
   }
 
 
@@ -198,6 +202,7 @@ class App extends Component {
         chooseTruth(bot[0]).then( 
           botResponse => { 
             console.log(botResponse);
+            this.appendMessage('');
             this.processResponse(botResponse);
           })
         }

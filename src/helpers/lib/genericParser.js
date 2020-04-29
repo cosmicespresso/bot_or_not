@@ -42,11 +42,11 @@ export const genericParser =
 	{
 		"name": "what",
 		"regex": "/\?/g",
-		"usertext": ["what", "what?", "What", "What??", "what??", "what???", "what!", "wat", "wattt", "wat", "lol what"],
+		"usertext": ["What??", "what??", "what???", "what!", "wattt", "what do you want???"],
 		"responses": [
 				{
 					"response": "where r u?",
-					"context": "where"
+					"context": "location"
 				},
 
 				{
@@ -56,7 +56,7 @@ export const genericParser =
 
 
 				{
-					"response": "do you watch bake off?",
+					"response": "do you watch the british baking show?",
 					"context": "bakeoff"
 				},
 
