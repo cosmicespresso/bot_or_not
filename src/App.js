@@ -129,12 +129,15 @@ class App extends Component {
   */
   handleSubmitText = async (text) => {
     this.setState({name: text})
-    if (this.state.step !== 3) {  // message bar function except for step 3 where we want the user to enter their own name
+    if (this.state.step !== 3) {  // append messages to the queue except for step 3 where we just keep the user's name
       this.appendMessage(text, true);
       const response = await textProcessor(text, this.state.currentBot, this.state.messages);
       this.processResponse(response);
     }
-    else {this.shouldUpdate = true; } // handle step 3 (player entering their name)
+    else { 
+      this.setState({ timerStart: Date.now()}); // reset the timer since this counts as a step progression
+      this.shouldUpdate = true; 
+    } 
   }
 
   /**

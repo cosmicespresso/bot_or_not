@@ -39,7 +39,7 @@ class Chat extends Component {
 		}
 
 		/**
-		* ???????? 
+		* A set of conditionals that append the messages to the right side (bot vs user)
 		*/
 		if (this.props && this.props.isBotTyping) {
 			const endIndex = groups.length - 1;
