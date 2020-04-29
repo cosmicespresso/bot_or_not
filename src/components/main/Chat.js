@@ -52,6 +52,7 @@ class Chat extends Component {
 			}
 		}
 
+
 		return (
 			<div 
 				className={this.props.chatClass} 
