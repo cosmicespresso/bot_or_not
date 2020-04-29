@@ -253,14 +253,14 @@
   font-weight: 600;
   text-decoration: none;
 }
-a#twitter, a#instagram, a#email {
+a#twitter, a#instagram, a#email ,  a#facebook {
   text-decoration: none;
   margin: 0 1px;
 }
 .credits .text >  .share > a:visited {
   color: inherit;
 }
-a#twitter > img, a#instagram > img, a#email > img {
+a#twitter > img, a#instagram > img, a#email > img , a#facebook > img {
   width: 20px;
   height: 20px;
 }
