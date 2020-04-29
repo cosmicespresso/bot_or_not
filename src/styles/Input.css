@@ -69,6 +69,20 @@ input {
   height: 40px;
 }
 
+.single-button:active {
+  animation: activeButtonAnimation 0.3s linear;
+}
+
+@keyframes activeButtonAnimation {
+  0%, 100% {
+    transform: scale(1.03);
+  }
+
+  50% {
+    transform: initial;
+  }  
+}
+
 .single-button > p {
   color: #00f;
   font-weight: 700;
@@ -134,4 +148,8 @@ input {
 
 .single-button:hover, .double-button > .singlebutton:hover {
   cursor: pointer;
+}
+
+.double-button > .single-button:active {
+  animation: activeButtonAnimation 0.3s linear;
 }
