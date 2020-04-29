@@ -45,7 +45,9 @@ export const classNames = (main, step) => {
     */      
     const appClass = `App ${appTheme}`;
     const containerClass = `container ${containerTheme}`;
-    const headerClass = main !== 'Chat' ?  `header ${componentTheme}` : `header ${chatTheme}`; // handling Header consistency with Chat
+    const headerClass = (main === 'NarratorWait' ||  main === 'MatchingScreen') 
+                        ? (main !== 'Chat' ?  `header ${componentTheme} wait` : `header ${chatTheme} wait`)
+                        : (main !== 'Chat' ?  `header ${componentTheme}` : `header ${chatTheme}`); // theming Header consistently with Chat
     /*
     * MAIN
     */     

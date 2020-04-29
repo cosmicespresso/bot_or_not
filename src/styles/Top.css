@@ -23,3 +23,17 @@ header.header {
   line-height: 40px;
   vertical-align: middle;
 }
+
+.header.wait  {
+  animation: headerAnimation 0.5s linear infinite alternate;
+}
+
+@keyframes headerAnimation {
+  0%, 60%, 100% {
+    transform: initial;
+  }
+
+  30% {
+    transform: scale(1.02);
+  }  
+}
