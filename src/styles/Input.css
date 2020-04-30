@@ -1,4 +1,4 @@
-@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /*
  * 
@@ -43,6 +43,8 @@ input {
  */
 .btn-send {
   color: #00f;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: 'Inter', sans-serif; 
   border: 2px solid #00f;
@@ -70,16 +72,31 @@ input {
 }
 
 .single-button:active {
-  animation: activeButtonAnimation 0.3s linear;
+  -webkit-animation: activeButtonAnimation 0.3s linear;
+          animation: activeButtonAnimation 0.3s linear;
+}
+
+@-webkit-keyframes activeButtonAnimation {
+  0%, 100% {
+    -webkit-transform: scale(1.03);
+            transform: scale(1.03);
+  }
+
+  50% {
+    -webkit-transform: initial;
+            transform: initial;
+  }  
 }
 
 @keyframes activeButtonAnimation {
   0%, 100% {
-    transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+            transform: scale(1.03);
   }
 
   50% {
-    transform: initial;
+    -webkit-transform: initial;
+            transform: initial;
   }  
 }
 
@@ -99,16 +116,31 @@ input {
  *
  */
 .single-button.wait  {
-  animation: buttonAnimation 0.5s linear infinite alternate;
+  -webkit-animation: buttonAnimation 0.5s linear infinite alternate;
+          animation: buttonAnimation 0.5s linear infinite alternate;
+}
+
+@-webkit-keyframes buttonAnimation {
+  0%, 60%, 100% {
+    -webkit-transform: initial;
+            transform: initial;
+  }
+
+  30% {
+    -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+  }  
 }
 
 @keyframes buttonAnimation {
   0%, 60%, 100% {
-    transform: initial;
+    -webkit-transform: initial;
+            transform: initial;
   }
 
   30% {
-    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+            transform: scale(1.02);
   }  
 }
 
@@ -135,7 +167,9 @@ input {
 .double-button > .single-button {
   margin: 0;
   padding: 0px;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   width: 30vw;
 }
 
@@ -151,5 +185,6 @@ input {
 }
 
 .double-button > .single-button:active {
-  animation: activeButtonAnimation 0.3s linear;
+  -webkit-animation: activeButtonAnimation 0.3s linear;
+          animation: activeButtonAnimation 0.3s linear;
 }

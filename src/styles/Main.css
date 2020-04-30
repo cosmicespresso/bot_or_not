@@ -1,6 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
 
-
 /*
  * 
  * NARRATOR
@@ -36,16 +35,31 @@
  *
  */
 .narrator.wait {
-  animation: frameAnimation 0.5s linear infinite alternate;
+  -webkit-animation: frameAnimation 0.5s linear infinite alternate;
+          animation: frameAnimation 0.5s linear infinite alternate;
+}
+
+@-webkit-keyframes frameAnimation {
+  0%, 60%, 100% {
+    -webkit-transform: initial;
+            transform: initial;
+  }
+
+  30% {
+    -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+  }  
 }
 
 @keyframes frameAnimation {
   0%, 60%, 100% {
-    transform: initial;
+    -webkit-transform: initial;
+            transform: initial;
   }
 
   30% {
-    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+            transform: scale(1.02);
   }  
 }
 
@@ -264,4 +278,3 @@ a#twitter > img, a#instagram > img, a#email > img , a#facebook > img {
   width: 20px;
   height: 20px;
 }
-
