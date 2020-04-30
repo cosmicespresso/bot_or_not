@@ -52,17 +52,16 @@ export const genericParser =
 				{
 					"response": "what's your name haha",
 					"context": "name"
-			},
-
-
-				{
-					"response": "do you watch the british baking show?",
-					"context": "bakeoff"
 				},
 
 				{
-					"response": "when was the last time u went outside?",
-					"context": "outside"
+					"response": "uh.... what's your favourite animal?",
+					"context": "animal"
+				},
+
+				{
+					"response": "are u in lockdown rn?",
+					"context": "lockdown"
 				}
 			]
 	},
