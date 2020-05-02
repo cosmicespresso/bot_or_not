@@ -3,19 +3,15 @@
 * A function that fetches a JSON to be used for randomly generating opponent names.
 */
 let names = [
-	'alice',
+	'tom',
 	'bob',
 	'charlie',
-	'noodle',
-	'asfdghj',
-	'blaaaa',
-	'ayayayay',
-	'your name here',
-	'beep beep',
+	'sam',
 	'gary',
-	'dave',
+	'david',
 	'mark',
-	'matt'
+	'matt',
+	'peter'
 ]
 
 export const getOpponentName = async () => {

@@ -38,7 +38,7 @@ class App extends Component {
     this.innerHeight = window.innerHeight;
     this.desktopDetected = this.innerWidth >= 768; // it misses landscape mode for mobile 
     this.state = {  
-      opponent: '', // name of the opponent, initialized from an external array
+      opponent: '', // name of the bot, initialized from an external array
       name: '', // name of the player
       timerTime: 0, 
       timerStart: 0,
@@ -131,7 +131,7 @@ class App extends Component {
     this.setState({name: text})
     if (this.state.step !== 3) {  // append messages to the queue except for step 3 where we just keep the user's name
       this.appendMessage(text, true);
-      const response = await textProcessor(text, this.state.currentBot, this.state.messages);
+      const response = await textProcessor(text, this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
       this.processResponse(response);
     }
     else { 

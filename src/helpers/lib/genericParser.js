@@ -42,7 +42,34 @@ export const genericParser =
 	{
 		"name": "what",
 		"regex": "/\?/g",
-		"usertext": ["What??", "what??", "what???", "what!", "wattt", "what do you want???"],
+		"usertext": ["What??", "what??", "what???", "what!", "wattt", "what do you want???", "wat??"],
+		"responses": [
+				{
+					"response": "where r u?",
+					"context": "location"
+				},
+
+				{
+					"response": "what's your name haha",
+					"context": "name"
+				},
+
+				{
+					"response": "uh.... what's your favourite animal?",
+					"context": "animal"
+				},
+
+				{
+					"response": "are u in lockdown rn?",
+					"context": "lockdown"
+				}
+			]
+	},
+
+	{
+		"name": "name",
+		"regex": "",
+		"usertext": ["is your name really", "are you really called", "what???", "what!", "wattt", "what do you want???", "wat??"],
 		"responses": [
 				{
 					"response": "where r u?",

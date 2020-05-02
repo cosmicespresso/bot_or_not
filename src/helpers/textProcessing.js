@@ -2,6 +2,7 @@ import natural from 'natural';
 import compendium from 'compendium-js';
 
 import { genericParser } from './lib/genericParser.js';
+import { nameParser } from './lib/nameParser.js';
 import { truthChallengeParser } from './lib/truthChallengeParser.js';
 
 //context specific libs
@@ -165,7 +166,7 @@ function getResponse(responseArr, bot) {
   }
 
   if(response.context){
-    createContext(response.context, 5, bot);
+    createContext(response.context, 1, bot);
   }
 
   return response;
@@ -222,6 +223,25 @@ async function parseTruthChallenge(sent, bot) {
 }
 
 /**
+* This function handles messages containing the bot's name
+*/
+function parseNameQueries(sent, bot, botName, playerName){
+  console.log('player name si ', playerName)
+  for (const type of nameParser) {
+    // const regex = new RegExp(type.regex, 'g');
+    const usertext = type.usertext.map(text => text.replace(/botName/g, botName))
+    console.log(usertext, sent.replace(type.regex, ''))
+    if(usertext.includes(sent.replace(type.regex, ''))) {
+      const responses = type.responses.map(text => text.response.replace(/playerName/g, playerName).replace(/botName/g, botName))
+      console.log(responses, playerName, botName)
+      const output = getResponse(responses, bot);
+      return output;
+    }
+  }
+}
+
+
+/**
 * This function checks either user's or bot messages for
 * repeats, according to a buffer
 */
@@ -237,12 +257,18 @@ function checkPreviousMessages (sent, messages, isUser, buffer) {
 * checking for things which are easier to handle in middleware before
 * deciding whether to pass to dialogflow
 */
-async function parseGeneric(sent, bot, messages) {
+async function parseGeneric(sent, bot, messages, botName, playerName) {
   let sentArr = sent.split(" ");
 
   if(sent === 'truth') {
     const output = await chooseTruth(bot);
     return output.response;
+  }
+
+  if(sent.includes(botName)){
+    const output = parseNameQueries(sent, bot, botName, playerName);
+    console.log('output here is', output)
+    return output;
   }
 
   //checks against common forms of response
@@ -266,9 +292,9 @@ async function parseGeneric(sent, bot, messages) {
 * This structures the order in which user inputs are processed, and
 * decides whether to send to bot
 */
-export const textProcessor = async (sent, bot, messages) => {
+export const textProcessor = async (sent, bot, messages, botName, playerName) => {
 
-  let botResponse = await parseGeneric(sent, bot, messages)
+  let botResponse = await parseGeneric(sent, bot, messages, botName, playerName)
 
   switch(bot.name){
     case "truth_bot_answering":
