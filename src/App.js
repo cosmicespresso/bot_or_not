@@ -49,6 +49,14 @@ class App extends Component {
   	};
   }
 
+  /**
+  * Returns a random number between min (inclusive) and max (exclusive)
+  */
+  getRandomInt = (min, max) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   /**
   * A function that appends what the user just typed to the array of messages to be rendered.
@@ -90,8 +98,10 @@ class App extends Component {
     }
 
     this.botQueue = this.botQueue.concat(text);
-    // start processing bot queue
-    this.setState({isBotTyping: true}, () => this.processBotQueue());
+
+    // random pause before the bot starts typing, as if thinking
+    setTimeout(() => this.setState({isBotTyping: true}, () => 
+      this.processBotQueue()), this.getRandomInt(700, 2500));
   }
 
   /**
@@ -206,6 +216,7 @@ class App extends Component {
           botResponse => { 
             console.log(botResponse);
             this.appendMessage('');
+            this.processResponse('err...');
             this.processResponse(botResponse);
           })
         }
@@ -218,7 +229,7 @@ class App extends Component {
   */
   configureChat = () => {
       if(this.state.step === 4) this.awaitUserInput('hey', 5000); //intro
-      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 10000); //user truth challenge
+      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000); //user truth challenge
   }
     
   /**

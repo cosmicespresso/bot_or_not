@@ -6,7 +6,7 @@ export const genericParser =
 [
 	{
 		"name": "blacklist",
-		"regex": "//",
+		"regex": "",
 		"usertext": ["alpha","beta","gamma"],
 		"responses": [
 			{
@@ -19,7 +19,7 @@ export const genericParser =
 
 	{
 		"name": "awkward",
-		"regex": "/\[r, m]/",
+		"regex": /\[r, m]/,
 		"usertext": ["er", "um", "awkward", "this is awkward", "lol this is awkward"],
 		"responses": [
 			{
@@ -41,8 +41,8 @@ export const genericParser =
 
 	{
 		"name": "what",
-		"regex": "/\?/g",
-		"usertext": ["What??", "what??", "what???", "what!", "wattt", "what do you want???", "wat??"],
+		"regex": /\?/g,
+		"usertext": ["whaat??", "what??", "what???", "what!", "wattt", "what do you want???", "wat??"],
 		"responses": [
 				{
 					"response": "where r u?",
@@ -64,32 +64,5 @@ export const genericParser =
 					"context": "lockdown"
 				}
 			]
-	},
-
-	{
-		"name": "name",
-		"regex": "",
-		"usertext": ["is your name really", "are you really called", "what???", "what!", "wattt", "what do you want???", "wat??"],
-		"responses": [
-				{
-					"response": "where r u?",
-					"context": "location"
-				},
-
-				{
-					"response": "what's your name haha",
-					"context": "name"
-				},
-
-				{
-					"response": "uh.... what's your favourite animal?",
-					"context": "animal"
-				},
-
-				{
-					"response": "are u in lockdown rn?",
-					"context": "lockdown"
-				}
-			]
-	},
+	}
 ]

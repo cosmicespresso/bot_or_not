@@ -14,6 +14,7 @@ import { genericResponse } from './lib/genericResponse.js';
 //set up question answering for truth challenge
 let askedQuestion = false;
 let botBuffer = [];
+let contextBuffer = [];
 
 /**
 * A function that sends a processed string to the bot
@@ -96,6 +97,7 @@ async function createContext(context, lifespan, bot) {
       lifespan: lifespan,
       bot: bot })
   })
+  contextBuffer.push(context)
 }
 
 /**
@@ -157,10 +159,20 @@ function toFirstPerson(sent) {
 * an associated context
 */
 function getResponse(responseArr, bot) {
-  let response = responseArr[Math.floor(Math.random()*responseArr.length)];
+  const index = Math.floor(Math.random()*responseArr.length)
+  let response = responseArr[index];
+
+  console.log(contextBuffer)
+
+  //if the context has already been, remove and get the next one
+  //not perfect, but will work most of the time (it's unlikely)
+  if (contextBuffer.includes(response.context)) {
+    responseArr.splice(index, 1);
+    response = responseArr[index];
+  }
+
 
   //remove the element so not repeating ourselves
-  const index = responseArr.indexOf(response);
   if (index > 0) {
     responseArr.splice(index, 1);
   }
@@ -228,12 +240,9 @@ async function parseTruthChallenge(sent, bot) {
 function parseNameQueries(sent, bot, botName, playerName){
   console.log('player name si ', playerName)
   for (const type of nameParser) {
-    // const regex = new RegExp(type.regex, 'g');
     const usertext = type.usertext.map(text => text.replace(/botName/g, botName))
-    console.log(usertext, sent.replace(type.regex, ''))
-    if(usertext.includes(sent.replace(type.regex, ''))) {
+    if(usertext.includes(sent.replace(type.regex, '').toLowerCase())) {
       const responses = type.responses.map(text => text.response.replace(/playerName/g, playerName).replace(/botName/g, botName))
-      console.log(responses, playerName, botName)
       const output = getResponse(responses, bot);
       return output;
     }
@@ -274,8 +283,7 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
   //checks against common forms of response
   //e.g. what?????, banned words etc
   for (const type of genericParser) {
-    const regex = new RegExp(type.regex, 'i');
-    if(type.usertext.includes(sent.replace(regex, ''))) {
+    if(type.usertext.includes(sent.replace(type.regex, '').toLowerCase())) {
       const output = getResponse(type.responses, bot);
       return output.response;
     }
