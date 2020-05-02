@@ -19,7 +19,7 @@ import {getOpponentName} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
 import {getBotDelay, getSeconds, getBrowserName} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { textProcessor, chooseTruth, handleError } from './helpers/textProcessing'
+import { textProcessor, chooseTruth, handleError, getFiller } from './helpers/textProcessing'
 import { handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
@@ -216,7 +216,7 @@ class App extends Component {
           botResponse => { 
             console.log(botResponse);
             this.appendMessage('');
-            this.processResponse('err...');
+            this.processResponse(getFiller());
             this.processResponse(botResponse);
           })
         }

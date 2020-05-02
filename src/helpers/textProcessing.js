@@ -9,6 +9,7 @@ import { truthChallengeParser } from './lib/truthChallengeParser.js';
 import { truths } from './lib/truths.js';
 import { notQuestion } from './lib/notQuestion.js';
 import { repetition } from './lib/repetition.js';
+import { fillers } from './lib/fillers.js';
 import { genericResponse } from './lib/genericResponse.js';
 
 //set up question answering for truth challenge
@@ -116,6 +117,18 @@ export const handleError = () => {
 
   return output.response;
 }
+
+/**
+* A function that handles server errors and sends a generic response
+* this can be invoked in a bunch of different places, but normally runs
+* when dialogflow doesn't respond, or we get a blank messahge
+*/
+export const getFiller = () => {
+  const output = fillers[Math.floor(Math.random()*fillers.length)]
+
+  return output;
+}
+
 
 /**
 * A function that chooses a truth challenge for the player
