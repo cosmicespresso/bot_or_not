@@ -101,7 +101,7 @@ class App extends Component {
 
     // random pause before the bot starts typing, as if thinking
     setTimeout(() => this.setState({isBotTyping: true}, () => 
-      this.processBotQueue()), this.getRandomInt(700, 2500));
+      this.processBotQueue()), this.getRandomInt(1100, 3500));
   }
 
   /**
@@ -228,7 +228,7 @@ class App extends Component {
   * to engage the user if they've not said anything
   */
   configureChat = () => {
-      if(this.state.step === 4) this.awaitUserInput('hey', 5000); //intro
+      if(this.state.step === 4) this.awaitUserInput('hey', 4000); //intro
       if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000); //user truth challenge
   }
     
