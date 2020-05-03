@@ -42,6 +42,7 @@ class App extends Component {
       name: '', // name of the player
       timerTime: 0, 
       timerStart: 0,
+      timeouts: [],
       isBotTyping: false,
       currentBot: bots[0], // initialize bots
       ...getStateAtStep(1, stateMap), // Importing game states from stateMap object and initializing to step = 1
@@ -65,7 +66,7 @@ class App extends Component {
     let messages = this.state.messages.slice();
     messages.push({isUser, text});
     this.setState({messages, isBotTyping: this.botQueue.length > 0}, next);
-    this.awaitUserInput('whats ur favourite color?', 10000, messages.length)
+    this.awaitUserInput('whats ur favourite color?', 10000, messages.length, this.state.step)
   }
 
   /**
@@ -76,10 +77,10 @@ class App extends Component {
     if (!this.isProcessingQueue && this.botQueue.length) {
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
-      setTimeout(() => {
+      this.state.timeouts.push(setTimeout(() => {
         this.isProcessingQueue = false;
         this.appendMessage(nextMsg, false, this.processBotQueue);
-      }, getBotDelay(nextMsg));
+      }, getBotDelay(nextMsg)));
     }
   }
 
@@ -124,9 +125,10 @@ class App extends Component {
   * A function that times out and adds a message if the user hasn't said anything
   * in a minute. Used at the start of turns w/ an explicit message, or in the middle
   */
-  awaitUserInput = async (response, timeout, numMsgs) => {
+  awaitUserInput = async (response, timeout, numMsgs, state) => {
     //sets an async timeout (settimeout not naturally async)
     await new Promise(resolve => setTimeout(resolve, timeout));
+    console.log('im on the outside, messages is ', this.state.messages)
 
     if(this.state.messages.length === 0) {
       //if start of interaction, adds a blank 
@@ -134,8 +136,9 @@ class App extends Component {
       this.appendMessage('');
       this.processResponse(response); 
     }
-
-    else if(this.state.messages.length === numMsgs) {
+    //check we haven't advanced a step
+    else if(this.state.messages.length === numMsgs && getSeconds(this.state.timeLimit-this.state.timerTime) > 10) {
+    console.log('im on the inside, time left is ', getSeconds(this.state.timeLimit-this.state.timerTime))
       let contexts;
       try {
         contexts = await listContexts(this.state.currentBot)
@@ -147,8 +150,8 @@ class App extends Component {
       //user flaking out in the middle of a round
       //if there are no existing contexts ask a question
       if(contexts.length){
-        console.log('there are contexts')
-        response = await textProcessor('', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
+        console.log('there are contexts, they are', contexts)
+        response = await textProcessor('a', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
       }
 
       //if there are contexts, get a fallback?/send last response?
@@ -168,6 +171,7 @@ class App extends Component {
   */
   handleSubmitText = async (text) => {
     if (this.state.step !== 3) {  // append messages to the queue except for step 3 where we just keep the user's name
+      //clear user timer
       this.appendMessage(text, true);
       const response = await textProcessor(text, this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
       this.processResponse(response);
@@ -257,8 +261,17 @@ class App extends Component {
   * to engage the user if they've not said anything
   */
   configureChat = () => {
-      if(this.state.step === 4) this.awaitUserInput('hey', 5000, 0); //intro
-      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000, 0); //user truth challenge
+      //clear timeouts here?
+      //add in a 'clearbotqueue' method
+      console.log('timeouts are', this.state.timeouts.length)
+      for (var i = 0; i < this.state.timeouts.length; i++) {
+          clearTimeout(this.state.timeouts[i]);
+      }
+
+      this.setState({timeouts: []})
+      this.setState({messages: []})
+      if(this.state.step === 4) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
+      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
   }
     
   /**
@@ -293,8 +306,8 @@ class App extends Component {
       this.shouldUpdate = false;
       
       let nextStep =  advanceStep(this.state.step, stateMap); // get next state
-      this.configureBots(); // update bots
       this.configureChat(); // configure the chat start state
+      this.configureBots(); // update bots
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
   }
