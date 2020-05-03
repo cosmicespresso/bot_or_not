@@ -43,11 +43,32 @@ class App extends Component {
       timerTime: 0, 
       timerStart: 0,
       timeouts: [],
+      asyncTimeouts: [],
       isBotTyping: false,
       currentBot: bots[0], // initialize bots
       ...getStateAtStep(1, stateMap), // Importing game states from stateMap object and initializing to step = 1
       result: '' // Defines which text ('correct' or 'incorrect') will be rendered in the End view
   	};
+  }
+
+
+  /**
+  * sets timeout asyncronously, allows us to cancel it too
+  */
+  asyncTimeout = (ms) => {
+    var timeout, promise;
+    console.log('setting async timeout')
+
+    promise = new Promise(function(resolve, reject) {
+      timeout = setTimeout(function() {
+        resolve('timeout done');
+      }, ms);
+    }); 
+
+    return {
+       promise:promise, 
+       cancel:function(){clearTimeout(timeout );} //return a canceller as well
+     };
   }
 
   /**
@@ -127,41 +148,48 @@ class App extends Component {
   */
   awaitUserInput = async (response, timeout, numMsgs, state) => {
     //sets an async timeout (settimeout not naturally async)
-    await new Promise(resolve => setTimeout(resolve, timeout));
-    console.log('im on the outside, messages is ', this.state.messages)
+    let timerPromise = this.asyncTimeout(timeout);
+    this.state.asyncTimeouts.push(timerPromise)
 
-    if(this.state.messages.length === 0) {
-      //if start of interaction, adds a blank 
-      //message to kickstart the 'bot dots'
-      this.appendMessage('');
-      this.processResponse(response); 
-    }
-    //check we haven't advanced a step
-    else if(this.state.messages.length === numMsgs && getSeconds(this.state.timeLimit-this.state.timerTime) > 10) {
-    console.log('im on the inside, time left is ', getSeconds(this.state.timeLimit-this.state.timerTime))
-      let contexts;
-      try {
-        contexts = await listContexts(this.state.currentBot)
-      }
-      catch(e){
-        console.log(e)
-      }
+    timerPromise.promise.then( async () => {
+      console.log('im on the outside, messages is ', this.state.messages)
 
-      //user flaking out in the middle of a round
-      //if there are no existing contexts ask a question
-      if(contexts.length){
-        console.log('there are contexts, they are', contexts)
-        response = await textProcessor('a', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
+      if(this.state.messages.length === 0) {
+        //if start of interaction, adds a blank 
+        //message to kickstart the 'bot dots'
+        this.appendMessage('');
+        this.processResponse(response); 
       }
+      //check we haven't advanced a step
+      else if(this.state.messages.length === numMsgs && getSeconds(this.state.timeLimit-this.state.timerTime) > 10) {
+      console.log('on the inside, time left is ', getSeconds(this.state.timeLimit-this.state.timerTime))
+        let contexts;
+        try {
+          contexts = await listContexts(this.state.currentBot)
+        }
+        catch(e){
+          console.log(e)
+        }
 
-      //if there are contexts, get a fallback?/send last response?
-      //perhaps add a check to see if a fallback
-      else {
-        response = "i'm gonna say some random shit"
+        //user flaking out in the middle of a round
+        //if there are no existing contexts ask a question
+        if(contexts.length){
+          console.log('there are contexts, they are', contexts)
+          response = await textProcessor('a', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
+        }
+
+        //if there are contexts, get a fallback?/send last response?
+        //perhaps add a check to see if a fallback
+        else {
+          response = "i'm gonna say some random shit"
+        }
+
+        this.processResponse(response); 
       }
-
-      this.processResponse(response); 
-    }
+    })
+    .catch(error => {
+      console.log(error)
+    });
   }
 
 
@@ -268,10 +296,14 @@ class App extends Component {
           clearTimeout(this.state.timeouts[i]);
       }
 
+      for (var i = 0; i < this.state.asyncTimeouts.length; i++) {
+          this.state.asyncTimeouts[i].cancel()
+      }
+
       this.setState({timeouts: []})
       this.setState({messages: []})
-      if(this.state.step === 4) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
-      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
+      if(this.state.step === 5) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
+      if(this.state.step === 12) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
   }
     
   /**
