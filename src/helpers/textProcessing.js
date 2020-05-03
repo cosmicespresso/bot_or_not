@@ -67,7 +67,7 @@ async function deleteAllContexts(bot) {
 * to better diagnose bot snafus.
 * used in debugging, not in production
 */
-async function listContexts(bot) {
+export const listContexts = async (bot) => {
   const response = await fetch(".netlify/functions/listContexts", {
     method: 'POST',
     headers: {
@@ -77,7 +77,9 @@ async function listContexts(bot) {
       bot: bot })
   })
 
-  console.log(response);
+  let text = await response.text();
+  console.log(JSON.parse(text));
+  return text;
 }
 
 /**

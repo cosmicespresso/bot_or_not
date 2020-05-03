@@ -19,7 +19,7 @@ import {getOpponentName} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
 import {getBotDelay, getSeconds, getBrowserName} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { textProcessor, chooseTruth, handleError, getFiller } from './helpers/textProcessing'
+import { textProcessor, chooseTruth, handleError, getFiller, listContexts } from './helpers/textProcessing'
 import { handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
@@ -122,16 +122,36 @@ class App extends Component {
 
   /**
   * A function that times out and adds a message if the user hasn't said anything
+  * in a minute. Used at the start of turns w/ an explicit message, or in the middle
   */
-  awaitUserInput = (response, timeout, numMsgs) => {
-      setTimeout(() => {
-       if(this.state.messages.length === numMsgs) {
-          //if start of interaction, adds a blank 
-          //message to kickstart the 'bot dots'
-          if (this.state.messages.length === 0) this.appendMessage('');
-          this.processResponse(response); 
-          }
-        }, timeout)
+  awaitUserInput = async (response, timeout, numMsgs) => {
+    //sets an async timeout (settimeout not naturally async)
+    await new Promise(resolve => setTimeout(resolve, timeout));
+
+    if(this.state.messages.length === 0) {
+      //if start of interaction, adds a blank 
+      //message to kickstart the 'bot dots'
+      this.appendMessage('');
+      this.processResponse(response); 
+    }
+
+    else if(this.state.messages.length === numMsgs) {
+      try {
+        const contexts = await listContexts(this.state.currentBot)
+      }
+      catch(e){
+        console.log(e)
+      }
+      //user flaking out in the middle of a round
+      //if there are no existing contexts ask a question
+
+
+      //if there are contexts, get a fallback?/send last response?
+      //perhaps add a check to see if a fallback
+
+
+      this.processResponse(response); 
+    }
   }
 
 

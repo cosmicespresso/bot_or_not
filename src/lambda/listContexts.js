@@ -30,11 +30,11 @@ async function listContexts(request){
 		const [contextResponse] = await contextsClient.listContexts(contextRequest);
 			if(contextResponse !== undefined && contextResponse.length !== 0){
 			// var name = contextResponse[0].name.split("/").slice(-1)[0];
-			console.log('context set is', contextResponse)
+			console.log('current contexts are', contextResponse)
 		}
-		return "context set successfully";
+		return JSON.stringify(contextResponse);
 	}
     catch (err) {
-        return 'error setting context'
+        return 'error setting context';
     }
 }
