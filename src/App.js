@@ -136,19 +136,26 @@ class App extends Component {
     }
 
     else if(this.state.messages.length === numMsgs) {
+      let contexts;
       try {
-        const contexts = await listContexts(this.state.currentBot)
+        contexts = await listContexts(this.state.currentBot)
       }
       catch(e){
         console.log(e)
       }
+
       //user flaking out in the middle of a round
       //if there are no existing contexts ask a question
-
+      if(contexts.length){
+        console.log('there are contexts')
+        response = await textProcessor('', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
+      }
 
       //if there are contexts, get a fallback?/send last response?
       //perhaps add a check to see if a fallback
-
+      else {
+        response = "i'm gonna say some random shit"
+      }
 
       this.processResponse(response); 
     }

@@ -77,9 +77,8 @@ export const listContexts = async (bot) => {
       bot: bot })
   })
 
-  let text = await response.text();
-  console.log(JSON.parse(text));
-  return text;
+  const text = await response.text();
+  return JSON.parse(text);
 }
 
 /**
