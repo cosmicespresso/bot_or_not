@@ -122,7 +122,7 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 10, 
-    timeLimit: 45*1000,
+    timeLimit: 59*1000,
     messages: [],
     headerText: '',
     main: 'Chat',

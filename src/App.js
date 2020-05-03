@@ -65,6 +65,7 @@ class App extends Component {
     let messages = this.state.messages.slice();
     messages.push({isUser, text});
     this.setState({messages, isBotTyping: this.botQueue.length > 0}, next);
+    this.awaitUserInput('whats ur favourite color?', 10000, messages.length)
   }
 
   /**
@@ -122,11 +123,12 @@ class App extends Component {
   /**
   * A function that times out and adds a message if the user hasn't said anything
   */
-  awaitUserInput = (response, timeout) => {
+  awaitUserInput = (response, timeout, numMsgs) => {
       setTimeout(() => {
-        if(this.state.messages.length === 0) {
-          //adds a blank message to kickstart the 'bot dots'
-          this.appendMessage('');
+       if(this.state.messages.length === numMsgs) {
+          //if start of interaction, adds a blank 
+          //message to kickstart the 'bot dots'
+          if (this.state.messages.length === 0) this.appendMessage('');
           this.processResponse(response); 
           }
         }, timeout)
@@ -228,8 +230,8 @@ class App extends Component {
   * to engage the user if they've not said anything
   */
   configureChat = () => {
-      if(this.state.step === 4) this.awaitUserInput('hey', 4000); //intro
-      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000); //user truth challenge
+      if(this.state.step === 4) this.awaitUserInput('hey', 5000, 0); //intro
+      if(this.state.step === 11) this.awaitUserInput('...are u going to ask a question', 15000, 0); //user truth challenge
   }
     
   /**

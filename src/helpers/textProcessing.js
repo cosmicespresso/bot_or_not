@@ -296,7 +296,8 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
   //checks against common forms of response
   //e.g. what?????, banned words etc
   for (const type of genericParser) {
-    if(type.usertext.includes(sent.replace(type.regex, '').toLowerCase())) {
+    const regex = new RegExp(type.regex, 'i')
+    if(type.usertext.includes(sent.replace(regex, '').toLowerCase())) {
       const output = getResponse(type.responses, bot);
       return output.response;
     }
