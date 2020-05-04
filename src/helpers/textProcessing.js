@@ -176,19 +176,15 @@ function getResponse(responseArr, bot) {
   const index = Math.floor(Math.random()*responseArr.length)
   let response = responseArr[index];
 
-  console.log(contextBuffer)
-
-  //if the context has already been, remove and get the next one
-  //not perfect, but will work most of the time (it's unlikely)
-  if (contextBuffer.includes(response.context)) {
-    responseArr.splice(index, 1);
-    response = responseArr[index];
-  }
-
-
   //remove the element so not repeating ourselves
   if (index > 0) {
     responseArr.splice(index, 1);
+  }
+
+  //if the context has already been, get something else
+  //not perfect, but will work most of the time (it's unlikely)
+  if (contextBuffer.includes(response.context)) {
+    response = responseArr[Math.floor(Math.random()*responseArr.length)];
   }
 
   if(response.context){
