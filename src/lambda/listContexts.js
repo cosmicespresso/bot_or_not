@@ -29,7 +29,6 @@ async function listContexts(request){
 	try {
 		const [contextResponse] = await contextsClient.listContexts(contextRequest);
 			if(contextResponse !== undefined && contextResponse.length !== 0){
-			// var name = contextResponse[0].name.split("/").slice(-1)[0];
 			console.log('current contexts are', contextResponse)
 		}
 		return JSON.stringify(contextResponse);

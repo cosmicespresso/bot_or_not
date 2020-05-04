@@ -17,7 +17,7 @@ import DoubleButton from './components/input/DoubleButton';
 import {stateMap} from './stateMap';
 import {getOpponentName} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
-import {getBotDelay, getSeconds, getBrowserName} from './helpers/Utils';
+import {getBotDelay, getSeconds, getBrowserName, asyncTimeout} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
 import { textProcessor, chooseTruth, handleError, getFiller, listContexts } from './helpers/textProcessing'
 import { handleResize, handleHeaderText } from './helpers/DOM'
@@ -51,25 +51,6 @@ class App extends Component {
   	};
   }
 
-
-  /**
-  * sets timeout asyncronously, allows us to cancel it too
-  */
-  asyncTimeout = (ms) => {
-    var timeout, promise;
-
-    promise = new Promise(function(resolve, reject) {
-      timeout = setTimeout(function() {
-        resolve('completed timeout');
-      }, ms);
-    }); 
-
-    return {
-       promise:promise, 
-       cancel:function(){clearTimeout(timeout);} //return a canceller as well
-     };
-  }
-
   /**
   * Returns a random number between min (inclusive) and max (exclusive)
   */
@@ -94,12 +75,10 @@ class App extends Component {
   * and directs them to frontend.
   */
   processBotQueue = () => {
-    console.log('not added timeout yet, is processing queue is', this.isProcessingQueue)
     if (!this.isProcessingQueue && this.botQueue.length) {
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
       this.state.timeouts.push(setTimeout(() => {
-        console.log('processing bot queue')
         this.isProcessingQueue = false;
         this.appendMessage(nextMsg, false, this.processBotQueue);
       }, getBotDelay(nextMsg)));
@@ -122,7 +101,6 @@ class App extends Component {
     }
 
     this.botQueue = this.botQueue.concat(text);
-    console.log('botQueue is ', this.botQueue)
 
     // random pause before the bot starts typing, as if thinking
     setTimeout(() => this.setState({isBotTyping: true}, () => 
@@ -150,14 +128,10 @@ class App extends Component {
   */
   awaitUserInput = async (response, timeout, numMsgs, state) => {
     //sets an async timeout (settimeout not naturally async)
-    let timerPromise = this.asyncTimeout(timeout);
+    let timerPromise = asyncTimeout(timeout);
     this.state.asyncTimeouts.push(timerPromise)
 
     timerPromise.promise.then( async () => {
-
-      //perhaps this is the problem
-      console.log('length of messages is ', this.state.messages.length)
-      console.log('time remaining is ', getSeconds(this.state.timeLimit- this.state.timerTime))
 
       if(this.state.messages.length === 0) {
         //if start of interaction, adds a blank 
@@ -181,7 +155,6 @@ class App extends Component {
         //user flaking out in the middle of a round
         //if there are no existing contexts ask a question
         if(contexts.length){
-          console.log('there are contexts, they are', contexts)
           response = await textProcessor('a', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
         }
 
@@ -301,17 +274,9 @@ class App extends Component {
       //clear messages and timeouts if the previous state was a chat
       //big cleaner upper
       if(this.state.main === 'Chat'){
-        console.log('clearing timeouts')
+
         this.state.timeouts.forEach(timeout => clearTimeout(timeout))
         this.state.asyncTimeouts.forEach(asyncTimeout => asyncTimeout.cancel())
-
-        // for (var i = 0; i < this.state.timeouts.length; i++) {
-        //     clearTimeout(this.state.timeouts[i]);
-        // }
-
-        // for (var i = 0; i < this.state.asyncTimeouts.length; i++) {
-        //     this.state.asyncTimeouts[i].cancel()
-        // }
 
         this.setState({asyncTimeouts: []})
         this.setState({timeouts: []})

@@ -252,7 +252,6 @@ async function parseTruthChallenge(sent, bot) {
 * This function handles messages containing the bot's name
 */
 function parseNameQueries(sent, bot, botName, playerName){
-  console.log('player name si ', playerName)
   for (const type of nameParser) {
     const usertext = type.usertext.map(text => text.replace(/botName/g, botName))
     if(usertext.includes(sent.replace(type.regex, '').toLowerCase())) {
@@ -290,7 +289,6 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
 
   if(sent.includes(botName)){
     const output = parseNameQueries(sent, bot, botName, playerName);
-    console.log('output here is', output)
     return output;
   }
 
