@@ -94,10 +94,12 @@ class App extends Component {
   * and directs them to frontend.
   */
   processBotQueue = () => {
+    console.log('not added timeout yet, is processing queue is', this.isProcessingQueue)
     if (!this.isProcessingQueue && this.botQueue.length) {
       this.isProcessingQueue = true;
       const nextMsg = this.botQueue.shift();
       this.state.timeouts.push(setTimeout(() => {
+        console.log('processing bot queue')
         this.isProcessingQueue = false;
         this.appendMessage(nextMsg, false, this.processBotQueue);
       }, getBotDelay(nextMsg)));
@@ -120,6 +122,7 @@ class App extends Component {
     }
 
     this.botQueue = this.botQueue.concat(text);
+    console.log('botQueue is ', this.botQueue)
 
     // random pause before the bot starts typing, as if thinking
     setTimeout(() => this.setState({isBotTyping: true}, () => 
@@ -151,6 +154,11 @@ class App extends Component {
     this.state.asyncTimeouts.push(timerPromise)
 
     timerPromise.promise.then( async () => {
+
+      //perhaps this is the problem
+      console.log('length of messages is ', this.state.messages.length)
+      console.log('time remaining is ', getSeconds(this.state.timeLimit- this.state.timerTime))
+
       if(this.state.messages.length === 0) {
         //if start of interaction, adds a blank 
         //message to kickstart the 'bot dots'
@@ -158,8 +166,10 @@ class App extends Component {
         this.processResponse(response); 
       }
 
-      //check if nobody's said anything new, make sure we're still in chat
-      else if(this.state.messages.length === numMsgs && this.state.main === 'Chat') {
+   //check if nobody's said anything new, make sure we're still in chat
+      else if(this.state.messages.length === numMsgs && this.state.main === 'Chat' && 
+        getSeconds(this.state.timeLimit- this.state.timerTime) > 11) 
+      {
         let contexts;
         try {
           contexts = await listContexts(this.state.currentBot)
@@ -274,7 +284,7 @@ class App extends Component {
           botResponse => { 
             console.log(botResponse);
             this.appendMessage('');
-            this.processResponse(getFiller());
+            if(Math.random() > 0.5) this.processResponse(getFiller());
             this.processResponse(botResponse);
           })
         }
@@ -288,21 +298,28 @@ class App extends Component {
   */
   configureChat = async () => {
 
-      //clear timeouts if the previous state was a chat
+      //clear messages and timeouts if the previous state was a chat
+      //big cleaner upper
       if(this.state.main === 'Chat'){
-        console.log('timeouts are', this.state.timeouts.length)
-        for (var i = 0; i < this.state.timeouts.length; i++) {
-            clearTimeout(this.state.timeouts[i]);
-        }
+        console.log('clearing timeouts')
+        this.state.timeouts.forEach(timeout => clearTimeout(timeout))
+        this.state.asyncTimeouts.forEach(asyncTimeout => asyncTimeout.cancel())
 
-        for (var i = 0; i < this.state.asyncTimeouts.length; i++) {
-            this.state.asyncTimeouts[i].cancel()
-        }
+        // for (var i = 0; i < this.state.timeouts.length; i++) {
+        //     clearTimeout(this.state.timeouts[i]);
+        // }
 
-        //this is horrible, reconsider?
+        // for (var i = 0; i < this.state.asyncTimeouts.length; i++) {
+        //     this.state.asyncTimeouts[i].cancel()
+        // }
+
         this.setState({asyncTimeouts: []})
         this.setState({timeouts: []})
+
+        //clear messages from that round
         this.setState({messages: []})
+        this.botQueue = [];
+        this.isProcessingQueue = false;
       }
 
       //if the next round is one where the bot posts first, add some takes

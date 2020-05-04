@@ -23,6 +23,7 @@ export const getBotDelay = (msg) => {
   
   if (botDelay > 6500) botDelay = 6500; //upper limit for reply wait
 
+  console.log('bot delay for ', msg, ' is ', botDelay)
   return botDelay;
 }
 

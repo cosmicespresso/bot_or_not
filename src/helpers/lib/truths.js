@@ -15,7 +15,7 @@ export const truths = [
 	},
 
 	{
-		"response": "if you could have wish, what would you wish for?",
+		"response": "if you could have one wish, what would you wish for?",
 		"context": "wish"
 	},
 	
