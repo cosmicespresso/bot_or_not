@@ -57,17 +57,16 @@ class App extends Component {
   */
   asyncTimeout = (ms) => {
     var timeout, promise;
-    console.log('setting async timeout')
 
     promise = new Promise(function(resolve, reject) {
       timeout = setTimeout(function() {
-        resolve('timeout done');
+        resolve('completed timeout');
       }, ms);
     }); 
 
     return {
        promise:promise, 
-       cancel:function(){clearTimeout(timeout );} //return a canceller as well
+       cancel:function(){clearTimeout(timeout);} //return a canceller as well
      };
   }
 
@@ -152,17 +151,15 @@ class App extends Component {
     this.state.asyncTimeouts.push(timerPromise)
 
     timerPromise.promise.then( async () => {
-      console.log('im on the outside, messages is ', this.state.messages)
-
       if(this.state.messages.length === 0) {
         //if start of interaction, adds a blank 
         //message to kickstart the 'bot dots'
         this.appendMessage('');
         this.processResponse(response); 
       }
-      //check we haven't advanced a step
-      else if(this.state.messages.length === numMsgs && getSeconds(this.state.timeLimit-this.state.timerTime) > 10) {
-      console.log('on the inside, time left is ', getSeconds(this.state.timeLimit-this.state.timerTime))
+
+      //check if nobody's said anything new, make sure we're still in chat
+      else if(this.state.messages.length === numMsgs && this.state.main === 'Chat') {
         let contexts;
         try {
           contexts = await listContexts(this.state.currentBot)
@@ -286,22 +283,29 @@ class App extends Component {
 
   /**
   * A function that determines whether to add a timeout to the chat window
-  * to engage the user if they've not said anything
+  * to engage the user if they've not said anything, and that clears timeouts
+  * from the previous rounds
   */
-  configureChat = () => {
-      //clear timeouts here?
-      //add in a 'clearbotqueue' method
-      console.log('timeouts are', this.state.timeouts.length)
-      for (var i = 0; i < this.state.timeouts.length; i++) {
-          clearTimeout(this.state.timeouts[i]);
+  configureChat = async () => {
+
+      //clear timeouts if the previous state was a chat
+      if(this.state.main === 'Chat'){
+        console.log('timeouts are', this.state.timeouts.length)
+        for (var i = 0; i < this.state.timeouts.length; i++) {
+            clearTimeout(this.state.timeouts[i]);
+        }
+
+        for (var i = 0; i < this.state.asyncTimeouts.length; i++) {
+            this.state.asyncTimeouts[i].cancel()
+        }
+
+        //this is horrible, reconsider?
+        this.setState({asyncTimeouts: []})
+        this.setState({timeouts: []})
+        this.setState({messages: []})
       }
 
-      for (var i = 0; i < this.state.asyncTimeouts.length; i++) {
-          this.state.asyncTimeouts[i].cancel()
-      }
-
-      this.setState({timeouts: []})
-      this.setState({messages: []})
+      //if the next round is one where the bot posts first, add some takes
       if(this.state.step === 5) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
       if(this.state.step === 12) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
   }
@@ -335,10 +339,11 @@ class App extends Component {
     this.checkTimeout('MatchingScreen');
     
     if (this.shouldUpdate) {
+
       this.shouldUpdate = false;
-      
-      let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureChat(); // configure the chat start state
+
+      let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureBots(); // update bots
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
     }
