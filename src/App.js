@@ -141,8 +141,9 @@ class App extends Component {
       }
 
    //check if nobody's said anything new, make sure we're still in chat
+   //seconds to stop bot typing as round ends (not a bug, but irritating)
       else if(this.state.messages.length === numMsgs && this.state.main === 'Chat' && 
-        getSeconds(this.state.timeLimit- this.state.timerTime) > 11) 
+        getSeconds(this.state.timeLimit- this.state.timerTime) > 7) 
       {
         let contexts;
         try {
@@ -152,16 +153,19 @@ class App extends Component {
           console.log(e)
         }
 
-        //user flaking out in the middle of a round
-        //if there are no existing contexts ask a question
+        //there's the potential for some quite fine control here!
+
+        //if there are existing contexts, trigger the fallback
+        // a 'noreply' response
         if(contexts.length){
-          response = await textProcessor('a', this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
+          response = await textProcessor('noreply', this.state.currentBot, this.state.messages, 
+            this.state.opponent, this.state.name);
         }
 
-        //if there are contexts, get a fallback?/send last response?
-        //perhaps add a check to see if a fallback
+        //if there are no contexts, trigger a change of subject
         else {
-          response = "i'm gonna say some random shit"
+          response = await textProcessor('what???', this.state.currentBot, this.state.messages, 
+            this.state.opponent, this.state.name);
         }
 
         this.processResponse(response); 
@@ -255,7 +259,6 @@ class App extends Component {
       if (bot[0].name === "truth_bot_asking"){
         chooseTruth(bot[0]).then( 
           botResponse => { 
-            console.log(botResponse);
             this.appendMessage('');
             if(Math.random() > 0.5) this.processResponse(getFiller());
             this.processResponse(botResponse);

@@ -6,8 +6,8 @@ export const nameParser =
 [
 	{
 		"name": "hi",
-		"regex": "",
-		"usertext": ["hi botName","hey botName","hiii botName", "heya botName"],
+		"regex": /\!/,
+		"usertext": ["hi botName","hey botName", "heyyyy botName","hiii botName", "hii botName", "heya botName", "hey botName :)", "hello botName", "h e l o botName", "henlo botName"],
 		"responses": [
 			{
 				"response": "hi playerName",
