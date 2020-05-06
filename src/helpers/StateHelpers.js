@@ -41,14 +41,16 @@ export const bots = [
   {
     "name": "truth_bot_asking",
     "sessionId": uuid.v4(),
-    "projectId": "u170220-truth-bot-regenerat-hw",
+    // "projectId": "u170220-truth-bot-regenerat-hw",
+    "projectId": "prolific-texter-uhpjbf",
     "steps": [9, 15] 
   },
 
   {
     "name": "truth_bot_answering",
     "sessionId": uuid.v4(),
-    "projectId": "c200103-challenge-truth-bot-wc",
+    // "projectId": "c200103-challenge-truth-bot-wc",
+    "projectId": "prolific-texter-uhpjbf",
     "steps": [12]
   }
 ];
