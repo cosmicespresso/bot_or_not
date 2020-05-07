@@ -11,12 +11,12 @@ export const nameParser =
 		"responses": [
 			{
 				"response": "hi playerName",
-				"context": ""
+				"context": "name"
 			},
 
 			{
 				"response": "hello playerName :)",
-				"context": ""
+				"context": "name"
 			}
 		]
 	},
@@ -63,19 +63,19 @@ export const nameParser =
 		"responses": [
 				{
 					"response": "haha, always nice to hear about other botNames",
-					"context": ""
+					"context": "name"
 				},
 				{
 					"response": "a strong name ;)",
-					"context": ""
+					"context": "name"
 				},
 				{
 					"response": "aw, that's nice",
-					"context": ""
+					"context": "name"
 				},
 				{
 					"response": "haha that's nice!",
-					"context": ""
+					"context": "name"
 				},
 			]
 	},
