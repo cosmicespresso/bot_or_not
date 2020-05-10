@@ -182,7 +182,7 @@ class App extends Component {
   * It also accounts for edge cases like step 3.
   */
   handleSubmitText = async (text) => {
-    if (this.state.step !== 3) {  // append messages to the queue except for step 3 where we just keep the user's name
+    if (this.state.step !== 8) {  // append messages to the queue except for step 3 where we just keep the user's name
       //clear user timer
       this.appendMessage(text, true);
       const response = await textProcessor(text, this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);

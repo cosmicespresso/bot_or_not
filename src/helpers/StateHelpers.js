@@ -35,7 +35,7 @@ export const bots = [
     "name": "intro_bot",
     "sessionId": uuid.v4(),
     "projectId": "prolific-texter-uhpjbf",
-    "steps": [6] 
+    "steps": [12] 
   },
 
   {
@@ -43,7 +43,7 @@ export const bots = [
     "sessionId": uuid.v4(),
     // "projectId": "u170220-truth-bot-regenerat-hw",
     "projectId": "prolific-texter-uhpjbf",
-    "steps": [9, 15] 
+    "steps": [15, 21] 
   },
 
   {
@@ -51,6 +51,6 @@ export const bots = [
     "sessionId": uuid.v4(),
     // "projectId": "c200103-challenge-truth-bot-wc",
     "projectId": "prolific-texter-uhpjbf",
-    "steps": [12]
+    "steps": [18]
   }
 ];
