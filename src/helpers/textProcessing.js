@@ -259,6 +259,7 @@ function parseNameQueries(sent, bot, botName, playerName){
       return output;
     }
   }
+  sent = sent.replace(botName, '')
 }
 
 
