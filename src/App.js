@@ -179,10 +179,10 @@ class App extends Component {
 
   /**
   * A function that handles all form submission (via messageBar component).
-  * It also accounts for edge cases like step 3.
+  * It also accounts for edge cases like step 8.
   */
   handleSubmitText = async (text) => {
-    if (this.state.step !== 8) {  // append messages to the queue except for step 3 where we just keep the user's name
+    if (this.state.step !== 8) {  // append messages to the queue except for step 8 where we just keep the user's name
       //clear user timer
       this.appendMessage(text, true);
       const response = await textProcessor(text, this.state.currentBot, this.state.messages, this.state.opponent, this.state.name);
@@ -291,8 +291,8 @@ class App extends Component {
       }
 
       //if the next round is one where the bot posts first, add some takes
-      if(this.state.step === 5) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
-      if(this.state.step === 12) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
+      if(this.state.step === 12) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
+      if(this.state.step === 18) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
   }
     
   /**
