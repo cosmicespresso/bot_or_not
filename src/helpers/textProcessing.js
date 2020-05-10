@@ -9,7 +9,7 @@ import { truthChallengeParser } from './lib/truthChallengeParser.js';
 import { truths } from './lib/truths.js';
 import { notQuestion } from './lib/notQuestion.js';
 import { repetition } from './lib/repetition.js';
-import { fillers } from './lib/fillers.js';
+import { fillers, yeses } from './lib/fillers.js';
 import { genericResponse } from './lib/genericResponse.js';
 
 //set up question answering for truth challenge
@@ -248,6 +248,9 @@ async function parseTruthChallenge(sent, bot) {
 * This function handles messages containing the bot's name
 */
 function parseNameQueries(sent, bot, botName, playerName){
+  //if it's the exact name, just return yes?
+  if(sent === botName) return getResponse(yeses, bot);
+
   for (const type of nameParser) {
     const usertext = type.usertext.map(text => text.replace(/botName/g, botName))
     if(usertext.includes(sent.replace(type.regex, '').toLowerCase())) {
@@ -276,10 +279,17 @@ function checkPreviousMessages (sent, messages, isUser, buffer) {
 * deciding whether to pass to dialogflow
 */
 async function parseGeneric(sent, bot, messages, botName, playerName) {
+  //these happen in order of importance
   let sentArr = sent.split(" ");
 
   if(sent === 'truth') {
     const output = await chooseTruth(bot);
+    return output.response;
+  }
+
+  //check if the user is repeating themselves
+  if(checkPreviousMessages(sent, messages, true, 2) > 0){
+    const output = getResponse(repetition, bot);
     return output.response;
   }
 
@@ -298,11 +308,6 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
     }
   }
 
-    //check if the user is repeating themselves
-  if(checkPreviousMessages(sent, messages, true, 2) > 0){
-    const output = getResponse(repetition, bot);
-    return output.response;
-  }
 }
 
 /**
