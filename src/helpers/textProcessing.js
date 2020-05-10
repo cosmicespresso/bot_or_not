@@ -188,7 +188,7 @@ function getResponse(responseArr, bot) {
   }
 
   if(response.context){
-    createContext(response.context, 1, bot);
+    createContext(response.context, 3, bot);
   }
 
   return response;

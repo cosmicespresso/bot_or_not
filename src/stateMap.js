@@ -30,7 +30,7 @@ export const stateMap = [
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
-    fieldTop: 'Bot or Not is a truth game played with a human or a chatbot...',
+    fieldTop: 'Bot or Not is a truth game, where you are paired with human or a chatbot...',
     fieldBottom: '',
     input: 'SingleButton',
     singleButtonText: 'Next',

@@ -291,7 +291,7 @@ class App extends Component {
       }
 
       //if the next round is one where the bot posts first, add some takes
-      if(this.state.step === 12) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
+      if(this.state.step === 11) this.awaitUserInput('hey', 5000, 0, this.state.step); //intro
       if(this.state.step === 18) this.awaitUserInput('...are u going to ask a question', 15000, 0, this.state.step); //user truth challenge
   }
     
