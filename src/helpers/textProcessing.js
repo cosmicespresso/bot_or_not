@@ -194,6 +194,32 @@ function getResponse(responseArr, bot) {
   return response;
 }
 
+async function handleDefaultFallback(sent, bot, messages, originalResponse) {
+
+  //if this was triggered by no response from player
+  if (sent === 'noreply') return originalResponse;
+
+  const analysis = compendium.analyse(sent)[0];
+
+  if(analysis.profile.types.includes('interrogative')){
+    console.log('they asked a question')
+
+    //wh-determiner: which, which, what, whose
+    if(analysis.tags.includes("WDT")) return 'that, I think...'
+
+    //how where when why
+    else if(analysis.tags.includes("WRB")) return "I don't know"
+
+    //wh-possesive: who
+    else if(analysis.tags.includes("WP")) return "ah not sure about that"
+
+    //modal verbs: should, would could
+    else if(analysis.tags.includes("MD")) return "don't think so haha"
+  }
+
+  return originalResponse;
+}
+
 /**
 * A fuzzy-matching function to detect variants of the same phrase
 */
@@ -335,7 +361,7 @@ export const textProcessor = async (sent, bot, messages, botName, playerName) =>
     console.log(botResponseObject)
     //intervene if fallback and truth challenge
     if(botResponseObject.intent === 'Default Fallback Intent'){
-      botResponse = 'im gonna do something else here'
+      botResponse = await handleDefaultFallback(sent, bot, messages, botResponseObject.text);
     }
 
     else botResponse = botResponseObject.text;
