@@ -8,9 +8,8 @@ import facebook from '../../assets/facebook.svg'
 function Share()  {
 
 	const shareTexts = [
-	  "BOT OR NOT is a series of truth challenges where you get matched with an opponent and have to guess if they are a human or a bot",
-	  "Can you tell if you are talking to a 🤷‍♀️ or a 🤖?",
-	  "Is this a BOT OR NOT?"
+	  "Do you know who 🤷or what 🤖 you’re chatting to online? This is the central idea behind Mozilla Creative Media Awardee BOT OR NOT, a game exploring deceptive #AI that mimics real humans, created by @foreignobj ",
+	  "Can you tell a 🤷‍♀️ from a 🤖 ? Mozilla Creative Media Awardee BOT OR NOT by @foreignobj, equips people with the information they need to better navigate a bot-riddled internet.",
 	];
 
 	const url = 'https://www.botor.no/'
