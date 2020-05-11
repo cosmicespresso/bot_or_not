@@ -13,7 +13,7 @@ function Share()  {
 	  "blurb 3"
 	];
 
-	const url = 'https://bot-test.netlify.com/'
+	const url = 'https://www.botor.no/'
 
 	function twitterShare() {
 	  const text = shareTexts[Math.floor(Math.random() * (shareTexts.length - 1))];
@@ -34,7 +34,7 @@ function Share()  {
 					
 					<a id="facebook" href={facebookShare()} rel="noopener noreferrer" target="_blank" ><img src={facebook} alt='facebook share' /> </a>
 
-					<a id="email" rel="noopener noreferrer"  href={`mailto:?subject=${encodeURIComponent("BOT OR NOT - Mozilla Creative Awards 2019")}&body=${encodeURIComponent("BOT OR NOT is a series of truth challenges where the player gets matched with an opponent and they have to guess if they are playing with a human or a bot.\n\n 🤖 https://bot-test.netlify.com/ 🤷‍♀️ \n\nCreated by FOREIGN OBJECTS as part of the Mozilla Creative Media Awards 2019 program. \nhttps://www.foreignobjects.net/")}`}><img src={email} alt='email' /></a>
+					<a id="email" rel="noopener noreferrer"  href={`mailto:?subject=${encodeURIComponent("BOT OR NOT - Mozilla Creative Awards 2019")}&body=${encodeURIComponent("BOT OR NOT is a series of truth challenges where the player gets matched with an opponent and they have to guess if they are playing with a human or a bot.\n\n 🤖 https://www.botor.no/ 🤷‍♀️ \n\nCreated by FOREIGN OBJECTS as part of the Mozilla Creative Media Awards 2019 program. \nhttps://www.foreignobjects.net/")}`}><img src={email} alt='email' /></a>
 				</div>
 		</div>
 	);
