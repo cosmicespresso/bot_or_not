@@ -190,8 +190,10 @@ class App extends Component {
     }
     else {
       this.setState({name: text})
-      this.setState({ timerStart: Date.now()}); // reset the timer since this counts as a step progression
-      this.shouldUpdate = true; 
+
+      this.setState({ timerStart: Date.now()},
+        () => this.setState({ timerTime: 0}, // reset the timer since this counts as a step progression
+        () => this.shouldUpdate = true))
     } 
   }
 
@@ -206,8 +208,10 @@ class App extends Component {
     if (this.state.step === 24 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
     if (this.state.step === 24 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
 
-    this.setState({ timerStart: Date.now()});
-    this.shouldUpdate = true;
+    // welcome to callback hell :3
+    this.setState({ timerStart: Date.now()},
+      () => this.setState({ timerTime: 0},
+      () => this.shouldUpdate = true))
   }
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
@@ -305,8 +309,9 @@ class App extends Component {
         !this.shouldUpdate &&
         this.state.timeLimit <= this.state.timerTime)
     {
-      this.setState({ timerStart: Date.now()});
-      this.shouldUpdate = true;
+      this.setState({ timerStart: Date.now()},
+        () => this.setState({ timerTime: 0}, // reset the timer since this counts as a step progression
+        () => this.shouldUpdate = true))
     }
   }
 
@@ -324,7 +329,6 @@ class App extends Component {
     this.checkTimeout('MatchingScreen');
     
     if (this.shouldUpdate) {
-
       this.shouldUpdate = false;
       this.configureChat(); // configure the chat start state
 
