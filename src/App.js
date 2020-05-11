@@ -309,13 +309,9 @@ class App extends Component {
         !this.shouldUpdate &&
         this.state.timeLimit <= this.state.timerTime)
     {
-      console.log('timer time is', this.state.timerTime)
       this.setState({ timerStart: Date.now()},
         () => this.setState({ timerTime: 0}, // reset the timer since this counts as a step progression
-        () => {
-          console.log('in the loop, timer time is', this.state.timerTime);
-          this.shouldUpdate = true;
-        }))
+        () => this.shouldUpdate = true))
     }
   }
 
@@ -336,7 +332,6 @@ class App extends Component {
       this.shouldUpdate = false;
       this.configureChat(); // configure the chat start state
 
-      console.log('this step is', this.state.step)
       let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureBots(); // update bots
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
