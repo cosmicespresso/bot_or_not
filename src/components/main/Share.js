@@ -8,9 +8,9 @@ import facebook from '../../assets/facebook.svg'
 function Share()  {
 
 	const shareTexts = [
-	  "blurb 1",
-	  "blurb 2",
-	  "blurb 3"
+	  "BOT OR NOT is a series of truth challenges where you get matched with an opponent and have to guess if they are a human or a bot",
+	  "Can you tell if you are talking to a 🤷‍♀️ or a 🤖?",
+	  "Is this a BOT OR NOT?"
 	];
 
 	const url = 'https://www.botor.no/'
