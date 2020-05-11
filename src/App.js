@@ -205,8 +205,8 @@ class App extends Component {
   */
   handleClick = (e) => {
     let target = e.target.firstElementChild !== null ?  e.target.firstElementChild.textContent  : e.target.textContent;
-    if (this.state.step === 24 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
-    if (this.state.step === 24 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
+    if (this.state.step === 23 && target==='Human 🤷‍♀️') this.setState({result: 'You are incorrect - this was a bot! '})
+    if (this.state.step === 23 && target==='Bot 🤖') this.setState({result: 'You are correct - this was a bot! '})
 
     // welcome to callback hell :3
     this.setState({ timerStart: Date.now()},
