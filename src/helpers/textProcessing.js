@@ -329,7 +329,16 @@ export const textProcessor = async (sent, bot, messages, botName, playerName) =>
 
   //if nothing send the bot
   if(botResponse === undefined || botResponse === ''){
-    botResponse = await runSample(sent, bot);
+    let botResponseObject = await runSample(sent, bot);
+    botResponseObject = JSON.parse(botResponseObject);
+    
+    console.log(botResponseObject)
+    //intervene if fallback and truth challenge
+    if(botResponseObject.intent === 'Default Fallback Intent'){
+      botResponse = 'im gonna do something else here'
+    }
+
+    else botResponse = botResponseObject.text;
   }
 
   //check if the bot is repeating itself

@@ -5,7 +5,8 @@ const botAuth = JSON.parse(process.env.master_bot);
 exports.handler = async (event) => {
   // "event" has information about the path, body, headers, etc. of the request
   const request = JSON.parse(event.body)
-  const response = await botRequest(request);
+  const botResponse = await botRequest(request);
+  const response = JSON.stringify(botResponse)
 
   // The "callback" ends the execution of the function and returns a response back to the caller
   return {
@@ -42,8 +43,12 @@ async function botRequest(request) {
   try {
       const intentResponse =  await sessionClient.detectIntent(intentRequest);
       const intentResult = await intentResponse[0].queryResult;
-      console.log(intentResult.intent.displayName);
-      return intentResult.fulfillmentText
+      const botResponse = {
+        'text': intentResult.fulfillmentText,
+        'intent': intentResult.intent.displayName,
+      }
+      console.log(botResponse);
+      return botResponse;
     }
 
     catch (err) {
