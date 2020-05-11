@@ -304,14 +304,18 @@ class App extends Component {
   * It resets the timer if so.
   * It marks the component for update.
   */
-  checkTimeout = (Component) => {
+  checkTimeout = async (Component) => {
     if (this.state.main === Component && 
         !this.shouldUpdate &&
         this.state.timeLimit <= this.state.timerTime)
     {
+      console.log('timer time is', this.state.timerTime)
       this.setState({ timerStart: Date.now()},
         () => this.setState({ timerTime: 0}, // reset the timer since this counts as a step progression
-        () => this.shouldUpdate = true))
+        () => {
+          console.log('in the loop, timer time is', this.state.timerTime);
+          this.shouldUpdate = true;
+        }))
     }
   }
 
@@ -321,17 +325,18 @@ class App extends Component {
   * It calculates the next step and updates the state.
   * It updates the bots.
   */
-  configureState = (props, state) => { // advancing and updating state happens here 
+  configureState = async (props, state) => { // advancing and updating state happens here 
     
     // check if a component has timed out 
-    this.checkTimeout('Chat');
-    this.checkTimeout('NarratorWait');
-    this.checkTimeout('MatchingScreen');
+    await this.checkTimeout('Chat');
+    await this.checkTimeout('NarratorWait');
+    await this.checkTimeout('MatchingScreen');
     
     if (this.shouldUpdate) {
       this.shouldUpdate = false;
       this.configureChat(); // configure the chat start state
 
+      console.log('this step is', this.state.step)
       let nextStep =  advanceStep(this.state.step, stateMap); // get next state
       this.configureBots(); // update bots
       this.setState({...getStateAtStep(nextStep, stateMap)}) // update state
