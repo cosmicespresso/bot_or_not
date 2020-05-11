@@ -1,7 +1,3 @@
-//perhaps give each its own regex....
-//maybe also regexs/symbols for variables
-
-
 export const tags = 
 [
 	{
@@ -92,11 +88,11 @@ export const tags =
 				{
 					"response": "not sure",
 					"context": ""
-				}
-				// {
-				// 	"response": "¯\_(ツ)_/¯",
-				// 	"context": ""
-				// },
+				},
+				{
+					"response": "¯\_(ツ)_/¯",
+					"context": ""
+				},
 			]
 	},
 

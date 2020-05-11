@@ -8,6 +8,7 @@ import { truthChallengeParser } from './lib/truthChallengeParser.js';
 //context specific libs
 import { truths } from './lib/truths.js';
 import { tags } from './lib/tags.js';
+import { keywords } from './lib/keywords.js';
 import { notQuestion } from './lib/notQuestion.js';
 import { repetition } from './lib/repetition.js';
 import { fillers, yeses } from './lib/fillers.js';
@@ -205,26 +206,22 @@ async function handleDefaultFallback(sent, bot, messages, originalResponse) {
 
   if(analysis.profile.types.includes('interrogative')){
 
+    //check if it's any of the common question formats
     for (const type of tags) {
       if(analysis.tags.includes(type.tag)) {
         const output = getResponse(type.responses, bot);
         return output.response;
       }
     }
-
-    // //wh-determiner: which, which, what, whose
-    // if(analysis.tags.includes("WDT")) return 'that, I think...'
-
-    // //how where when why
-    // else if(analysis.tags.includes("WRB")) return "I don't know"
-
-    // //wh-possesive: who
-    // else if(analysis.tags.includes("WP")) return "ah not sure about that"
-
-    // //modal verbs: should, would could
-    // else if(analysis.tags.includes("MD")) return "don't think so haha"
   }
 
+  //are there any keywords present? say something related if so
+  for (const type of keywords) {
+    if(sent.includes(type.name)) {
+      const output = getResponse(type.responses, bot);
+      return output.response;
+    }
+  }
 
   return originalResponse;
 }
