@@ -39,7 +39,7 @@ export const stateMap = [
   },
 {
     step: 3, 
-    timeLimit: 6*1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -52,7 +52,7 @@ export const stateMap = [
   },
 {
     step: 4, 
-    timeLimit: 6*1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -65,7 +65,7 @@ export const stateMap = [
   },
 {
     step: 5, 
-    timeLimit: 6*1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -78,7 +78,7 @@ export const stateMap = [
   },
 {
     step: 6, 
-    timeLimit: 6*1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -91,7 +91,7 @@ export const stateMap = [
   },
 {
     step: 7, 
-    timeLimit: 6*1000,
+    timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
     headerText: 'A Truth or Dare Turing Test',
@@ -263,6 +263,18 @@ export const stateMap = [
     button2Text: '',
   },{
     step: 21, 
+    timeLimit: 1000*1000,
+    messages: [],
+    main: 'Narrator',
+    headerText: '',
+    fieldTop: "they have a question! 🤔",
+    fieldBottom: '',
+    input: 'SingleButton',
+    singleButtonText: 'Next',
+    button1Text: '',
+    button2Text: '',
+  },{
+    step: 22, 
     timeLimit: 59*1000,
     headerText: '',
     main: 'Chat',
@@ -273,7 +285,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 22, 
+    step: 23, 
     timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
@@ -285,7 +297,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 23, 
+    step: 24, 
     timeLimit: 1000*1000,
     messages: [],
     main: 'Narrator',
@@ -297,7 +309,7 @@ export const stateMap = [
     button1Text: 'Bot 🤖',
     button2Text: 'Human 🤷‍♀️',
   },{
-    step: 24, 
+    step: 25, 
     timeLimit: 1000*1000,
     messages: [],
     main: 'End',
@@ -309,7 +321,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 25, 
+    step: 26, 
     timeLimit: 1000*1000,
     messages: [],
     main: 'About',
@@ -321,7 +333,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 26, 
+    step: 27, 
     timeLimit: 1000*1000,
     messages: [],
     main: 'Credits',
@@ -333,7 +345,7 @@ export const stateMap = [
     button1Text: '',
     button2Text: '',
   },{
-    step: 27, 
+    step: 28, 
     timeLimit: 10000*1000,
     messages: [],
     headerText: 'Free chat zone',

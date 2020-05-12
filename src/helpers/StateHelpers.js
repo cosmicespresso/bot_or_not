@@ -29,6 +29,8 @@ export const advanceStep = (currentStep, stateMap) => {
 /**
 * An array that holds the different bots invoked throughout the game.
 * It also provides the steps for which they are active.
+* This is now actually just the same bot, though left the structure in
+* in case we need to reconsider
 */
 export const bots = [
   {
@@ -41,7 +43,6 @@ export const bots = [
   {
     "name": "truth_bot_asking",
     "sessionId": uuid.v4(),
-    // "projectId": "u170220-truth-bot-regenerat-hw",
     "projectId": "prolific-texter-uhpjbf",
     "steps": [15, 21] 
   },
@@ -49,7 +50,6 @@ export const bots = [
   {
     "name": "truth_bot_answering",
     "sessionId": uuid.v4(),
-    // "projectId": "c200103-challenge-truth-bot-wc",
     "projectId": "prolific-texter-uhpjbf",
     "steps": [18]
   }
