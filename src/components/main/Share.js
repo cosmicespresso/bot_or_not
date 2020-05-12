@@ -8,9 +8,8 @@ import facebook from '../../assets/facebook.svg'
 function Share()  {
 
 	const shareTexts = [
-	  "blurb 1",
-	  "blurb 2",
-	  "blurb 3"
+	  "Do you know who 🤷or what 🤖 you’re chatting to online? This is the central idea behind Mozilla Creative Media Awardee BOT OR NOT, a game exploring deceptive #AI that mimics real humans, created by @foreignobj ",
+	  "Can you tell a 🤷‍♀️ from a 🤖 ? Mozilla Creative Media Awardee BOT OR NOT by @foreignobj, equips people with the information they need to better navigate a bot-riddled internet.",
 	];
 
 	const url = 'https://www.botor.no/'
