@@ -44,3 +44,13 @@ export const truths = [
 		"context": "tinder"
 	}		
 ]
+
+export const truthAsking = [
+	"truth",
+	"ask me a question",
+	"ask me a truth question",
+	"ask me another",
+	"can you ask another question",
+	"got any more questions?",
+	"do you have any more questions?",
+]

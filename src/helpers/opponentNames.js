@@ -29,7 +29,6 @@ let names = [
 	'brad',
 	'nick',
 	'karthik',
-	'jesse',
 	'glen',
 	'paul',
 	'joel',

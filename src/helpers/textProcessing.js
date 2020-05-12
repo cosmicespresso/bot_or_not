@@ -6,7 +6,7 @@ import { nameParser } from './lib/nameParser.js';
 import { truthChallengeParser } from './lib/truthChallengeParser.js';
 
 //context specific libs
-import { truths } from './lib/truths.js';
+import { truths, truthAsking } from './lib/truths.js';
 import { tags } from './lib/tags.js';
 import { keywords } from './lib/keywords.js';
 import { notQuestion } from './lib/notQuestion.js';
@@ -315,9 +315,10 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
   //these happen in order of importance
   let sentArr = sent.split(" ");
 
-  if(sent === 'truth') {
+  //if you ask for a question
+  if(truthAsking.includes(sent.toLowerCase())) {
     const output = await chooseTruth(bot);
-    return output.response;
+    return output;
   }
 
   //check if the user is repeating themselves

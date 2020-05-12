@@ -67,7 +67,7 @@ class App extends Component {
     let messages = this.state.messages.slice();
     messages.push({isUser, text});
     this.setState({messages, isBotTyping: this.botQueue.length > 0}, next);
-    this.awaitUserInput('whats ur favourite color?', 10000, messages.length, this.state.step)
+    this.awaitUserInput('how r u?', 10000, messages.length, this.state.step)
   }
 
   /**
