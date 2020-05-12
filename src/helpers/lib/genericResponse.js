@@ -28,5 +28,21 @@ export const genericResponse =
 	{
 		"response": "🤡",
 		"context": ""
-	}
+	},
+
+	{
+		"response": "ahha",
+		"context": ""
+	},
+
+
+	{
+		"response": "hehe",
+		"context": ""
+	},
+
+	{
+		"response": "🤔",
+		"context": ""
+	},
 ]
