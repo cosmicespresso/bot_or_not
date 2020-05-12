@@ -26,7 +26,7 @@ export const genericResponse =
 	},
 
 	{
-		"response": "🐥🐥🐥",
+		"response": "🤡",
 		"context": ""
 	}
 ]
