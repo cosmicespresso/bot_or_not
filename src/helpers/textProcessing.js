@@ -7,6 +7,8 @@ import { truthChallengeParser } from './lib/truthChallengeParser.js';
 
 //context specific libs
 import { truths } from './lib/truths.js';
+import { tags } from './lib/tags.js';
+import { keywords } from './lib/keywords.js';
 import { notQuestion } from './lib/notQuestion.js';
 import { repetition } from './lib/repetition.js';
 import { fillers, yeses } from './lib/fillers.js';
@@ -194,6 +196,36 @@ function getResponse(responseArr, bot) {
   return response;
 }
 
+async function handleDefaultFallback(sent, bot, messages, originalResponse) {
+  console.log('in default fallback')
+
+  //if this was triggered by no response from player
+  if (sent === 'noreply') return originalResponse;
+
+  const analysis = compendium.analyse(sent)[0];
+
+  if(analysis.profile.types.includes('interrogative')){
+
+    //check if it's any of the common question formats
+    for (const type of tags) {
+      if(analysis.tags.includes(type.tag)) {
+        const output = getResponse(type.responses, bot);
+        return output.response;
+      }
+    }
+  }
+
+  //are there any keywords present? say something related if so
+  for (const type of keywords) {
+    if(sent.includes(type.name)) {
+      const output = getResponse(type.responses, bot);
+      return output.response;
+    }
+  }
+
+  return originalResponse;
+}
+
 /**
 * A fuzzy-matching function to detect variants of the same phrase
 */
@@ -329,7 +361,15 @@ export const textProcessor = async (sent, bot, messages, botName, playerName) =>
 
   //if nothing send the bot
   if(botResponse === undefined || botResponse === ''){
-    botResponse = await runSample(sent, bot);
+    let botResponseObject = await runSample(sent, bot);
+    botResponseObject = JSON.parse(botResponseObject);
+    
+    //intervene if fallback and truth challenge
+    if(botResponseObject.intent === 'Default Fallback Intent'){
+      botResponse = await handleDefaultFallback(sent, bot, messages, botResponseObject.text);
+    }
+
+    else botResponse = botResponseObject.text;
   }
 
   //check if the bot is repeating itself
