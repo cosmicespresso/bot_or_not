@@ -93,7 +93,7 @@ class App extends Component {
     if (text.match(/[a-zA-Z]/g)){
       //breaks sentences into different messages
       text = text
-        .match(/[^.!?]+[.!?]*/g)
+        .match(/[^.!?%]+[.!?]*/g)
         .map(str => str.trim());
     }
     else if (!text) {
