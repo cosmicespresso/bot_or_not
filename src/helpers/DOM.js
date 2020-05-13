@@ -20,7 +20,7 @@ export const handleResize = (window, innerHeight) => {
 export const handleHeaderText = (step, main, opponent, headerText, timer, name) => {
   let title 
   if (main === 'Chat') { 
-    step !== 29 ? title = `Playing with ${opponent}                00:${timer}` : title='Free Chat Zone'
+    step !== 28 ? title = `Playing with ${opponent}                00:${timer}` : title='Free Chat Zone'
   }
   else if ((main === 'Narrator' || main === 'NarratorWait') && name !== ''){ 
     title = `You are playing with ${opponent}`
