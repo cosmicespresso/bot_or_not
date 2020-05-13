@@ -53,4 +53,7 @@ export const truthAsking = [
 	"can you ask another question",
 	"got any more questions?",
 	"do you have any more questions?",
+	"challenge me!",
+	"challenge me",
+	"ask me a challenge"
 ]
