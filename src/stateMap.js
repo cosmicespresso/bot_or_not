@@ -146,7 +146,7 @@ export const stateMap = [
     messages: [],
     main: 'Narrator',
     headerText: '',
-    fieldTop: 'Good luck, and remember, act human!',
+    fieldTop: 'Good luck, and remember, act human! 😁',
     fieldBottom: '',
     input: 'SingleButton',
     singleButtonText: 'Chat',
@@ -270,7 +270,7 @@ export const stateMap = [
     fieldTop: "Time for the final challenge! 🙋‍♀️",
     fieldBottom: '',
     input: 'SingleButton',
-    singleButtonText: 'Next',
+    singleButtonText: "I'm ready!",
     button1Text: '',
     button2Text: '',
   },{
