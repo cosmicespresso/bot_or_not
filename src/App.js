@@ -6,19 +6,19 @@ import About from './About';
 
 
 class App extends React.Component {
-  render() {
-    return (
-
-      <BrowserRouter>
-
-        <Switch>  
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-        </Switch>
-
-      </BrowserRouter>
-    );
-  }
+    render() {
+        return (
+                
+                <BrowserRouter>
+                
+                <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/about" component={About} />
+                </Switch>
+                
+                </BrowserRouter>
+                );
+    }
 }
 
 export default App;
