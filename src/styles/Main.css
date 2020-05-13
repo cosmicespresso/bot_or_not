@@ -212,6 +212,10 @@
   overflow-y: scroll;
 }
 
+.about > .text > h4 {
+  font-weight: 600;
+}
+
 .about > * {
   font-family: 'Inter', sans-serif; 
   color: #00f;
