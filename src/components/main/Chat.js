@@ -13,7 +13,6 @@ class Chat extends Component {
 	*/
 	scrollToBottom = () => {
 		const end = ReactDOM.findDOMNode(this.scrollTarget);
-		// end.scrollIntoView({ behavior: 'smooth', block: 'nearest'})
 		end.parentNode.scrollTop = end.offsetTop;
 	}
 

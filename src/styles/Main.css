@@ -29,6 +29,7 @@
   padding: 10px;
 }
 
+
 /*
  * 
  * NARRATOR WAIT
@@ -134,6 +135,7 @@
   text-align: center;
   margin: 5px auto;
 }
+
 #wave .dot {
   display: inline-block;
   width: 6px;
