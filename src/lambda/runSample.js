@@ -52,7 +52,10 @@ async function botRequest(request) {
     }
 
     catch (err) {
-        console.log("caught", err)
-        return ''
+      console.log('caught error', err)
+        return {
+        'text': '',
+        'intent': 'error',
+      }
     }
 }

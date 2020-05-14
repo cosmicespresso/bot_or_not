@@ -26,9 +26,11 @@ async function deleteAllContexts(request){
 	  }
 	try {
 	  await contextsClient.deleteAllContexts(deleteRequest);
+	  console.log('deleted contexts')
       return 'deleted contexts'
     }
     catch(e){
+	  console.log('error deleting contexts')
       return 'error deleting context'
     }
 }
