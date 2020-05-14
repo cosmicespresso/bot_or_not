@@ -34,6 +34,6 @@ async function listContexts(request){
 		return JSON.stringify(contextResponse);
 	}
     catch (err) {
-        return 'error setting context';
+        return 'error getting context';
     }
 }
