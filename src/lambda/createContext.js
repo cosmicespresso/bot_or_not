@@ -47,9 +47,11 @@ async function createContext(request) {
   //create a new context
     try {
       const createdContext = await contextsClient.createContext(createContextRequest);
+      console.log('set context ' + request.contextId);
       return 'set context ' + createdContext;
     }
     catch(e){
+      console.log('error creating context ' + e);
       return 'error creating context'
     }
 }

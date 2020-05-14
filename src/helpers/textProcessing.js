@@ -65,9 +65,8 @@ async function deleteAllContexts(bot) {
 }
 
 /**
-* A function that lists the current contexts
-* to better diagnose bot snafus.
-* used in debugging, not in production
+* A function that lists the current contexts.
+* used to get fallbacks when there's no reply
 */
 export const listContexts = async (bot) => {
   const response = await fetch(".netlify/functions/listContexts", {
@@ -80,7 +79,8 @@ export const listContexts = async (bot) => {
   })
 
   const text = await response.text();
-  return JSON.parse(text);
+  if(text !== 'error') return JSON.parse(text);
+  else return ''
 }
 
 /**
@@ -366,7 +366,7 @@ export const textProcessor = async (sent, bot, messages, botName, playerName) =>
     botResponseObject = JSON.parse(botResponseObject);
     
     //intervene if fallback and truth challenge
-    if(botResponseObject.intent === 'Default Fallback Intent'){
+    if(botResponseObject.intent === 'Default Fallback Intent' || botResponseObject.intent === 'error'){
       botResponse = await handleDefaultFallback(sent, bot, messages, botResponseObject.text);
     }
 
