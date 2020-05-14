@@ -13,7 +13,7 @@ function About(props)  {
 				<p>There is a ton to learn about bots - particularly how to identify them - which you can explore by visiting <a href="https://about.botor.no/" rel="noopener noreferrer" target="_blank">about.botor.no</a>.</p> 
 
 				<h4>DISCLAIMER</h4>
-				<p><emph>This particular</emph> bot does not record your conversation or store any information about you. However, this website does use Google Analytics to identify the kind of device you visited with, and where you accessed it from.</p>
+				<p><i>This particular</i> bot does not record your conversation or store any information about you. However, this website does use Google Analytics to identify the kind of device you visited with, and where you accessed it from.</p>
 			</div>
 		</div>
 	);

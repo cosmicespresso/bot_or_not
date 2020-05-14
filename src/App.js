@@ -95,6 +95,9 @@ class App extends Component {
       text = text
         .match(/[^.!?%]+[.!?]*/g)
         .map(str => str.trim());
+
+      // remove space from start of text?
+      console.log(text)
     }
     else if (!text) {
       text = handleError();
@@ -103,8 +106,7 @@ class App extends Component {
     this.botQueue = this.botQueue.concat(text);
 
     // random pause before the bot starts typing, as if thinking
-    setTimeout(() => this.setState({isBotTyping: true}, () => 
-      this.processBotQueue()), this.getRandomInt(1100, 3500));
+    setTimeout(() => this.setState({isBotTyping: true}, () => this.processBotQueue()), this.getRandomInt(1100, 3500));
   }
 
   /**
