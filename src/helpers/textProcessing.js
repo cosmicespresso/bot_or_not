@@ -223,6 +223,15 @@ async function handleDefaultFallback(sent, bot, messages, originalResponse) {
     }
   }
 
+  //else perhaps redirect the conversation?
+  if(Math.random() > 0.5) {
+    //gonna change the conversation now
+    const questions = genericParser.filter(type => type.name === "what")[0]
+    console.log('changing conversation, questions is', questions)
+    const output = getResponse(questions.responses, bot)
+    return output.response;
+  }
+
   return originalResponse;
 }
 

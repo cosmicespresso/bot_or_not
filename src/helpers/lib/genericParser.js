@@ -12,6 +12,18 @@ export const genericParser =
 			{
 				"response": "that's not cool",
 				"context": "blacklist"
+			},
+			{
+				"response": "don't use language like that",
+				"context": "blacklist"
+			},
+			{
+				"response": "that's offensive, don't say that",
+				"context": "blacklist"
+			},
+			{
+				"response": "hey that's really uncool",
+				"context": "blacklist"
 			}
 		]
 	},
@@ -62,7 +74,23 @@ export const genericParser =
 				{
 					"response": "are u in lockdown rn?",
 					"context": "lockdown"
-				}
+				},
+
+				{
+					"response": "whats your star sign",
+					"context": "astrology"
+				},
+
+				{
+					"response": "how old are u?",
+					"context": "age"
+				},
+
+				{
+					"response": "do u support bernie sanders?",
+					"context": "bernie"
+				},
+
 			]
 	}
 ]
