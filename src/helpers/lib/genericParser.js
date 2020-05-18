@@ -67,6 +67,16 @@ export const genericParser =
 				},
 
 				{
+					"response": "what's the weather like where you are",
+					"context": "weather"
+				},
+
+				{
+					"response": "are you a bot?",
+					"context": "bot-accuse-player"
+				},
+
+				{
 					"response": "uh.... what's your favourite animal?",
 					"context": "animal"
 				},
@@ -77,7 +87,7 @@ export const genericParser =
 				},
 
 				{
-					"response": "whats your star sign",
+					"response": "lmao%whats your star sign",
 					"context": "astrology"
 				},
 
@@ -87,7 +97,7 @@ export const genericParser =
 				},
 
 				{
-					"response": "do u support bernie sanders?",
+					"response": "do u like bernie sanders?",
 					"context": "bernie"
 				},
 
