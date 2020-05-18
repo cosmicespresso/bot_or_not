@@ -7,7 +7,7 @@ export const genericParser =
 	{
 		"name": "blacklist",
 		"regex": "",
-		"usertext": ["nigger","nigga","fag", "faggot", "bitch", "whore", "retard", "cunt", "paki", "kike", "testblacklist", "coon", "gook"],
+		"usertext": ["testblacklist", "nigger","nigga","fag", "faggot", "bitch", "whore", "retard", "cunt", "paki", "kike", "coon", "gook"],
 		"responses": [
 			{
 				"response": "that's not cool",
@@ -52,10 +52,11 @@ export const genericParser =
 	},
 
 	{
-		"name": "what",
+		"name": "intro",
 		"regex": '',
-		"usertext": ["whaat??", "what??", "what?", "wat?", "what???", "what!", "wattt", "what do you want???", "wat??", "w h a t"],
+		"usertext": [],
 		"responses": [
+
 				{
 					"response": "where r u?",
 					"context": "location"
@@ -72,6 +73,25 @@ export const genericParser =
 				},
 
 				{
+					"response": "are u in lockdown rn?",
+					"context": "lockdown"
+				},
+
+			]
+	},
+
+
+	{
+		"name": "later",
+		"regex": '',
+		"usertext": ["whaat??", "what??", "what?", "wat?", "what???", "what!", "wattt", "what do you want???", "wat??", "w h a t"],
+		"responses": [
+				{
+					"response": "how's everything where u are?",
+					"context": "location-covid"
+				},
+
+				{
 					"response": "are you a bot?",
 					"context": "bot-accuse-player"
 				},
@@ -82,18 +102,8 @@ export const genericParser =
 				},
 
 				{
-					"response": "are u in lockdown rn?",
-					"context": "lockdown"
-				},
-
-				{
 					"response": "lmao%whats your star sign",
 					"context": "astrology"
-				},
-
-				{
-					"response": "how old are u?",
-					"context": "age"
 				},
 
 				{

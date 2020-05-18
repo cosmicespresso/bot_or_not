@@ -95,9 +95,6 @@ class App extends Component {
       text = text
         .match(/[^.!?%]+[.!?]*/g)
         .map(str => str.trim());
-
-      // remove space from start of text?
-      console.log(text)
     }
     else if (!text) {
       text = handleError();

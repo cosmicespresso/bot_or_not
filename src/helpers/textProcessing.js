@@ -197,7 +197,6 @@ function getResponse(responseArr, bot) {
 }
 
 async function handleDefaultFallback(sent, bot, messages, originalResponse) {
-  console.log('in default fallback')
 
   //if this was triggered by no response from player
   if (sent === 'noreply') return originalResponse;
@@ -225,11 +224,8 @@ async function handleDefaultFallback(sent, bot, messages, originalResponse) {
 
   //else perhaps redirect the conversation?
   if(Math.random() > 0.5) {
-    //gonna change the conversation now
-    const questions = genericParser.filter(type => type.name === "what")[0]
-    console.log('changing conversation, questions is', questions)
-    const output = getResponse(questions.responses, bot)
-    return output.response;
+      const output = await changeConversation(sent, bot);
+      return output.response;
   }
 
   return originalResponse;
@@ -351,6 +347,16 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
     }
   }
 
+}
+
+
+export const changeConversation = async (sent, bot) => {
+    const roundType = bot.name === "intro_bot" ? 'intro' : 'later'
+
+    //gonna change the conversation now
+    const questions = genericParser.filter(type => type.name === roundType)[0]
+    const output = getResponse(questions.responses, bot)
+    return output;
 }
 
 /**
