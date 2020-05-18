@@ -7,7 +7,7 @@ export const genericParser =
 	{
 		"name": "blacklist",
 		"regex": "",
-		"usertext": ["nigger","nigga","fag", "faggot", "bitch", "whore", "retard", "cunt", "paki", "kike", "testblacklist"],
+		"usertext": ["nigger","nigga","fag", "faggot", "bitch", "whore", "retard", "cunt", "paki", "kike", "testblacklist", "coon", "gook"],
 		"responses": [
 			{
 				"response": "that's not cool",
