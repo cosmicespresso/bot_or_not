@@ -19,7 +19,7 @@ import {getOpponentName} from './helpers/opponentNames';
 import {classNames, fontSizes, fontColors} from './helpers/styles';
 import {getBotDelay, getSeconds, getBrowserName, asyncTimeout} from './helpers/Utils';
 import {getStateAtStep, advanceStep, bots} from './helpers/StateHelpers';
-import { textProcessor, chooseTruth, handleError, getFiller, listContexts } from './helpers/textProcessing'
+import { textProcessor, chooseTruth, changeConversation, handleError, getFiller, listContexts } from './helpers/textProcessing'
 import { handleResize, handleHeaderText } from './helpers/DOM'
 
 import './styles/App.css';
@@ -163,8 +163,8 @@ class App extends Component {
 
         //if there are no contexts, trigger a change of subject
         else {
-          response = await textProcessor('what???', this.state.currentBot, this.state.messages, 
-            this.state.opponent, this.state.name);
+          const newtopic = await changeConversation('', this.state.currentBot);
+          response = newtopic.response;
         }
 
         this.processResponse(response); 
