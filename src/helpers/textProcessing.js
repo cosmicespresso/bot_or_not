@@ -296,7 +296,6 @@ function parseNameQueries(sent, bot, botName, playerName){
       return output;
     }
   }
-  sent = sent.replace(botName, '')
 }
 
 
@@ -334,7 +333,7 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
 
   if(sent.includes(botName)){
     const output = parseNameQueries(sent, bot, botName, playerName);
-    return output;
+    if (output) return output;
   }
 
   //checks against common forms of response
@@ -352,7 +351,6 @@ async function parseGeneric(sent, bot, messages, botName, playerName) {
 
 export const changeConversation = async (sent, bot) => {
     const roundType = bot.name === "intro_bot" ? 'intro' : 'later'
-
     //gonna change the conversation now
     const questions = genericParser.filter(type => type.name === roundType)[0]
     const output = getResponse(questions.responses, bot)
@@ -377,7 +375,8 @@ export const textProcessor = async (sent, bot, messages, botName, playerName) =>
 
   //if nothing send the bot
   if(botResponse === undefined || botResponse === ''){
-    let botResponseObject = await runSample(sent, bot);
+    //get rid of the bot's name if we're not using it
+    let botResponseObject = await runSample(sent.replace(botName, '').trim(), bot);
     botResponseObject = JSON.parse(botResponseObject);
     
     //intervene if fallback and truth challenge

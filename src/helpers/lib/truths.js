@@ -5,8 +5,8 @@ export const truths = [
 	},
 
 	{
-		"response": "what's your weirdest celebrity crush?",
-		"context": "celebrity"
+		"response": "do you have a crush right now?",
+		"context": "crush"
 	},
 
 	{

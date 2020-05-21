@@ -52,6 +52,18 @@ export const tags =
 				{
 					"response": "not sure what you mean",
 					"context": ""
+				},
+				{
+					"response": "im not sure haha",
+					"context": ""
+				},
+				{
+					"response": "idk lol",
+					"context": ""
+				},
+				{
+					"response": "no idea, wbu",
+					"context": ""
 				}
 			]
 	},
@@ -67,6 +79,10 @@ export const tags =
 				},
 				{
 					"response": "kanye's",
+					"context": ""
+				},
+				{
+					"response": "like everything in this world, belongs to god",
 					"context": ""
 				}
 			]
